@@ -1,2 +1,8 @@
-package PACKAGE_NAME;public class ChessGame {
+import Board.*;
+public class ChessGame {
+    Board board;
+
+
+
+
 }

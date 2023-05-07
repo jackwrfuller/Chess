@@ -1,2 +1,7 @@
-package Board.Pieces;public class King {
+package Board.Pieces;
+
+public class King extends Piece{
+    public King(int owner) {
+        super(owner);
+    }
 }
