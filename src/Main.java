@@ -8,7 +8,7 @@ public class Main {
 
         System.out.println(b);
 
-        b.movePiece(1,1,2,2);
+        b.movePiece(1,1,4,8);
         System.out.println(b);
 
     }
