@@ -17,18 +17,22 @@ import javafx.event.EventHandler;
  * Class that encapsulates the JavaFX logic of the game chess.board.
  */
 public class BoardGUI extends GridPane {
-
-    ChessGame game; // Chess game instance which this chess.board will display
-    int SQUARE_SIZE = 60; // Size of a chessboard square in pixels
+    // Chess game instance which this chess.board will display
+    ChessGame game;
+    // Size of a chessboard square in pixels
+    int SQUARE_SIZE = 60;
     // Holds all 64 chessboard squares, noting squares[x][y] is the x file and y rank
     Square[][] squares;
 
     // Stores if some square is currently selected by the user
     Square selectedSquare;
+    // Stores selected squares for the purpose of making moves
+    Square toSquare;
+    Square fromSquare;
 
     public BoardGUI(ChessGame game){
         this.game = game;
-        createSquares();
+        drawBoard();
 
         this.addEventFilter(MouseEvent.MOUSE_CLICKED, dehighlightSquare);
     }
@@ -70,6 +74,7 @@ public class BoardGUI extends GridPane {
             }
             // Add event filters
             this.addEventFilter(MouseEvent.MOUSE_CLICKED, highlightSquare);
+            this.addEventFilter(MouseEvent.MOUSE_CLICKED, listenForMove);
         }
 
         /**
@@ -166,13 +171,36 @@ public class BoardGUI extends GridPane {
                 }
             }
         };
+        /**
+         * Handle logic for moving piece
+         */
+        EventHandler<MouseEvent> listenForMove = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (fromSquare == null) {
+                    fromSquare = Square.this;
+                    System.out.println("From: " + fromSquare.file + "," + fromSquare.rank);
+                } else if (toSquare == null) {
+                    toSquare = Square.this;
+                    System.out.println("From: " + fromSquare.file + "," + fromSquare.rank
+                            + " To: " + toSquare.file + "," + toSquare.rank);
+                    movePiece(fromSquare.file, fromSquare.rank, toSquare.file, toSquare.rank);
+                    //fromSquare = null;
+                    //toSquare = null;
+                } else {
+                    toSquare = null;
+                    fromSquare = Square.this;
+                    System.out.println("From: " + fromSquare.file + "," + fromSquare.rank);
+                }
 
+            }
+        };
     }
 
     /**
      * Create all 64 board squares and add to the board
      */
-    void createSquares() {
+    void drawBoard() {
         squares = new Square[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -182,6 +210,15 @@ public class BoardGUI extends GridPane {
             }
         }
     }
+    void movePiece(int fromFile, int fromRank, int toFile, int toRank) {
+        if (game.board.movePiece(fromFile, fromRank, toFile, toRank)) {
+            drawBoard();
+            Square lastHighlighted = squares[toFile][toRank];
+            lastHighlighted.highlightLayer.setStyle("-fx-fill: yellow; -fx-stroke: black; -fx-stroke-width: 1;");
+            this.selectedSquare = lastHighlighted;
+        }
+        System.out.println(game.board.toString());
+    }
 
     /**
      * Ensures only one square is highlighted at a time
@@ -189,6 +226,7 @@ public class BoardGUI extends GridPane {
     EventHandler<MouseEvent> dehighlightSquare = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent mouseEvent) {
+            // handles logic for clicking a square when no square has been clicked
             if (selectedSquare != null) {
                 selectedSquare.isCurrentlySelected = false;
                 selectedSquare.highlightLayer.setStyle("-fx-background-color: transparent;");

@@ -92,21 +92,28 @@ public class Board {
         squares[file-1][rank-1].setOccupier(null);
     }
 
-    public void movePiece(int fromFile, int fromRank, int toFile, int toRank) {
+    public boolean movePiece(int fromFile, int fromRank, int toFile, int toRank) {
         // do nothing if from square is empty
-        if (squares[fromFile-1][fromRank-1].getOccupier() == null) return;
-        // do nothing if To square contains a piece of same colour (cant take own piece)
-        if (squares[toFile-1][toRank-1] != null){
-            int movingPieceColour = squares[fromFile-1][fromRank-1].occupier.getColour();
-            int targetPieceColour = squares[toFile-1][toRank-1].occupier.getColour();
-            if (movingPieceColour == targetPieceColour) {
-                System.out.println("cant take own piece");
-                return;
-            }
+//        if (squares[fromFile][fromRank].getOccupier() == null) return;
+//        // do nothing if To square contains a piece of same colour (cant take own piece)
+//        if (squares[toFile][toRank] != null && ){
+//            int movingPieceColour = squares[fromFile][fromRank].occupier.getColour();
+//            int targetPieceColour = squares[toFile][toRank].occupier.getColour();
+//            if (movingPieceColour == targetPieceColour) {
+//                System.out.println("cant take own piece");
+//                return;
+//            }
+//        }
+        Piece piece = squares[fromFile][fromRank].occupier;
+        if (piece == null) {
+            System.out.println("no piece here");
+            return false;
+        } else {
+            System.out.println("Theres a piece here");
+            squares[toFile][toRank].occupier = piece;
+            squares[fromFile][fromRank].occupier = null;
+            return true;
         }
-        Piece piece = squares[fromFile-1][fromRank-1].occupier;
-        squares[toFile-1][toRank-1].occupier = piece;
-        squares[fromFile-1][fromRank-1].setOccupier(null);
     }
 
 

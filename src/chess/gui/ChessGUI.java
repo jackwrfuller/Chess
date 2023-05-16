@@ -36,12 +36,8 @@ public class ChessGUI extends Application {
         stage.setScene(scene);
         //create and draw elements of application
         game = new ChessGame();
-        System.out.println(game.board.toString());
-
-
-
-
         board = new BoardGUI(game);
+
         drawControls();
         // add to root and show
         root.getChildren().addAll(board, controls);
