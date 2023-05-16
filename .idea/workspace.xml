@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dab52dd4-72f0-4415-bf08-02b5c3f36337" name="Changes" comment="implemented moving piece logic without legality checks" />
+    <list default="true" id="dab52dd4-72f0-4415-bf08-02b5c3f36337" name="Changes" comment="implemented new game button">
+      <change afterPath="$PROJECT_DIR$/src/chess/MoveChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chess/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/board/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chess/gui/BoardGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/gui/BoardGUI.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -96,7 +101,7 @@
       <workItem from="1683457939201" duration="19000" />
       <workItem from="1683458292322" duration="1548000" />
       <workItem from="1683609815171" duration="1259000" />
-      <workItem from="1684214249187" duration="13614000" />
+      <workItem from="1684214249187" duration="15997000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <created>1683437206217</created>
@@ -161,7 +166,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684231291780</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="implemented new game button">
+      <created>1684231680876</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1684231680876</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -175,6 +187,7 @@
     <MESSAGE value="finished highlighting square logic" />
     <MESSAGE value="Highlighting square logic: select one square at a time logic" />
     <MESSAGE value="implemented moving piece logic without legality checks" />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented moving piece logic without legality checks" />
+    <MESSAGE value="implemented new game button" />
+    <option name="LAST_COMMIT_MESSAGE" value="implemented new game button" />
   </component>
 </project>

@@ -1,5 +1,6 @@
 package chess.board;
 
+import chess.MoveChecker;
 import chess.board.pieces.*;
 
 public class Board {
@@ -93,29 +94,23 @@ public class Board {
     }
 
     public boolean movePiece(int fromFile, int fromRank, int toFile, int toRank) {
-        // do nothing if from square is empty
-//        if (squares[fromFile][fromRank].getOccupier() == null) return;
-//        // do nothing if To square contains a piece of same colour (cant take own piece)
-//        if (squares[toFile][toRank] != null && ){
-//            int movingPieceColour = squares[fromFile][fromRank].occupier.getColour();
-//            int targetPieceColour = squares[toFile][toRank].occupier.getColour();
-//            if (movingPieceColour == targetPieceColour) {
-//                System.out.println("cant take own piece");
-//                return;
-//            }
-//        }
-        Piece piece = squares[fromFile][fromRank].occupier;
-        if (piece == null) {
-            System.out.println("no piece here");
-            return false;
+        // Check move is legal
+        if (MoveChecker.isMoveLegal(this, fromFile, fromRank, toFile, toRank)) {
+            Piece piece = squares[fromFile][fromRank].occupier;
+            if (piece == null) {
+                return false;
+            } else {
+                squares[toFile][toRank].occupier = piece;
+                squares[fromFile][fromRank].occupier = null;
+                return true;
+            }
         } else {
-            System.out.println("Theres a piece here");
-            squares[toFile][toRank].occupier = piece;
-            squares[fromFile][fromRank].occupier = null;
-            return true;
+            return false;
         }
-    }
 
+
+
+    }
 
 
 

@@ -12,6 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.event.EventHandler;
 
+import java.sql.SQLOutput;
+
 
 /**
  * Class that encapsulates the JavaFX logic of the game chess.board.
@@ -75,6 +77,7 @@ public class BoardGUI extends GridPane {
             // Add event filters
             this.addEventFilter(MouseEvent.MOUSE_CLICKED, highlightSquare);
             this.addEventFilter(MouseEvent.MOUSE_CLICKED, listenForMove);
+            this.addEventFilter(MouseEvent.MOUSE_CLICKED, printInfo);
         }
 
         /**
@@ -179,19 +182,28 @@ public class BoardGUI extends GridPane {
             public void handle(MouseEvent mouseEvent) {
                 if (fromSquare == null) {
                     fromSquare = Square.this;
-                    System.out.println("From: " + fromSquare.file + "," + fromSquare.rank);
                 } else if (toSquare == null) {
                     toSquare = Square.this;
-                    System.out.println("From: " + fromSquare.file + "," + fromSquare.rank
-                            + " To: " + toSquare.file + "," + toSquare.rank);
                     movePiece(fromSquare.file, fromSquare.rank, toSquare.file, toSquare.rank);
                     //fromSquare = null;
                     //toSquare = null;
                 } else {
                     toSquare = null;
                     fromSquare = Square.this;
-                    System.out.println("From: " + fromSquare.file + "," + fromSquare.rank);
                 }
+
+            }
+        };
+
+        EventHandler<MouseEvent> printInfo = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                String pieceName = "";
+                Piece occupier = game.board.squares[file][rank].getOccupier();
+                if (occupier != null) {
+                    pieceName = occupier.getColour() == 0 ? "White" : "Black";
+                }
+                System.out.println("(" + file + "," + rank + ") " + pieceName);
 
             }
         };
