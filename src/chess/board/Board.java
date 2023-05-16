@@ -7,7 +7,7 @@ public class Board {
     public static final int SIZE = 8;
 
 
-    class Square {
+    public class Square {
         public Piece getOccupier() {
             return occupier;
         }
@@ -30,7 +30,7 @@ public class Board {
      * array of Sqaure which represents the chessboard. Note this is of the form square[file][rank],
      * with 0,0 representing the top-left square
      */
-    Square[][] squares = new Square[SIZE][SIZE];
+    public Square[][] squares = new Square[SIZE][SIZE];
 
     public Board() {
         createEmptyBoard();

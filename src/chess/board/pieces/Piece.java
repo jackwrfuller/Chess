@@ -2,13 +2,13 @@ package chess.board.pieces;
 
 public abstract class Piece {
 
-    final int owner; // 0 for white, 1 for black
+    final int COLOUR; // 0 for white, 1 for black
 
     public int getColour(){
-        return this.owner;
+        return this.COLOUR;
     }
 
-    public Piece(int owner) {
-        this.owner = owner;
+    public Piece(int COLOUR) {
+        this.COLOUR = COLOUR;
     }
 }

@@ -1,10 +1,14 @@
 package chess.gui;
 
+import chess.board.pieces.*;
+import chess.ChessGame;
+
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
-import chess.ChessGame;
+
 
 /**
  * Class that encapsulates the JavaFX logic of the game chess.board.
@@ -31,6 +35,9 @@ public class BoardGUI extends GridPane {
         // Position on the chessboard this square is located
         final int file;
         final int rank;
+        // The piece currently placed on square
+        Piece piece;
+        
         // holds the piece image
         private ImageView imageOccupier;
         // Holds the background colouring
@@ -41,10 +48,15 @@ public class BoardGUI extends GridPane {
         public Square(int file, int rank) {
             this.file = file;
             this.rank = rank;
+            this.piece = game.board.squares[file][rank].getOccupier();
             background = new Background();
             setSquareColour();
             placePiece();
-            this.getChildren().addAll(background);
+            this.getChildren().add(background);
+            if (imageOccupier != null) {
+                this.getChildren().add(imageOccupier);
+            }
+
         }
 
         /**
@@ -60,9 +72,65 @@ public class BoardGUI extends GridPane {
          * Figures out which piece image needs to be added to the square
          */
         void placePiece() {
-
+            // White pieces
+            if (piece != null) {
+                if (piece.getColour() == 0) {
+                    if (piece instanceof King) {
+                        Image image = new Image("pieces/White_King.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
+                        imageOccupier = new ImageView(image);
+                    }
+                    if (piece instanceof Queen) {
+                        Image image = new Image("pieces/White_Queen.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
+                        imageOccupier = new ImageView(image);
+                    }
+                    if (piece instanceof Bishop) {
+                        Image image = new Image("pieces/White_Bishop.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
+                        imageOccupier = new ImageView(image);
+                    }
+                    if (piece instanceof Knight) {
+                        Image image = new Image("pieces/White_Knight.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
+                        imageOccupier = new ImageView(image);
+                    }
+                    if (piece instanceof Rook) {
+                        Image image = new Image("pieces/White_Rook.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
+                        imageOccupier = new ImageView(image);
+                    }
+                    if (piece instanceof Pawn) {
+                        Image image = new Image("pieces/White_Pawn.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
+                        imageOccupier = new ImageView(image);
+                    }
+                } else { // Black pieces
+                    if (piece instanceof King) {
+                        Image image = new Image("pieces/Black_King.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
+                        imageOccupier = new ImageView(image);
+                    }
+                    if (piece instanceof Queen) {
+                        Image image = new Image("pieces/Black_Queen.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
+                        imageOccupier = new ImageView(image);
+                    }
+                    if (piece instanceof Bishop) {
+                        Image image = new Image("pieces/Black_Bishop.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
+                        imageOccupier = new ImageView(image);
+                    }
+                    if (piece instanceof Knight) {
+                        Image image = new Image("pieces/Black_Knight.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
+                        imageOccupier = new ImageView(image);
+                    }
+                    if (piece instanceof Rook) {
+                        Image image = new Image("pieces/Black_Rook.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
+                        imageOccupier = new ImageView(image);
+                    }
+                    if (piece instanceof Pawn) {
+                        Image image = new Image("pieces/Black_Pawn.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
+                        imageOccupier = new ImageView(image);
+                    }
+                }
+            }
         }
 
+        /**
+         * Inner class which holds the background colour
+         */
         class Background extends Rectangle {
             public Background(){
                 super(SQUARE_SIZE, SQUARE_SIZE);
@@ -72,6 +140,9 @@ public class BoardGUI extends GridPane {
 
     }
 
+    /**
+     * Create all 64 board squares and add to the board
+     */
     void createSquares() {
         squares = new Square[8][8];
         for (int i = 0; i < 8; i++) {

@@ -2,7 +2,7 @@ package chess;
 
 import chess.board.*;
 public class ChessGame {
-    Board board;
+    public Board board;
 
 
     public ChessGame() {
