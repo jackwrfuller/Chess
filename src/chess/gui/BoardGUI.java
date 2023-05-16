@@ -5,9 +5,12 @@ import chess.ChessGame;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.event.EventHandler;
 
 
 /**
@@ -19,6 +22,9 @@ public class BoardGUI extends GridPane {
     int SQUARE_SIZE = 50; // Size of a chessboard square in pixels
     // Holds all 64 chessboard squares, noting squares[x][y] is the x file and y rank
     Square[][] squares;
+
+    // Stores if some square is currently selected by the user
+    boolean isSquareSelected = false;
 
     public BoardGUI(ChessGame game){
         this.game = game;
@@ -42,21 +48,28 @@ public class BoardGUI extends GridPane {
         private ImageView imageOccupier;
         // Holds the background colouring
         private Background background;
+        // Holds the highlight layer
+        private Rectangle highlightLayer = new Rectangle(SQUARE_SIZE, SQUARE_SIZE);
+
         // ensures image of piece fits within the square size
         double IMAGE_SIZE = 0.9 * SQUARE_SIZE;
+        // Stores if the square is currently selected by the user
+        boolean isCurrentlySelected = false;
 
         public Square(int file, int rank) {
             this.file = file;
             this.rank = rank;
             this.piece = game.board.squares[file][rank].getOccupier();
             background = new Background();
+            highlightLayer.setFill(Color.TRANSPARENT);
             setSquareColour();
             placePiece();
-            this.getChildren().add(background);
+            this.getChildren().addAll(background, highlightLayer);
             if (imageOccupier != null) {
                 this.getChildren().add(imageOccupier);
             }
-
+            // Add event filters
+            this.addEventFilter(MouseEvent.MOUSE_CLICKED, highlightSquare);
         }
 
         /**
@@ -137,6 +150,29 @@ public class BoardGUI extends GridPane {
                 this.setStyle("-fx-fill: white; -fx-stroke: black; -fx-stroke-width: 1;");
             }
         }
+
+        EventHandler<MouseEvent> highlightSquare = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                if (isSquareSelected) {
+                    if (isCurrentlySelected) {
+                        highlightLayer.setStyle("-fx-background-color: transparent;");
+                        isCurrentlySelected = false;
+                        isSquareSelected = false;
+                    }
+                } else {
+                    if (isCurrentlySelected) {
+                        highlightLayer.setStyle("-fx-background-color: transparent;");
+                        isCurrentlySelected = false;
+                        isSquareSelected = false;
+                    } else {
+                        highlightLayer.setStyle("-fx-fill: yellow; -fx-stroke: black; -fx-stroke-width: 1;");
+                        isCurrentlySelected = true;
+                        isSquareSelected = true;
+                    }
+                }
+                }
+        };
 
     }
 
