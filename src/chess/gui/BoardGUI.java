@@ -19,18 +19,18 @@ import javafx.event.EventHandler;
 public class BoardGUI extends GridPane {
 
     ChessGame game; // Chess game instance which this chess.board will display
-    int SQUARE_SIZE = 50; // Size of a chessboard square in pixels
+    int SQUARE_SIZE = 60; // Size of a chessboard square in pixels
     // Holds all 64 chessboard squares, noting squares[x][y] is the x file and y rank
     Square[][] squares;
 
     // Stores if some square is currently selected by the user
-    boolean isSquareSelected = false;
+    Square selectedSquare;
 
     public BoardGUI(ChessGame game){
         this.game = game;
         createSquares();
 
-
+        this.addEventFilter(MouseEvent.MOUSE_CLICKED, dehighlightSquare);
     }
 
     /**
@@ -151,27 +151,20 @@ public class BoardGUI extends GridPane {
             }
         }
 
+        /**
+         * Handles logic for highlighting squares
+         */
         EventHandler<MouseEvent> highlightSquare = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                if (isSquareSelected) {
-                    if (isCurrentlySelected) {
-                        highlightLayer.setStyle("-fx-background-color: transparent;");
-                        isCurrentlySelected = false;
-                        isSquareSelected = false;
-                    }
+                isCurrentlySelected ^= true;
+                if (isCurrentlySelected) {
+                    highlightLayer.setStyle("-fx-fill: yellow; -fx-stroke: black; -fx-stroke-width: 1;");
+                    selectedSquare = Square.this;
                 } else {
-                    if (isCurrentlySelected) {
-                        highlightLayer.setStyle("-fx-background-color: transparent;");
-                        isCurrentlySelected = false;
-                        isSquareSelected = false;
-                    } else {
-                        highlightLayer.setStyle("-fx-fill: yellow; -fx-stroke: black; -fx-stroke-width: 1;");
-                        isCurrentlySelected = true;
-                        isSquareSelected = true;
-                    }
+                    highlightLayer.setStyle("-fx-background-color: transparent;");
                 }
-                }
+            }
         };
 
     }
@@ -190,6 +183,19 @@ public class BoardGUI extends GridPane {
         }
     }
 
+    /**
+     * Ensures only one square is highlighted at a time
+     */
+    EventHandler<MouseEvent> dehighlightSquare = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent mouseEvent) {
+            if (selectedSquare != null) {
+                selectedSquare.isCurrentlySelected = false;
+                selectedSquare.highlightLayer.setStyle("-fx-background-color: transparent;");
+                selectedSquare = null;
+            }
+        }
+    };
 
 
 
