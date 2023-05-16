@@ -19,10 +19,20 @@ public class ChessGUI extends Application {
 
 
 
+    void newGame(){
+        root.getChildren().clear();
+        game = new ChessGame();
+        board = new BoardGUI(game);
+        // add to root and show
+        root.getChildren().addAll(board, controls);
+    }
 
     void drawControls(){
-        Button restart = new Button("Restart");
-        controls.getChildren().add(restart);
+        Button newGame = new Button("New Game");
+        newGame.setOnMouseClicked(event -> {
+            newGame();
+        });
+        controls.getChildren().add(newGame);
         Button flipBoard = new Button("Flip Board");
         controls.getChildren().add(flipBoard);
         controls.setAlignment(Pos.CENTER);
