@@ -1,8 +1,6 @@
-package Board;
+package chess.board;
 
-import Board.Pieces.*;
-
-import java.sql.SQLOutput;
+import chess.board.pieces.*;
 
 public class Board {
 

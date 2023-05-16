@@ -4,8 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dab52dd4-72f0-4415-bf08-02b5c3f36337" name="Changes" comment="...">
+    <list default="true" id="dab52dd4-72f0-4415-bf08-02b5c3f36337" name="Changes" comment="Chess board can now be drawn">
+      <change afterPath="$PROJECT_DIR$/src/gui/BoardGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/board/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Board/Pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/board/pieces/Bishop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Board/Pieces/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/board/pieces/King.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Board/Pieces/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/board/pieces/Knight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Board/Pieces/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/board/pieces/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Board/Pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/board/pieces/Piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Board/Pieces/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/board/pieces/Queen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Board/Pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/board/pieces/Rook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ChessGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/ChessGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ChessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChessGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +71,7 @@
   </component>
   <component name="RunManager" selected="Application.ChessGUI">
     <configuration name="ChessGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ChessGUI" />
+      <option name="MAIN_CLASS_NAME" value="chess.gui.ChessGUI" />
       <module name="Chess" />
       <option name="VM_PARAMETERS" value="--module-path ${PATH_TO_FX} --add-modules javafx.controls,javafx.fxml" />
       <method v="2">
@@ -67,7 +79,7 @@
       </method>
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
+      <option name="MAIN_CLASS_NAME" value="chess.Main" />
       <module name="Chess" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -97,7 +109,7 @@
       <workItem from="1683457939201" duration="19000" />
       <workItem from="1683458292322" duration="1548000" />
       <workItem from="1683609815171" duration="1259000" />
-      <workItem from="1684214249187" duration="660000" />
+      <workItem from="1684214249187" duration="3458000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <created>1683437206217</created>
@@ -120,7 +132,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683459845704</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added chess piece images">
+      <created>1684214943463</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1684214943463</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -128,6 +147,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="..." />
-    <option name="LAST_COMMIT_MESSAGE" value="..." />
+    <MESSAGE value="Added chess piece images" />
+    <MESSAGE value="Chess board can now be drawn" />
+    <option name="LAST_COMMIT_MESSAGE" value="Chess board can now be drawn" />
   </component>
 </project>

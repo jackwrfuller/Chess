@@ -1,11 +1,13 @@
-import Board.*;
+package chess;
+
+import chess.board.*;
 public class ChessGame {
     Board board;
 
 
     public ChessGame() {
-        Board b = new Board();
-        this.board = b;
+        this.board = new Board();
+
 
 
 

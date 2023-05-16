@@ -1,4 +1,4 @@
-package Board.Pieces;
+package chess.board.pieces;
 
 public abstract class Piece {
 
