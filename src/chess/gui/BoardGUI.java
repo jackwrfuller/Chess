@@ -32,9 +32,12 @@ public class BoardGUI extends GridPane {
     Square toSquare;
     Square fromSquare;
 
+    // Holds whether the board is in the flipped position
+    boolean isFlipped = false;
+
     public BoardGUI(ChessGame game){
         this.game = game;
-        drawBoard();
+        drawBoard(isFlipped);
 
         this.addEventFilter(MouseEvent.MOUSE_CLICKED, dehighlightSquare);
     }
@@ -175,7 +178,7 @@ public class BoardGUI extends GridPane {
             }
         };
         /**
-         * Handle logic for moving piece
+         * Handle logic for moving pieces
          */
         EventHandler<MouseEvent> listenForMove = new EventHandler<MouseEvent>() {
             @Override
@@ -212,19 +215,30 @@ public class BoardGUI extends GridPane {
     /**
      * Create all 64 board squares and add to the board
      */
-    void drawBoard() {
+    void drawBoard(boolean isFlipped) {
         squares = new Square[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Square square = new Square(i, j);
                 squares[i][j] = square;
-                this.add(square, i, j);
+                if (isFlipped) {
+                    this.add(square, i, 7 - j);
+                } else {
+                    this.add(square, i, j);
+                }
             }
         }
     }
+
+    void flipBoard() {
+        isFlipped ^= true;
+        drawBoard(isFlipped);
+    }
+
+
     void movePiece(int fromFile, int fromRank, int toFile, int toRank) {
         if (game.board.movePiece(fromFile, fromRank, toFile, toRank)) {
-            drawBoard();
+            drawBoard(isFlipped);
             Square lastHighlighted = squares[toFile][toRank];
             lastHighlighted.highlightLayer.setStyle("-fx-fill: yellow; -fx-stroke: black; -fx-stroke-width: 1;");
             this.selectedSquare = lastHighlighted;
