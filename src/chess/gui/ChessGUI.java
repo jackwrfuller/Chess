@@ -72,6 +72,13 @@ public class ChessGUI extends Application {
     }
 
     void drawControls(){
+        controls.getChildren().clear();
+
+        Button currentPlayerButton = new Button();
+        String currentPlayer = game.board.whiteToMove ? "White" : "Black";
+        currentPlayerButton.setText(currentPlayer + " to move");
+        controls.getChildren().add(currentPlayerButton);
+
         Button newGame = new Button("New Game");
         newGame.setOnMouseClicked(event -> {
             newGame();

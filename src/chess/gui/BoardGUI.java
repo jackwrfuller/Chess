@@ -12,8 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.event.EventHandler;
 
-import java.sql.SQLOutput;
-
 
 /**
  * Class that encapsulates the JavaFX logic of the game chess.board.
@@ -242,6 +240,8 @@ public class BoardGUI extends GridPane {
             Square lastHighlighted = squares[toFile][toRank];
             lastHighlighted.highlightLayer.setStyle("-fx-fill: yellow; -fx-stroke: black; -fx-stroke-width: 1;");
             this.selectedSquare = lastHighlighted;
+
+
         }
         System.out.println(game.board.toString());
     }
