@@ -6,6 +6,13 @@ import chess.board.pieces.Piece;
 public class MoveChecker {
 
     public static boolean isMoveLegal(Board board, int fromFile, int fromRank, int toFile, int toRank){
+        Piece piece = board.squares[fromFile][fromRank].getOccupier();
+        if (piece == null) return false;
+        boolean pieceColour = (piece.getColour() == 0);
+        // Check correct player is making move
+        if (!pieceColour == board.whiteToMove) {
+            return false;
+        }
         // Check if From square is same as To square
         if (!checkSameSquare(fromFile, fromRank, toFile, toRank)){
             return false;
