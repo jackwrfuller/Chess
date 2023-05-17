@@ -34,6 +34,10 @@ public class ChessGUI extends Application {
         });
         controls.getChildren().add(newGame);
         Button flipBoard = new Button("Flip Board");
+        flipBoard.setOnMouseClicked(e -> {
+            board.flipBoard();
+        });
+
         controls.getChildren().add(flipBoard);
         controls.setAlignment(Pos.CENTER);
 
