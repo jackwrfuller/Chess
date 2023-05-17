@@ -3,8 +3,8 @@ package chess.gui;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,16 +15,38 @@ public class ChessGUI extends Application {
     ChessGame game;
     VBox root = new VBox();
     BoardGUI board;
+    HBox fileLetters = new HBox();
     HBox controls = new HBox();
 
 
+
+    void drawFileLetters() {
+        fileLetters.getChildren().clear();
+        boolean orientation = board.isFlipped;
+        for (int i = 0; i < 8; i++) {
+            Region padding1 = new Region();
+            HBox.setHgrow(padding1, Priority.ALWAYS);
+            Text letter = new Text();
+            if (orientation) {
+                letter = new Text(getCharForNumber(7-i));
+            } else {
+                letter = new Text(getCharForNumber(i));
+            }
+            Region padding2 = new Region();
+            HBox.setHgrow(padding2, Priority.ALWAYS);
+            fileLetters.getChildren().addAll(padding1, letter, padding2);
+        }
+    }
+    private String getCharForNumber(int i) {
+        return i > -1 && i < 26 ? String.valueOf((char)(i + 'A' )) : null;
+    }
 
     void newGame(){
         root.getChildren().clear();
         game = new ChessGame();
         board = new BoardGUI(game);
         // add to root and show
-        root.getChildren().addAll(board, controls);
+        root.getChildren().addAll(board, fileLetters, controls);
     }
 
     void drawControls(){
@@ -36,6 +58,8 @@ public class ChessGUI extends Application {
         Button flipBoard = new Button("Flip Board");
         flipBoard.setOnMouseClicked(e -> {
             board.flipBoard();
+            drawFileLetters();
+
         });
 
         controls.getChildren().add(flipBoard);
@@ -52,9 +76,10 @@ public class ChessGUI extends Application {
         game = new ChessGame();
         board = new BoardGUI(game);
 
+        drawFileLetters();
         drawControls();
         // add to root and show
-        root.getChildren().addAll(board, controls);
+        root.getChildren().addAll(board, fileLetters, controls);
         stage.show();
     }
 

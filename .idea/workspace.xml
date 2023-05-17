@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dab52dd4-72f0-4415-bf08-02b5c3f36337" name="Changes" comment="Enforce player move turns" />
+    <list default="true" id="dab52dd4-72f0-4415-bf08-02b5c3f36337" name="Changes" comment="fixed flip board">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chess/gui/ChessGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/gui/ChessGUI.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -176,7 +179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684319417945</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="fixed flip board">
+      <created>1684319553126</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1684319553126</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -192,6 +202,7 @@
     <MESSAGE value="implemented moving piece logic without legality checks" />
     <MESSAGE value="implemented new game button" />
     <MESSAGE value="Enforce player move turns" />
-    <option name="LAST_COMMIT_MESSAGE" value="Enforce player move turns" />
+    <MESSAGE value="fixed flip board" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed flip board" />
   </component>
 </project>
