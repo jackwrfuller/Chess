@@ -12,8 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.event.EventHandler;
 
-import java.sql.SQLOutput;
-
 
 /**
  * Class that encapsulates the JavaFX logic of the game chess.board.
@@ -88,7 +86,7 @@ public class BoardGUI extends GridPane {
          */
         void setSquareColour(){
             if ( (file + rank + 1) % 2 == 0 ) {
-                background.setStyle("-fx-fill: green; -fx-stroke: black; -fx-stroke-width: 1;");
+                background.setStyle("-fx-fill: #769656; -fx-stroke: black; -fx-stroke-width: 1;");
             }
         }
 
@@ -158,7 +156,7 @@ public class BoardGUI extends GridPane {
         class Background extends Rectangle {
             public Background(){
                 super(SQUARE_SIZE, SQUARE_SIZE);
-                this.setStyle("-fx-fill: white; -fx-stroke: black; -fx-stroke-width: 1;");
+                this.setStyle("-fx-fill: #eeeed2 ; -fx-stroke: black; -fx-stroke-width: 1;");
             }
         }
 
@@ -170,7 +168,7 @@ public class BoardGUI extends GridPane {
             public void handle(MouseEvent e) {
                 isCurrentlySelected ^= true;
                 if (isCurrentlySelected) {
-                    highlightLayer.setStyle("-fx-fill: yellow; -fx-stroke: black; -fx-stroke-width: 1;");
+                    highlightLayer.setStyle("-fx-fill: #baca44; -fx-stroke: black; -fx-stroke-width: 1;");
                     selectedSquare = Square.this;
                 } else {
                     highlightLayer.setStyle("-fx-background-color: transparent;");
@@ -222,7 +220,7 @@ public class BoardGUI extends GridPane {
                 Square square = new Square(i, j);
                 squares[i][j] = square;
                 if (isFlipped) {
-                    this.add(square, i, 7 - j);
+                    this.add(square, 7 - i, 7 - j);
                 } else {
                     this.add(square, i, j);
                 }
@@ -242,6 +240,8 @@ public class BoardGUI extends GridPane {
             Square lastHighlighted = squares[toFile][toRank];
             lastHighlighted.highlightLayer.setStyle("-fx-fill: yellow; -fx-stroke: black; -fx-stroke-width: 1;");
             this.selectedSquare = lastHighlighted;
+
+
         }
         System.out.println(game.board.toString());
     }

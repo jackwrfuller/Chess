@@ -7,6 +7,8 @@ public class Board {
 
     public static final int SIZE = 8;
 
+    // Tracks whose move it is
+    public boolean whiteToMove = true;
 
     public class Square {
         public Piece getOccupier() {
@@ -102,6 +104,7 @@ public class Board {
             } else {
                 squares[toFile][toRank].occupier = piece;
                 squares[fromFile][fromRank].occupier = null;
+                whiteToMove ^= true; // flip whose move it is
                 return true;
             }
         } else {
