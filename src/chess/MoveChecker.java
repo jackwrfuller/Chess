@@ -5,8 +5,19 @@ import chess.board.pieces.Piece;
 
 public class MoveChecker {
 
+    public static boolean isMoveLegal(Board board, int fromFile, int fromRank, int toFile, int toRank){
+        // Check if From square is same as To square
+        if (!checkSameSquare(fromFile, fromRank, toFile, toRank)){
+            return false;
+        }
+        // Check if move would result in taking own piece (this is illegal)
+        if (!checkTakeOwnPiece(board, fromFile, fromRank, toFile, toRank)) {
+            return false;
+        }
+        return true;
+    }
     static boolean checkSameSquare(int fromFile, int fromRank, int toFile, int toRank){
-        return (fromFile == toFile && fromRank == toRank);
+        return !(fromFile == toFile && fromRank == toRank);
     }
     static boolean checkTakeOwnPiece(Board board, int fromFile, int fromRank, int toFile, int toRank){
         Piece fromPiece = board.squares[fromFile][fromRank].getOccupier();
@@ -23,18 +34,5 @@ public class MoveChecker {
         }
     }
 
-    public static boolean isMoveLegal(Board board, int fromFile, int fromRank, int toFile, int toRank){
-        // Check if From square is same as To square
-        if (!checkSameSquare(fromFile, fromRank, toFile, toRank)){
-            return false;
-        }
-        // Check if move would result in taking own piece (this is illegal)
-        if (!checkTakeOwnPiece(board, fromFile, fromRank, toFile, toRank)) {
-            return false;
-        }
 
-
-
-        return true;
-    }
 }
