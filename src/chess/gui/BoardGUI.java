@@ -222,7 +222,7 @@ public class BoardGUI extends GridPane {
                 Square square = new Square(i, j);
                 squares[i][j] = square;
                 if (isFlipped) {
-                    this.add(square, i, 7 - j);
+                    this.add(square, 7 - i, 7 - j);
                 } else {
                     this.add(square, i, j);
                 }

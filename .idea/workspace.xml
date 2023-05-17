@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dab52dd4-72f0-4415-bf08-02b5c3f36337" name="Changes" comment="implemented flip board functionality and button">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/MoveChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/MoveChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/board/Board.java" afterDir="false" />
-    </list>
+    <list default="true" id="dab52dd4-72f0-4415-bf08-02b5c3f36337" name="Changes" comment="Enforce player move turns" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -173,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684231680876</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Enforce player move turns">
+      <created>1684319417945</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1684319417945</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,6 +191,7 @@
     <MESSAGE value="Highlighting square logic: select one square at a time logic" />
     <MESSAGE value="implemented moving piece logic without legality checks" />
     <MESSAGE value="implemented new game button" />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented new game button" />
+    <MESSAGE value="Enforce player move turns" />
+    <option name="LAST_COMMIT_MESSAGE" value="Enforce player move turns" />
   </component>
 </project>
