@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Allow cursor hand to open/close when grabbing piece">
+    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Highlight squares when hovered over">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/gui/BoardGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/gui/BoardGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/gui/ChessGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/gui/ChessGUI.java" afterDir="false" />
@@ -76,13 +76,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chess.Test" />
+      <module name="Chess" />
+      <option name="VM_PARAMETERS" value="--module-path ${PATH_TO_FX} --add-modules javafx.controls,javafx.fxml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chess.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
+      <item itemvalue="Application.Test" />
       <item itemvalue="Application.ChessGUI" />
       <item itemvalue="Application.Main" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.ChessGUI" />
+        <item itemvalue="Application.Test" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -103,7 +119,7 @@
       <workItem from="1684214249187" duration="15997000" />
       <workItem from="1684273984699" duration="786000" />
       <workItem from="1684555570664" duration="1000" />
-      <workItem from="1684567985007" duration="2098000" />
+      <workItem from="1684567985007" duration="4924000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <created>1683437206217</created>
@@ -231,7 +247,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684553108579</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Highlight squares when hovered over">
+      <created>1684570826258</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1684570826258</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -252,6 +275,7 @@
     <MESSAGE value="..." />
     <MESSAGE value="fix newGame() and simply start()" />
     <MESSAGE value="Allow cursor hand to open/close when grabbing piece" />
-    <option name="LAST_COMMIT_MESSAGE" value="Allow cursor hand to open/close when grabbing piece" />
+    <MESSAGE value="Highlight squares when hovered over" />
+    <option name="LAST_COMMIT_MESSAGE" value="Highlight squares when hovered over" />
   </component>
 </project>

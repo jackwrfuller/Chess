@@ -103,7 +103,6 @@ public class ChessGUI extends Application {
     public void start(Stage stage){
         Scene scene = new Scene(root);
 
-        scene.addEventFilter(MouseEvent.ANY, e -> System.out.println( e));
         scene.addEventFilter(MouseEvent.DRAG_DETECTED , new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {

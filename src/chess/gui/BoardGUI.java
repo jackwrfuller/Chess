@@ -6,8 +6,7 @@ import chess.ChessGame;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseDragEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -177,12 +176,20 @@ public class BoardGUI extends GridPane {
         }
 
         class PieceImage extends ImageView {
-
+            Image image;
+            private double startDragX;
+            private double startDragY;
             public PieceImage() {
                 super();
                 this.addEventFilter(MouseEvent.MOUSE_PRESSED, changeCursorToHeld);
+
+
             }
 
+            /**
+             * Drag and drop functionality
+             *
+             */
 
             EventHandler<MouseEvent> changeCursorToHeld = new EventHandler<MouseEvent>() {
                 @Override
@@ -200,6 +207,16 @@ public class BoardGUI extends GridPane {
                 super(image);
                 this.addEventFilter(MouseEvent.MOUSE_PRESSED, changeCursorToHeld);
                 this.addEventFilter(MouseEvent.MOUSE_RELEASED, changeCursorToOpen);
+                this.setOnMousePressed(e -> {
+                    startDragX = e.getSceneX();
+                    startDragY = e.getSceneY();
+                });
+
+                this.setOnMouseDragged(e -> {
+                    BoardGUI.Square.this.toFront();
+                    this.setTranslateX(e.getSceneX() - startDragX);
+                    this.setTranslateY(e.getSceneY() - startDragY);
+                });
             }
         }
 
