@@ -6,12 +6,14 @@ import chess.ChessGame;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.event.EventHandler;
+import javafx.scene.shape.StrokeType;
 
 
 /**
@@ -64,6 +66,14 @@ public class BoardGUI extends GridPane {
         // Stores if the square is currently selected by the user
         boolean isCurrentlySelected = false;
 
+        private void paintHighlight(){
+            if (isCurrentlySelected) {
+                highlightLayer.setStyle("-fx-fill: #baca44; -fx-stroke: black; -fx-stroke-width: 1;");
+            } else {
+                highlightLayer.setStyle("-fx-background-color: transparent;");
+            }
+        }
+
         public Square(int file, int rank) {
             this.file = file;
             this.rank = rank;
@@ -78,7 +88,11 @@ public class BoardGUI extends GridPane {
                 this.getChildren().add(imageOccupier);
             }
             // Add event filters
-            this.addEventFilter(MouseEvent.MOUSE_CLICKED, highlightSquare);
+            this.addEventFilter(MouseEvent.MOUSE_ENTERED, EnterSquare);
+            this.addEventFilter(MouseDragEvent.MOUSE_DRAG_ENTERED, EnterSquare);
+            this.addEventFilter(MouseDragEvent.MOUSE_DRAG_EXITED, LeaveSquare);
+            this.addEventFilter(MouseEvent.MOUSE_EXITED, LeaveSquare);
+            this.addEventFilter(MouseEvent.MOUSE_PRESSED, highlightSquare);
             this.addEventFilter(MouseEvent.MOUSE_CLICKED, listenForMove);
             this.addEventFilter(MouseEvent.MOUSE_CLICKED, printInfo);
         }
@@ -170,7 +184,6 @@ public class BoardGUI extends GridPane {
             }
 
 
-
             EventHandler<MouseEvent> changeCursorToHeld = new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
@@ -205,6 +218,28 @@ public class BoardGUI extends GridPane {
                 }
             }
         };
+        EventHandler<MouseEvent> EnterSquare = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                paintHighlight();
+                highlightLayer.setStrokeType(StrokeType.INSIDE);
+                if (isCurrentlySelected) {
+                    highlightLayer.setStyle("-fx-background-color: #baca44; -fx-stroke: grey; -fx-stroke-width: 3");
+                } else {
+                    highlightLayer.setStyle("-fx-background-color: transparent; -fx-stroke: grey; -fx-stroke-width: 3");
+                }
+
+            }
+        };
+        EventHandler<MouseEvent> LeaveSquare = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                paintHighlight();
+            }
+        };
+
+
+
         /**
          * Handle logic for moving pieces
          */

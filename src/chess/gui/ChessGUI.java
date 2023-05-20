@@ -2,7 +2,9 @@ package chess.gui;
 
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -100,6 +102,15 @@ public class ChessGUI extends Application {
 
     public void start(Stage stage){
         Scene scene = new Scene(root);
+
+        scene.addEventFilter(MouseEvent.ANY, e -> System.out.println( e));
+        scene.addEventFilter(MouseEvent.DRAG_DETECTED , new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                scene.startFullDrag();
+            }
+        });
+
         stage.setTitle("Chess");
         stage.setScene(scene);
         newGame();
