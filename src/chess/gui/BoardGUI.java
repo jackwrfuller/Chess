@@ -3,6 +3,7 @@ package chess.gui;
 import chess.board.pieces.*;
 import chess.ChessGame;
 
+import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -52,7 +53,7 @@ public class BoardGUI extends GridPane {
         Piece piece;
         
         // holds the piece image
-        private ImageView imageOccupier;
+        private PieceImage imageOccupier = new PieceImage();
         // Holds the background colouring
         private Background background;
         // Holds the highlight layer
@@ -72,6 +73,7 @@ public class BoardGUI extends GridPane {
             setSquareColour();
             placePiece();
             this.getChildren().addAll(background, highlightLayer);
+            imageOccupier.setCursor(Cursor.HAND);
             if (imageOccupier != null) {
                 this.getChildren().add(imageOccupier);
             }
@@ -99,52 +101,52 @@ public class BoardGUI extends GridPane {
                 if (piece.getColour() == 0) {
                     if (piece instanceof King) {
                         Image image = new Image("pieces/White_King.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
-                        imageOccupier = new ImageView(image);
+                        imageOccupier = new PieceImage(image);
                     }
                     if (piece instanceof Queen) {
                         Image image = new Image("pieces/White_Queen.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
-                        imageOccupier = new ImageView(image);
+                        imageOccupier = new PieceImage(image);
                     }
                     if (piece instanceof Bishop) {
                         Image image = new Image("pieces/White_Bishop.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
-                        imageOccupier = new ImageView(image);
+                        imageOccupier = new PieceImage(image);
                     }
                     if (piece instanceof Knight) {
                         Image image = new Image("pieces/White_Knight.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
-                        imageOccupier = new ImageView(image);
+                        imageOccupier = new PieceImage(image);
                     }
                     if (piece instanceof Rook) {
                         Image image = new Image("pieces/White_Rook.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
-                        imageOccupier = new ImageView(image);
+                        imageOccupier = new PieceImage(image);
                     }
                     if (piece instanceof Pawn) {
                         Image image = new Image("pieces/White_Pawn.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
-                        imageOccupier = new ImageView(image);
+                        imageOccupier = new PieceImage(image);
                     }
                 } else { // Black pieces
                     if (piece instanceof King) {
                         Image image = new Image("pieces/Black_King.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
-                        imageOccupier = new ImageView(image);
+                        imageOccupier = new PieceImage(image);
                     }
                     if (piece instanceof Queen) {
                         Image image = new Image("pieces/Black_Queen.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
-                        imageOccupier = new ImageView(image);
+                        imageOccupier = new PieceImage(image);
                     }
                     if (piece instanceof Bishop) {
                         Image image = new Image("pieces/Black_Bishop.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
-                        imageOccupier = new ImageView(image);
+                        imageOccupier = new PieceImage(image);
                     }
                     if (piece instanceof Knight) {
                         Image image = new Image("pieces/Black_Knight.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
-                        imageOccupier = new ImageView(image);
+                        imageOccupier = new PieceImage(image);
                     }
                     if (piece instanceof Rook) {
                         Image image = new Image("pieces/Black_Rook.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
-                        imageOccupier = new ImageView(image);
+                        imageOccupier = new PieceImage(image);
                     }
                     if (piece instanceof Pawn) {
                         Image image = new Image("pieces/Black_Pawn.png", IMAGE_SIZE, IMAGE_SIZE, false, false);
-                        imageOccupier = new ImageView(image);
+                        imageOccupier = new PieceImage(image);
                     }
                 }
             }
@@ -157,6 +159,27 @@ public class BoardGUI extends GridPane {
             public Background(){
                 super(SQUARE_SIZE, SQUARE_SIZE);
                 this.setStyle("-fx-fill: #eeeed2 ; -fx-stroke: black; -fx-stroke-width: 1;");
+            }
+        }
+
+        class PieceImage extends ImageView {
+
+            public PieceImage() {
+                super();
+                this.addEventFilter(MouseEvent.MOUSE_PRESSED, changeCursorOnClick);
+            }
+
+
+
+            EventHandler<MouseEvent> changeCursorOnClick = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    PieceImage.this.setCursor(Cursor.CLOSED_HAND);
+                }
+            };
+            public PieceImage(Image image) {
+                super(image);
+                this.addEventFilter(MouseEvent.MOUSE_PRESSED, changeCursorOnClick);
             }
         }
 
