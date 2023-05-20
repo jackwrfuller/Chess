@@ -65,10 +65,17 @@ public class ChessGUI extends Application {
 
     void newGame(){
         root.getChildren().clear();
+        boardAndFileLetters.getChildren().clear();
+        boardAndLabels.getChildren().clear();
         game = new ChessGame();
         board = new BoardGUI(game);
+        drawFileLetters();
+        drawRankNumbers();
+        boardAndFileLetters.getChildren().addAll(board, fileLetters);
+        boardAndLabels.getChildren().addAll(rankNumbers, boardAndFileLetters);
+        drawControls();
         // add to root and show
-        root.getChildren().addAll(board, fileLetters, controls);
+        root.getChildren().addAll(boardAndLabels, controls);
     }
 
     void drawControls(){
@@ -92,20 +99,10 @@ public class ChessGUI extends Application {
     }
 
     public void start(Stage stage){
-        // Place in scene in the stage
         Scene scene = new Scene(root);
         stage.setTitle("Chess");
         stage.setScene(scene);
-        //create and draw elements of application
-        game = new ChessGame();
-        board = new BoardGUI(game);
-        drawFileLetters();
-        drawRankNumbers();
-        boardAndFileLetters.getChildren().addAll(board, fileLetters);
-        boardAndLabels.getChildren().addAll(rankNumbers, boardAndFileLetters);
-        drawControls();
-        // add to root and show
-        root.getChildren().addAll(boardAndLabels, controls);
+        newGame();
         stage.show();
     }
 

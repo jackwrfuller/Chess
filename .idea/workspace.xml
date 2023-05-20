@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="...">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/gui/BoardGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/gui/BoardGUI.java" afterDir="false" />
+    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="changed colour scheme to match chesscom">
+      <change beforePath="$PROJECT_DIR$/src/chess/gui/ChessGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/gui/ChessGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
