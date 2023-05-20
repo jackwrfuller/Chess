@@ -166,20 +166,27 @@ public class BoardGUI extends GridPane {
 
             public PieceImage() {
                 super();
-                this.addEventFilter(MouseEvent.MOUSE_PRESSED, changeCursorOnClick);
+                this.addEventFilter(MouseEvent.MOUSE_PRESSED, changeCursorToHeld);
             }
 
 
 
-            EventHandler<MouseEvent> changeCursorOnClick = new EventHandler<MouseEvent>() {
+            EventHandler<MouseEvent> changeCursorToHeld = new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     PieceImage.this.setCursor(Cursor.CLOSED_HAND);
                 }
             };
+            EventHandler<MouseEvent> changeCursorToOpen = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    PieceImage.this.setCursor(Cursor.HAND);
+                }
+            };
             public PieceImage(Image image) {
                 super(image);
-                this.addEventFilter(MouseEvent.MOUSE_PRESSED, changeCursorOnClick);
+                this.addEventFilter(MouseEvent.MOUSE_PRESSED, changeCursorToHeld);
+                this.addEventFilter(MouseEvent.MOUSE_RELEASED, changeCursorToOpen);
             }
         }
 
