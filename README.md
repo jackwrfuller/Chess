@@ -1,5 +1,5 @@
 # Jack's Chess Game
-
+A first attempt at creating chess application.
 
 ## Game rules implemented:
 - [ ] Move legality checking:
