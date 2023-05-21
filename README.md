@@ -3,8 +3,8 @@
 
 ## Game rules implemented:
 - [ ] Move legality checking:
-    - [x] Pawns without en passant
-    - [ ] Pawns with en passant
+    - [x] Pawns
+    - [ ] En passant
     - [ ] Kings
     - [ ] Rooks
     - [ ] Bishops
