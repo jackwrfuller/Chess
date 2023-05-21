@@ -6,7 +6,10 @@ import chess.ChessGame;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -163,14 +166,11 @@ public class BoardGUI extends GridPane {
         }
 
         class PieceImage extends ImageView {
-
+            public Image image;
             public PieceImage() {
                 super();
                 this.addEventFilter(MouseEvent.MOUSE_PRESSED, changeCursorOnClick);
             }
-
-
-
             EventHandler<MouseEvent> changeCursorOnClick = new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
@@ -180,7 +180,7 @@ public class BoardGUI extends GridPane {
             public PieceImage(Image image) {
                 super(image);
                 this.addEventFilter(MouseEvent.MOUSE_PRESSED, changeCursorOnClick);
-            }
+             }
         }
 
         /**
