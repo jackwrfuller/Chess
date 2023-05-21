@@ -92,13 +92,13 @@ public class BoardGUI extends GridPane {
             this.addEventFilter(MouseEvent.MOUSE_ENTERED, EnterSquare);
             this.addEventFilter(MouseEvent.MOUSE_EXITED, LeaveSquare);
             this.addEventFilter(MouseEvent.MOUSE_CLICKED, clickSquare);
-
+            // TODO
 //            this.addEventFilter(MouseDragEvent.MOUSE_DRAG_ENTERED, EnterSquare);
 //            this.addEventFilter(MouseDragEvent.MOUSE_DRAG_EXITED, LeaveSquare);
 
 
 //            this.addEventFilter(MouseEvent.MOUSE_CLICKED, listenForMove);
-//            this.addEventFilter(MouseEvent.MOUSE_CLICKED, printInfo);
+            this.addEventFilter(MouseEvent.MOUSE_CLICKED, printInfo);
 //            this.addEventFilter(MouseEvent.MOUSE_RELEASED, releaseHand);
         }
 

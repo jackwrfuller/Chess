@@ -102,6 +102,7 @@ public class Board {
             if (piece == null) {
                 return false;
             } else {
+                piece.hasMoved = true;
                 squares[toFile][toRank].occupier = piece;
                 squares[fromFile][fromRank].occupier = null;
                 whiteToMove ^= true; // flip whose move it is
