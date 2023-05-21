@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="refactor mouse event handling">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/MoveChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/MoveChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/board/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/board/pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/board/pieces/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/gui/BoardGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/gui/BoardGUI.java" afterDir="false" />
+    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="enforce pawn move legality (no en passant)">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +118,7 @@
       <workItem from="1684273984699" duration="786000" />
       <workItem from="1684555570664" duration="1000" />
       <workItem from="1684567985007" duration="5346000" />
-      <workItem from="1684635069405" duration="10735000" />
+      <workItem from="1684635069405" duration="11205000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <created>1683437206217</created>
@@ -271,7 +267,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684641856720</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="enforce pawn move legality (no en passant)">
+      <created>1684652905652</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1684652905652</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,6 +298,7 @@
     <MESSAGE value="Highlight squares when hovered over" />
     <MESSAGE value="Make pieces draggable with no constraints" />
     <MESSAGE value="refactor mouse event handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor mouse event handling" />
+    <MESSAGE value="enforce pawn move legality (no en passant)" />
+    <option name="LAST_COMMIT_MESSAGE" value="enforce pawn move legality (no en passant)" />
   </component>
 </project>
