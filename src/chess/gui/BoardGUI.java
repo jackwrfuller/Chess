@@ -6,15 +6,13 @@ import chess.ChessGame;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.event.EventHandler;
+import javafx.scene.shape.StrokeType;
 
 
 /**
@@ -61,11 +59,20 @@ public class BoardGUI extends GridPane {
         private Background background;
         // Holds the highlight layer
         private Rectangle highlightLayer = new Rectangle(SQUARE_SIZE, SQUARE_SIZE);
+        private Rectangle hoverLayer = new Rectangle(SQUARE_SIZE, SQUARE_SIZE);
 
         // ensures image of piece fits within the square size
         double IMAGE_SIZE = 0.9 * SQUARE_SIZE;
         // Stores if the square is currently selected by the user
         boolean isCurrentlySelected = false;
+
+        private void paintHighlight(){
+            if (isCurrentlySelected) {
+                highlightLayer.setStyle("-fx-fill: #baca44; -fx-stroke: black; -fx-stroke-width: 1;");
+            } else {
+                highlightLayer.setStyle("-fx-background-color: transparent;");
+            }
+        }
 
         public Square(int file, int rank) {
             this.file = file;
@@ -73,17 +80,26 @@ public class BoardGUI extends GridPane {
             this.piece = game.board.squares[file][rank].getOccupier();
             background = new Background();
             highlightLayer.setFill(Color.TRANSPARENT);
+            hoverLayer.setFill(Color.TRANSPARENT);
             setSquareColour();
             placePiece();
-            this.getChildren().addAll(background, highlightLayer);
-            imageOccupier.setCursor(Cursor.HAND);
+            this.getChildren().addAll(background, highlightLayer, hoverLayer);
+
             if (imageOccupier != null) {
                 this.getChildren().add(imageOccupier);
             }
             // Add event filters
-            this.addEventFilter(MouseEvent.MOUSE_CLICKED, highlightSquare);
-            this.addEventFilter(MouseEvent.MOUSE_CLICKED, listenForMove);
+            this.addEventFilter(MouseEvent.MOUSE_ENTERED, EnterSquare);
+            this.addEventFilter(MouseEvent.MOUSE_EXITED, LeaveSquare);
+            this.addEventFilter(MouseEvent.MOUSE_CLICKED, clickSquare);
+            // TODO
+//            this.addEventFilter(MouseDragEvent.MOUSE_DRAG_ENTERED, EnterSquare);
+//            this.addEventFilter(MouseDragEvent.MOUSE_DRAG_EXITED, LeaveSquare);
+
+
+//            this.addEventFilter(MouseEvent.MOUSE_CLICKED, listenForMove);
             this.addEventFilter(MouseEvent.MOUSE_CLICKED, printInfo);
+//            this.addEventFilter(MouseEvent.MOUSE_RELEASED, releaseHand);
         }
 
         /**
@@ -166,38 +182,111 @@ public class BoardGUI extends GridPane {
         }
 
         class PieceImage extends ImageView {
-            public Image image;
+            Image image;
+            public double startDragX;
+            double startDragY;
             public PieceImage() {
                 super();
-                this.addEventFilter(MouseEvent.MOUSE_PRESSED, changeCursorOnClick);
             }
-            EventHandler<MouseEvent> changeCursorOnClick = new EventHandler<MouseEvent>() {
+
+            /**
+             * Drag and drop functionality
+             *
+             */
+
+            EventHandler<MouseEvent> changeCursorToHeld = new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     PieceImage.this.setCursor(Cursor.CLOSED_HAND);
                 }
             };
+            EventHandler<MouseEvent> changeCursorToOpen = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    PieceImage.this.setCursor(Cursor.HAND);
+                }
+            };
+            EventHandler<MouseEvent> changeCursorToDefault = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    Square.PieceImage.this.setCursor(Cursor.DEFAULT);
+                }
+            };
+
             public PieceImage(Image image) {
                 super(image);
-                this.addEventFilter(MouseEvent.MOUSE_PRESSED, changeCursorOnClick);
-             }
-        }
+               // this.addEventFilter(MouseEvent.MOUSE_PRESSED, changeCursorToHeld);
+                //this.addEventFilter(MouseEvent.MOUSE_RELEASED, changeCursorToOpen);
+                //this.addEventFilter(MouseEvent.MOUSE_EXITED, changeCursorToDefault);
 
+//                this.setOnMousePressed(e -> {
+//                    startDragX = e.getSceneX();
+//                    startDragY = e.getSceneY();
+//                });
+//
+//                this.setOnMouseDragged(e -> {
+//                    BoardGUI.Square.this.toFront();
+//                    this.setTranslateX(e.getSceneX() - startDragX);
+//                    this.setTranslateY(e.getSceneY() - startDragY);
+//                });
+            }
+        }
         /**
          * Handles logic for highlighting squares
          */
-        EventHandler<MouseEvent> highlightSquare = new EventHandler<MouseEvent>() {
+        EventHandler<MouseEvent> clickSquare = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                isCurrentlySelected ^= true;
-                if (isCurrentlySelected) {
+                if (Square.this.piece != null) {
+                    isCurrentlySelected = true;
                     highlightLayer.setStyle("-fx-fill: #baca44; -fx-stroke: black; -fx-stroke-width: 1;");
                     selectedSquare = Square.this;
+                }
+                // check to make move
+                if (fromSquare != null) {
+                    toSquare = Square.this;
+                    boolean tryMove = movePiece(fromSquare.file, fromSquare.rank, toSquare.file, toSquare.rank);
+                    if (tryMove) {
+                        fromSquare = null;
+                        toSquare = null;
+                    } else {
+                        fromSquare = Square.this;
+                    }
                 } else {
-                    highlightLayer.setStyle("-fx-background-color: transparent;");
+                    fromSquare = Square.this;
                 }
             }
         };
+        EventHandler<MouseEvent> releaseHand = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (Square.this.piece != null) {
+                    Square.this.setCursor(Cursor.HAND);
+                }
+            }
+        };
+
+
+        EventHandler<MouseEvent> EnterSquare = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                hoverLayer.setStrokeType(StrokeType.INSIDE);
+                hoverLayer.setStyle("-fx-background-color: transparent; -fx-stroke: grey; -fx-stroke-width: 3");
+                if (Square.this.piece != null && Square.this.getCursor() != Cursor.CLOSED_HAND ) {
+                    Square.this.setCursor(Cursor.HAND);
+                }
+
+            }
+        };
+        EventHandler<MouseEvent> LeaveSquare = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                hoverLayer.setStyle("-fx-background-color: transparent;");
+            }
+        };
+
+
+
         /**
          * Handle logic for moving pieces
          */
@@ -209,8 +298,6 @@ public class BoardGUI extends GridPane {
                 } else if (toSquare == null) {
                     toSquare = Square.this;
                     movePiece(fromSquare.file, fromSquare.rank, toSquare.file, toSquare.rank);
-                    //fromSquare = null;
-                    //toSquare = null;
                 } else {
                     toSquare = null;
                     fromSquare = Square.this;
@@ -257,16 +344,18 @@ public class BoardGUI extends GridPane {
     }
 
 
-    void movePiece(int fromFile, int fromRank, int toFile, int toRank) {
+    boolean movePiece(int fromFile, int fromRank, int toFile, int toRank) {
         if (game.board.movePiece(fromFile, fromRank, toFile, toRank)) {
             drawBoard(isFlipped);
             Square lastHighlighted = squares[toFile][toRank];
             lastHighlighted.highlightLayer.setStyle("-fx-fill: yellow; -fx-stroke: black; -fx-stroke-width: 1;");
             this.selectedSquare = lastHighlighted;
+            return true;
 
-
+        } else {
+            return false;
         }
-        System.out.println(game.board.toString());
+        //System.out.println(game.board.toString());
     }
 
     /**
