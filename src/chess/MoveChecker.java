@@ -202,10 +202,8 @@ public class MoveChecker {
                     Pair move = new Pair<>(adjFile, adjRank);
                     kingMoves.add(move);
                 }
-
             }
         }
-        System.out.println("test");
         return kingMoves;
     }
 
@@ -227,7 +225,7 @@ public class MoveChecker {
                 // Otherwise, check
                 Piece piece = board.squares[adjFile][adjRank].getOccupier();
                 if (piece == null) continue;
-                if (piece instanceof King && piece.getColour() == colour) {
+                if (piece instanceof King && piece.getColour() != colour) {
                     hasKing = true;
                 }
             }
