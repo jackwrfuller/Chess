@@ -1,8 +1,8 @@
 package chess;
 
-import chess.board.Board;
-import chess.board.pieces.Pawn;
-import chess.board.pieces.Piece;
+import chess.board.*;
+import chess.board.pieces.*;
+
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -62,8 +62,14 @@ public class MoveChecker {
         ArrayList<Pair<Integer, Integer>> legalMoves = new ArrayList<>();
         Piece piece = board.squares[fromFile][fromRank].getOccupier();
 
-        var pawnLegalMoves = getPawnLegalMoves(board, fromFile, fromRank);
-        legalMoves.addAll(pawnLegalMoves);
+        if (piece instanceof Pawn) {
+            var pawnLegalMoves = getPawnLegalMoves(board, fromFile, fromRank);
+            legalMoves.addAll(pawnLegalMoves);
+        } else if (piece instanceof King) {
+            var kingLegalMoves = getKingLegalMoves(board, fromFile, fromRank);
+            legalMoves.addAll(kingLegalMoves);
+        }
+
 
 
         System.out.println("Legal Moves:");
@@ -162,6 +168,81 @@ public class MoveChecker {
             }
         }
         return pawnMoves;
+    }
+
+    /**
+     * Specifies all legals moves a king can make
+     * @param board
+     * @param fromFile
+     * @param fromRank
+     * @return
+     */
+    public static ArrayList<Pair<Integer, Integer>> getKingLegalMoves(Board board, int fromFile, int fromRank) {
+        ArrayList<Pair<Integer, Integer>> kingMoves = new ArrayList<>();
+        King king = (King) board.squares[fromFile][fromRank].getOccupier();
+
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++){
+                int adjFile = fromFile + i;
+                int adjRank = fromRank + j;
+                // ensure king cant move off the board
+                if (!isOnBoard(adjFile, adjRank)){
+                    continue;
+                }
+                var target = board.squares[adjFile][adjRank].getOccupier();
+                // ensure king doesnt take own pieces
+                if (target != null && target.getColour() == king.getColour()) {
+                    System.out.println("cant take own piece");
+                    continue;
+                } else if (hasKingNeighbour(board, adjFile, adjRank, king.getColour())) {
+                    System.out.println("Cant move next to enemy king");
+                    continue;
+                } else {
+                    // Otherwise, this move is valid
+                    Pair move = new Pair<>(adjFile, adjRank);
+                    kingMoves.add(move);
+                }
+
+            }
+        }
+        System.out.println("test");
+        return kingMoves;
+    }
+
+    /**
+     * Checks if at a given location there is an enemy king in a neighbouring square
+     * @param board
+     * @param file
+     * @param rank
+     * @return
+     */
+    public static boolean hasKingNeighbour(Board board, int file, int rank, int colour) {
+        boolean hasKing = false;
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++){
+                int adjFile = file + i;
+                int adjRank = rank + j;
+                // check 'neighbour' is on the board
+                if (!isOnBoard(adjFile, adjRank)) continue;
+                // Otherwise, check
+                Piece piece = board.squares[adjFile][adjRank].getOccupier();
+                if (piece == null) continue;
+                if (piece instanceof King && piece.getColour() == colour) {
+                    hasKing = true;
+                }
+            }
+        }
+        return hasKing;
+    }
+
+    /**
+     * Asserts a given index is on the board, i.e it will not throw an index out of bounds error
+     * @param file
+     * @param rank
+     * @return
+     */
+    public static boolean isOnBoard(int file, int rank) {
+        return (file >= 0 && file <= 7 && rank >= 0 && rank <= 7);
     }
 
 
