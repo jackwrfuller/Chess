@@ -72,6 +72,12 @@ public class MoveChecker {
         } else if (piece instanceof Rook) {
             var rookLegalMoves = getRookLegalMoves(board, fromFile, fromRank);
             legalMoves.addAll(rookLegalMoves);
+        } else if (piece instanceof Bishop) {
+            var bishopLegalMoves = getBishopLegalMoves(board, fromFile, fromRank);
+            legalMoves.addAll(bishopLegalMoves);
+        } else if (piece instanceof Queen) {
+            var queenLegalMoves = getQueenLegalMoves(board, fromFile, fromRank);
+            legalMoves.addAll(queenLegalMoves);
         }
 
 
@@ -240,34 +246,31 @@ public class MoveChecker {
     
     public static ArrayList<Pair<Integer, Integer>> getRookLegalMoves(Board board, int fromFile, int fromRank) {
         ArrayList<Pair<Integer, Integer>> rookMoves = new ArrayList<>();
-        Rook rook = (Rook) board.squares[fromFile][fromRank].getOccupier();
-
         rookMoves.addAll(getVerticalMoves(board, fromFile, fromRank, true));
         rookMoves.addAll(getVerticalMoves(board, fromFile, fromRank, false));
         rookMoves.addAll(getHorizontalMoves(board, fromFile, fromRank, true));
         rookMoves.addAll(getHorizontalMoves(board, fromFile, fromRank, false));
         return rookMoves;
     }
-
     public static ArrayList<Pair<Integer, Integer>> getVerticalMoves(Board board, int fromFile, int fromRank, boolean toNorth){
         ArrayList<Pair<Integer, Integer>> verticalMoves = new ArrayList<>();
         Piece piece = board.squares[fromFile][fromRank].getOccupier();
         if (toNorth) {
-           for (int i = 1; i < 8; i++) {
-               int targetRank = fromRank - i;
-               if (targetRank < 0) {break;}
-               Piece target = board.squares[fromFile][targetRank].getOccupier();
-               if (target == null) {
-                   var move = new Pair<>(fromFile, targetRank);
-                   verticalMoves.add(move);
-               } else if (target != null && target.getColour() == piece.getColour()) {
-                   break;
-               } else if (target != null && target.getColour() != piece.getColour()){
-                   var move = new Pair<>(fromFile, targetRank);
-                   verticalMoves.add(move);
-                   break;
-               }
-           }
+            for (int i = 1; i < 8; i++) {
+                int targetRank = fromRank - i;
+                if (targetRank < 0) {break;}
+                Piece target = board.squares[fromFile][targetRank].getOccupier();
+                if (target == null) {
+                    var move = new Pair<>(fromFile, targetRank);
+                    verticalMoves.add(move);
+                } else if (target != null && target.getColour() == piece.getColour()) {
+                    break;
+                } else if (target != null && target.getColour() != piece.getColour()){
+                    var move = new Pair<>(fromFile, targetRank);
+                    verticalMoves.add(move);
+                    break;
+                }
+            }
         } else {
             for (int i = 1; i < 8; i++) {
                 int targetRank = fromRank + i;
@@ -329,8 +332,109 @@ public class MoveChecker {
         }
         return horizontalMoves;
     }
+    public static ArrayList<Pair<Integer, Integer>> getBishopLegalMoves(Board board, int fromFile, int fromRank) {
+        ArrayList<Pair<Integer, Integer>> bishopMoves = new ArrayList<>();
+        bishopMoves.addAll(getRightDiagonalMoves(board, fromFile, fromRank, true));
+        bishopMoves.addAll(getRightDiagonalMoves(board, fromFile, fromRank, false));
+        bishopMoves.addAll(getLeftDiagonalMoves(board, fromFile, fromRank, true));
+        bishopMoves.addAll(getLeftDiagonalMoves(board, fromFile, fromRank, false));
+        return bishopMoves;
+    }
 
+    public static ArrayList<Pair<Integer, Integer>> getRightDiagonalMoves(Board board, int fromFile, int fromRank, boolean toNorthEast) {
+        ArrayList<Pair<Integer, Integer>> diagonalMoves = new ArrayList<>();
+        Piece piece = board.squares[fromFile][fromRank].getOccupier();
+        if (toNorthEast){
+            for (int i = 1; i < 8; i++) {
+                int targetFile = fromFile + i;
+                int targetRank = fromRank - i;
+                if (targetFile > 7 || targetRank < 0) {break;}
+                Piece target = board.squares[targetFile][targetRank].getOccupier();
+                if (target == null) {
+                    var move = new Pair<>(targetFile, targetRank);
+                    diagonalMoves.add(move);
+                } else if (target != null && target.getColour() == piece.getColour()) {
+                    break;
+                } else if (target != null && target.getColour() != piece.getColour()) {
+                    var move = new Pair<>(targetFile, targetRank);
+                    diagonalMoves.add(move);
+                    break;
+                }
+            }
+        } else {
+            for (int i = 1; i < 8; i++) {
+                int targetFile = fromFile - i;
+                int targetRank = fromRank + i;
+                if (targetFile < 0 || targetRank > 7) {break;}
+                Piece target = board.squares[targetFile][targetRank].getOccupier();
+                if (target == null) {
+                    var move = new Pair<>(targetFile, targetRank);
+                    diagonalMoves.add(move);
+                } else if (target != null && target.getColour() == piece.getColour()) {
+                    break;
+                } else if (target != null && target.getColour() != piece.getColour()) {
+                    var move = new Pair<>(targetFile, targetRank);
+                    diagonalMoves.add(move);
+                    break;
+                }
+            }
+        }
+        return diagonalMoves;
+    }
 
+    public static ArrayList<Pair<Integer, Integer>> getLeftDiagonalMoves(Board board, int fromFile, int fromRank, boolean toNorthWest) {
+        ArrayList<Pair<Integer, Integer>> diagonalMoves = new ArrayList<>();
+        Piece piece = board.squares[fromFile][fromRank].getOccupier();
+        if (toNorthWest){
+            for (int i = 1; i < 8; i++) {
+                int targetFile = fromFile - i;
+                int targetRank = fromRank - i;
+                if (targetFile < 0 || targetRank < 0) {break;}
+                Piece target = board.squares[targetFile][targetRank].getOccupier();
+                if (target == null) {
+                    var move = new Pair<>(targetFile, targetRank);
+                    diagonalMoves.add(move);
+                } else if (target != null && target.getColour() == piece.getColour()) {
+                    break;
+                } else if (target != null && target.getColour() != piece.getColour()) {
+                    var move = new Pair<>(targetFile, targetRank);
+                    diagonalMoves.add(move);
+                    break;
+                }
+            }
+        } else {
+            for (int i = 1; i < 8; i++) {
+                int targetFile = fromFile + i;
+                int targetRank = fromRank + i;
+                if (targetFile > 7 || targetRank > 7) {break;}
+                Piece target = board.squares[targetFile][targetRank].getOccupier();
+                if (target == null) {
+                    var move = new Pair<>(targetFile, targetRank);
+                    diagonalMoves.add(move);
+                } else if (target != null && target.getColour() == piece.getColour()) {
+                    break;
+                } else if (target != null && target.getColour() != piece.getColour()) {
+                    var move = new Pair<>(targetFile, targetRank);
+                    diagonalMoves.add(move);
+                    break;
+                }
+            }
+        }
+        return diagonalMoves;
+    }
+
+    public static ArrayList<Pair<Integer, Integer>> getQueenLegalMoves(Board board, int fromFile, int fromRank) {
+        ArrayList<Pair<Integer, Integer>> queenMoves = new ArrayList<>();
+        queenMoves.addAll(getVerticalMoves(board, fromFile, fromRank, true));
+        queenMoves.addAll(getVerticalMoves(board, fromFile, fromRank, false));
+        queenMoves.addAll(getHorizontalMoves(board, fromFile, fromRank, true));
+        queenMoves.addAll(getHorizontalMoves(board, fromFile, fromRank, false));
+        queenMoves.addAll(getRightDiagonalMoves(board, fromFile, fromRank, true));
+        queenMoves.addAll(getRightDiagonalMoves(board, fromFile, fromRank, false));
+        queenMoves.addAll(getLeftDiagonalMoves(board, fromFile, fromRank, true));
+        queenMoves.addAll(getLeftDiagonalMoves(board, fromFile, fromRank, false));
+        return queenMoves;
+    }
 
 
 

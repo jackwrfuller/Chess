@@ -8,11 +8,10 @@ A first attempt at creating chess application.
     - [x] Kings (without checking for checks)
     - [ ] Kings (with checking for check)
     - [x] Rooks
-    - [ ] Bishops
-    - [ ] Queens
+    - [x] Bishops
+    - [x] Queens
     - [ ] Knights
     - [ ] Castling
-- [ ]  
 - [ ] Pawn promotion
 - [ ] Checking
 - [ ] Checkmate
