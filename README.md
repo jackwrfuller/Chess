@@ -5,8 +5,9 @@ A first attempt at creating chess application.
 - [ ] Move legality checking:
     - [x] Pawns
     - [ ] En passant
-    - [ ] Kings
-    - [ ] Rooks
+    - [x] Kings (without checking for checks)
+    - [ ] Kings (with checking for check)
+    - [x] Rooks
     - [ ] Bishops
     - [ ] Queens
     - [ ] Knights

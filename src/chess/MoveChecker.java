@@ -5,6 +5,7 @@ import chess.board.pieces.*;
 
 import javafx.util.Pair;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MoveChecker {
@@ -68,6 +69,9 @@ public class MoveChecker {
         } else if (piece instanceof King) {
             var kingLegalMoves = getKingLegalMoves(board, fromFile, fromRank);
             legalMoves.addAll(kingLegalMoves);
+        } else if (piece instanceof Rook) {
+            var rookLegalMoves = getRookLegalMoves(board, fromFile, fromRank);
+            legalMoves.addAll(rookLegalMoves);
         }
 
 
@@ -206,7 +210,6 @@ public class MoveChecker {
         }
         return kingMoves;
     }
-
     /**
      * Checks if at a given location there is an enemy king in a neighbouring square
      * @param board
@@ -214,6 +217,7 @@ public class MoveChecker {
      * @param rank
      * @return
      */
+
     public static boolean hasKingNeighbour(Board board, int file, int rank, int colour) {
         boolean hasKing = false;
         for (int i = -1; i <= 1; i++) {
@@ -232,6 +236,103 @@ public class MoveChecker {
         }
         return hasKing;
     }
+
+    
+    public static ArrayList<Pair<Integer, Integer>> getRookLegalMoves(Board board, int fromFile, int fromRank) {
+        ArrayList<Pair<Integer, Integer>> rookMoves = new ArrayList<>();
+        Rook rook = (Rook) board.squares[fromFile][fromRank].getOccupier();
+
+        rookMoves.addAll(getVerticalMoves(board, fromFile, fromRank, true));
+        rookMoves.addAll(getVerticalMoves(board, fromFile, fromRank, false));
+        rookMoves.addAll(getHorizontalMoves(board, fromFile, fromRank, true));
+        rookMoves.addAll(getHorizontalMoves(board, fromFile, fromRank, false));
+        return rookMoves;
+    }
+
+    public static ArrayList<Pair<Integer, Integer>> getVerticalMoves(Board board, int fromFile, int fromRank, boolean toNorth){
+        ArrayList<Pair<Integer, Integer>> verticalMoves = new ArrayList<>();
+        Piece piece = board.squares[fromFile][fromRank].getOccupier();
+        if (toNorth) {
+           for (int i = 1; i < 8; i++) {
+               int targetRank = fromRank - i;
+               if (targetRank < 0) {break;}
+               Piece target = board.squares[fromFile][targetRank].getOccupier();
+               if (target == null) {
+                   var move = new Pair<>(fromFile, targetRank);
+                   verticalMoves.add(move);
+               } else if (target != null && target.getColour() == piece.getColour()) {
+                   break;
+               } else if (target != null && target.getColour() != piece.getColour()){
+                   var move = new Pair<>(fromFile, targetRank);
+                   verticalMoves.add(move);
+                   break;
+               }
+           }
+        } else {
+            for (int i = 1; i < 8; i++) {
+                int targetRank = fromRank + i;
+                if (targetRank > 7) {break;}
+                Piece target = board.squares[fromFile][targetRank].getOccupier();
+                if (target == null) {
+                    var move = new Pair<>(fromFile, targetRank);
+                    verticalMoves.add(move);
+                } else if (target != null && target.getColour() == piece.getColour()) {
+                    break;
+                } else if (target != null && target.getColour() != piece.getColour()){
+                    var move = new Pair<>(fromFile, targetRank);
+                    verticalMoves.add(move);
+                    break;
+                }
+            }
+        }
+
+
+
+        return verticalMoves;
+    }
+
+    public static ArrayList<Pair<Integer, Integer>> getHorizontalMoves(Board board, int fromFile, int fromRank, boolean toEast) {
+        ArrayList<Pair<Integer, Integer>> horizontalMoves = new ArrayList<>();
+        Piece piece = board.squares[fromFile][fromRank].getOccupier();
+        if (toEast) {
+            for (int i = 1; i < 8; i++) {
+                int targetFile = fromFile + i;
+                if (targetFile > 7) {break;}
+                Piece target = board.squares[targetFile][fromRank].getOccupier();
+                if (target == null) {
+                    var move = new Pair<>(targetFile, fromRank);
+                    horizontalMoves.add(move);
+                } else if (target != null && target.getColour() == piece.getColour()) {
+                    break;
+                } else if (target != null && target.getColour() != piece.getColour()){
+                    var move = new Pair<>(targetFile, fromRank);
+                    horizontalMoves.add(move);
+                    break;
+                }
+            }
+        } else {
+            for (int i = 1; i < 8; i++) {
+                int targetFile = fromFile - i;
+                if (targetFile < 0) {break;}
+                Piece target = board.squares[targetFile][fromRank].getOccupier();
+                if (target == null) {
+                    var move = new Pair<>(targetFile, fromRank);
+                    horizontalMoves.add(move);
+                } else if (target != null && target.getColour() == piece.getColour()) {
+                    break;
+                } else if (target != null && target.getColour() != piece.getColour()){
+                    var move = new Pair<>(targetFile, fromRank);
+                    horizontalMoves.add(move);
+                    break;
+                }
+            }
+        }
+        return horizontalMoves;
+    }
+
+
+
+
 
     /**
      * Asserts a given index is on the board, i.e it will not throw an index out of bounds error
