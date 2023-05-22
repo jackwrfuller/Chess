@@ -80,13 +80,6 @@ public class MoveChecker {
             var knightMoves = getKnightLegalMoves(board, fromFile, fromRank);
             legalMoves.addAll(knightMoves);
         }
-
-
-
-        System.out.println("Legal Moves:");
-        for (var move : legalMoves) {
-            System.out.println(move.toString());
-        }
         return legalMoves;
     }
 
@@ -219,10 +212,10 @@ public class MoveChecker {
     }
     /**
      * Checks if at a given location there is an enemy king in a neighbouring square
-     * @param board
-     * @param file
-     * @param rank
-     * @return
+     * @param board chessboard of given game
+     * @param file zero-indexed integer
+     * @param rank zero-indexed integer
+     * @return true if the square has the enemy king on any of the 9 neighbouring locations, false otherwise.
      */
 
     public static boolean hasKingNeighbour(Board board, int file, int rank, int colour) {
@@ -289,9 +282,6 @@ public class MoveChecker {
                 }
             }
         }
-
-
-
         return verticalMoves;
     }
 
@@ -477,9 +467,9 @@ public class MoveChecker {
 
     /**
      * Asserts a given index is on the board, i.e it will not throw an index out of bounds error
-     * @param file
-     * @param rank
-     * @return
+     * @param file zero-indexed integer
+     * @param rank zero-indexed integer
+     * @return true if coordinate is on the chess board, false otherwise
      */
     public static boolean isOnBoard(int file, int rank) {
         return (file >= 0 && file <= 7 && rank >= 0 && rank <= 7);
