@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="enforce pawn move legality (no en passant)">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-    </list>
+    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="update readme" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -118,7 +116,7 @@
       <workItem from="1684273984699" duration="786000" />
       <workItem from="1684555570664" duration="1000" />
       <workItem from="1684567985007" duration="5346000" />
-      <workItem from="1684635069405" duration="11205000" />
+      <workItem from="1684635069405" duration="11435000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <created>1683437206217</created>
@@ -274,7 +272,28 @@
       <option name="project" value="LOCAL" />
       <updated>1684652905652</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="create readme">
+      <created>1684653366622</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1684653366622</updated>
+    </task>
+    <task id="LOCAL-00024" summary="update readme">
+      <created>1684653440065</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1684653440065</updated>
+    </task>
+    <task id="LOCAL-00025" summary="update readme">
+      <created>1684653485554</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1684653485554</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,6 +318,8 @@
     <MESSAGE value="Make pieces draggable with no constraints" />
     <MESSAGE value="refactor mouse event handling" />
     <MESSAGE value="enforce pawn move legality (no en passant)" />
-    <option name="LAST_COMMIT_MESSAGE" value="enforce pawn move legality (no en passant)" />
+    <MESSAGE value="create readme" />
+    <MESSAGE value="update readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="update readme" />
   </component>
 </project>
