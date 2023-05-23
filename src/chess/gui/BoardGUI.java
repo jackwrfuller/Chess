@@ -345,7 +345,7 @@ public class BoardGUI extends GridPane {
 
 
     boolean movePiece(int fromFile, int fromRank, int toFile, int toRank) {
-        if (game.board.movePiece(fromFile, fromRank, toFile, toRank)) {
+        if (game.board.legallyMovePiece(fromFile, fromRank, toFile, toRank)) {
             drawBoard(isFlipped);
             Square lastHighlighted = squares[toFile][toRank];
             lastHighlighted.highlightLayer.setStyle("-fx-fill: yellow; -fx-stroke: black; -fx-stroke-width: 1;");
