@@ -10,7 +10,7 @@ A first attempt at creating chess application.
     - [x] Rooks
     - [x] Bishops
     - [x] Queens
-    - [ ] Knights
+    - [x] Knights
     - [ ] Castling
 - [ ] Pawn promotion
 - [ ] Checking

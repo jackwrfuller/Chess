@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="check Rook move legality">
+    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="enforce knight move legality">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/MoveChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/MoveChecker.java" afterDir="false" />
@@ -290,14 +290,7 @@
       <option name="project" value="LOCAL" />
       <updated>1684759835725</updated>
     </task>
-    <task id="LOCAL-00025" summary="check queen and bishop move legality">
-      <created>1684760997850</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1684760997850</updated>
-    </task>
-    <option name="localTasksCounter" value="26" />
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -324,7 +317,7 @@
     <MESSAGE value="enforce pawn move legality (no en passant)" />
     <MESSAGE value="implement king legal move checker" />
     <MESSAGE value="check Rook move legality" />
-    <MESSAGE value="check queen and bishop move legality" />
-    <option name="LAST_COMMIT_MESSAGE" value="check queen and bishop move legality" />
+    <MESSAGE value="enforce knight move legality" />
+    <option name="LAST_COMMIT_MESSAGE" value="enforce knight move legality" />
   </component>
 </project>

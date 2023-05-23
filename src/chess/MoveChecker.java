@@ -4,8 +4,6 @@ import chess.board.*;
 import chess.board.pieces.*;
 
 import javafx.util.Pair;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MoveChecker {
@@ -78,13 +76,9 @@ public class MoveChecker {
         } else if (piece instanceof Queen) {
             var queenLegalMoves = getQueenLegalMoves(board, fromFile, fromRank);
             legalMoves.addAll(queenLegalMoves);
-        }
-
-
-
-        System.out.println("Legal Moves:");
-        for (var move : legalMoves) {
-            System.out.println(move.toString());
+        } else if (piece instanceof Knight) {
+            var knightMoves = getKnightLegalMoves(board, fromFile, fromRank);
+            legalMoves.addAll(knightMoves);
         }
         return legalMoves;
     }
@@ -209,7 +203,7 @@ public class MoveChecker {
                     continue;
                 } else {
                     // Otherwise, this move is valid
-                    Pair move = new Pair<>(adjFile, adjRank);
+                    Pair<Integer, Integer> move = new Pair<>(adjFile, adjRank);
                     kingMoves.add(move);
                 }
             }
@@ -218,10 +212,10 @@ public class MoveChecker {
     }
     /**
      * Checks if at a given location there is an enemy king in a neighbouring square
-     * @param board
-     * @param file
-     * @param rank
-     * @return
+     * @param board chessboard of given game
+     * @param file zero-indexed integer
+     * @param rank zero-indexed integer
+     * @return true if the square has the enemy king on any of the 9 neighbouring locations, false otherwise.
      */
 
     public static boolean hasKingNeighbour(Board board, int file, int rank, int colour) {
@@ -288,9 +282,6 @@ public class MoveChecker {
                 }
             }
         }
-
-
-
         return verticalMoves;
     }
 
@@ -436,13 +427,49 @@ public class MoveChecker {
         return queenMoves;
     }
 
+    public static ArrayList<Pair<Integer, Integer>> getKnightLegalMoves(Board board, int fromFile, int fromRank) {
+        ArrayList<Pair<Integer, Integer>> knightMoves = new ArrayList<>();
+        Piece knight = board.squares[fromFile][fromRank].getOccupier();
+        // North and south knight moves
+        for (int i = -2; i <= 2; i = i + 2) {
+            for (int j = -1; j <= 1; j++) {
+                if (i == 0 || j == 0) continue;
+                int targetFile = fromFile + j;
+                int targetRank = fromRank + i;
+                if (MoveChecker.isOnBoard(targetFile, targetRank)) {
+                    Piece target = board.squares[targetFile][targetRank].getOccupier();
+                    if (target == null || target.getColour() != knight.getColour()){
+                        var move = new Pair<>(targetFile, targetRank);
+                        knightMoves.add(move);
+                    }
+                }
+            }
+        }
+        // East and west knight moves
+        for (int i = -2; i <= 2; i = i + 2) {
+            for (int j = -1; j <= 1; j++) {
+                if (i == 0 || j == 0) continue;
+                int targetFile = fromFile + i;
+                int targetRank = fromRank + j;
+                if (MoveChecker.isOnBoard(targetFile, targetRank)) {
+                    Piece target = board.squares[targetFile][targetRank].getOccupier();
+                    if (target == null || target.getColour() != knight.getColour()){
+                        var move = new Pair<>(targetFile, targetRank);
+                        knightMoves.add(move);
+                    }
+                }
+            }
+        }
+        return knightMoves;
+    }
+
 
 
     /**
      * Asserts a given index is on the board, i.e it will not throw an index out of bounds error
-     * @param file
-     * @param rank
-     * @return
+     * @param file zero-indexed integer
+     * @param rank zero-indexed integer
+     * @return true if coordinate is on the chess board, false otherwise
      */
     public static boolean isOnBoard(int file, int rank) {
         return (file >= 0 && file <= 7 && rank >= 0 && rank <= 7);
