@@ -290,7 +290,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684759835725</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="check queen and bishop move legality">
+      <created>1684760997850</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1684760997850</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -317,6 +324,7 @@
     <MESSAGE value="enforce pawn move legality (no en passant)" />
     <MESSAGE value="implement king legal move checker" />
     <MESSAGE value="check Rook move legality" />
-    <option name="LAST_COMMIT_MESSAGE" value="check Rook move legality" />
+    <MESSAGE value="check queen and bishop move legality" />
+    <option name="LAST_COMMIT_MESSAGE" value="check queen and bishop move legality" />
   </component>
 </project>
