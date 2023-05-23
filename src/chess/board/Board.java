@@ -10,6 +10,12 @@ public class Board {
     // Tracks whose move it is
     public boolean whiteToMove = true;
 
+    public boolean whiteKingsideCastleRight = true;
+    public boolean whiteQueensideCastleRight = true;
+    public boolean blackKingsideCastleRight = true;
+    public boolean blackQueensideCastleRight = true;
+
+
     public class Square {
         public Piece getOccupier() {
             return occupier;
