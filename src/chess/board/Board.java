@@ -2,6 +2,9 @@ package chess.board;
 
 import chess.MoveChecker;
 import chess.board.pieces.*;
+import javafx.util.Pair;
+
+import java.util.ArrayList;
 
 public class Board {
 
@@ -143,6 +146,31 @@ public class Board {
     private static String getCharFromFile(int i) {
         return i > -1 && i < 26 ? String.valueOf((char)(i + 'a' )) : null;
     }
+
+    public ArrayList<Pair<Integer, Integer>> getPawnLocations(){
+        ArrayList<Pair<Integer, Integer>> allPawnLocations = new ArrayList<>();
+        int pawnCount = 0;
+        for (int file = 0; file < 7; file++) {
+            for (int rank = 0; rank < 7 && pawnCount <= 16; rank++) {
+                Piece p = this.squares[file][rank].getOccupier();
+                if (p instanceof Pawn && ((Pawn)p).isEnPassantTarget()) {
+                    Pair<Integer, Integer> loc = new Pair<>(file, rank);
+                    allPawnLocations.add(loc);
+                }
+            }
+        }
+
+
+
+
+        return allPawnLocations;
+    }
+
+
+
+
+
+
     public String toString() {
         StringBuilder str = new StringBuilder();
 
