@@ -124,9 +124,25 @@ public class Board {
             }
     }
 
+    /**
+     * Converts numeric file/rank to algebraic, e.g (0,0) is a8 and (7,7) is h1.
+     * @return two character string composed of a char and an int in the usual chess algebraic notation
+     */
+    public static String toAlgebraicNotation(int file, int rank){
+        assert (file >=0 && rank >= 0 && file <= 7 && rank <= 7) : "Invalid location";
+        int algRank = 8 - rank;
+        String algFile = getCharFromFile(file);
+        return  algFile + Integer.toString(algRank);
+    }
 
-
-
+    /**
+     * Converts file number into character representation
+     * @param i is internal game logic index of file, i.e 0 to 7.
+     * @return algebraic notation equivalent, i.e 0 is the 'a' file, 1 is the 'b' file, etc
+     */
+    private static String getCharFromFile(int i) {
+        return i > -1 && i < 26 ? String.valueOf((char)(i + 'a' )) : null;
+    }
     public String toString() {
         StringBuilder str = new StringBuilder();
 
