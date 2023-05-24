@@ -10,6 +10,12 @@ public class Board {
     // Tracks whose move it is
     public boolean whiteToMove = true;
 
+    public boolean whiteKingsideCastleRight = true;
+    public boolean whiteQueensideCastleRight = true;
+    public boolean blackKingsideCastleRight = true;
+    public boolean blackQueensideCastleRight = true;
+
+
     public class Square {
         public Piece getOccupier() {
             return occupier;
@@ -95,9 +101,17 @@ public class Board {
         squares[file-1][rank-1].setOccupier(null);
     }
 
-    public boolean movePiece(int fromFile, int fromRank, int toFile, int toRank) {
+    public boolean legallyMovePiece(int fromFile, int fromRank, int toFile, int toRank) {
         // Check move is legal
         if (MoveChecker.isMoveLegal(this, fromFile, fromRank, toFile, toRank)) {
+            return movePiece(fromFile, fromRank, toFile, toRank);
+        } else {
+            return false;
+        }
+
+    }
+
+    public boolean movePiece(int fromFile, int fromRank, int toFile, int toRank) {
             Piece piece = squares[fromFile][fromRank].occupier;
             if (piece == null) {
                 return false;
@@ -108,11 +122,7 @@ public class Board {
                 whiteToMove ^= true; // flip whose move it is
                 return true;
             }
-        } else {
-            return false;
-        }
     }
-
 
 
 

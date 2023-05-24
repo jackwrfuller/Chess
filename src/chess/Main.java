@@ -8,10 +8,8 @@ public class Main {
 
        Board b = new Board();
 
-        System.out.println(b);
+        System.out.println(StringEncoding.toFEN(b));
 
-        b.movePiece(1,1,4,8);
-        System.out.println(b);
 
     }
 }

@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="refactor MoveChecker">
+    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="refactor movePiece">
+      <change afterPath="$PROJECT_DIR$/src/chess/StringEncoding.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chess/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/board/Board.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,7 +61,7 @@
       <recent name="Board" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ChessGUI">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="ChessGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="chess.gui.ChessGUI" />
       <module name="Chess" />
@@ -96,9 +98,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.ChessGUI" />
         <item itemvalue="Application.Test" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -289,25 +291,29 @@
       <option name="project" value="LOCAL" />
       <updated>1684759835725</updated>
     </task>
-    <task id="LOCAL-00025" summary="enforce knight move legality">
-      <created>1684794244398</created>
+    <task id="LOCAL-00025" summary="refactor movePiece">
+      <created>1684843369784</created>
       <option name="number" value="00025" />
       <option name="presentableId" value="LOCAL-00025" />
       <option name="project" value="LOCAL" />
-      <updated>1684794244398</updated>
+      <updated>1684843369784</updated>
     </task>
-    <task id="LOCAL-00026" summary="refactor MoveChecker">
-      <created>1684794466618</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1684794466618</updated>
-    </task>
-    <option name="localTasksCounter" value="27" />
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added chess piece images" />
@@ -331,7 +337,7 @@
     <MESSAGE value="implement king legal move checker" />
     <MESSAGE value="check Rook move legality" />
     <MESSAGE value="enforce knight move legality" />
-    <MESSAGE value="refactor MoveChecker" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor MoveChecker" />
+    <MESSAGE value="refactor movePiece" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor movePiece" />
   </component>
 </project>
