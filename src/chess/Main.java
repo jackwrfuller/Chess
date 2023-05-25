@@ -12,6 +12,10 @@ public class Main {
         System.out.println(StringEncoding.toFEN(b));
 
 
+        Board copy = new Board(b);
+
+        System.out.println(copy.toString());
+
 
 
 

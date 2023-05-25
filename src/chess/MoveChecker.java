@@ -94,6 +94,20 @@ public class MoveChecker {
         ArrayList<Pair<Integer, Integer>> pawnMoves = new ArrayList<>();
         Pawn pawn = (Pawn) board.squares[fromFile][fromRank].getOccupier();
         boolean isWhite = (pawn.getColour() == 0);
+        // Add en passant moves
+        var tar = board.enPassantTarget;
+        if (tar != null) {
+            if (fromRank == tar.getValue() && Math.abs(fromFile - tar.getKey()) == 1) {
+                if (tar.getValue() == 4) {
+                    pawnMoves.add(new Pair<>(tar.getKey(), 5));
+                }
+                if (tar.getValue() == 3) {
+                    pawnMoves.add(new Pair<>(tar.getKey(), 2));
+                }
+            }
+        }
+
+
         if (isWhite) {
             // First check pawn is not on the edge of the board, in which case there are no legal moves
             if (fromRank == 0) {return pawnMoves;}

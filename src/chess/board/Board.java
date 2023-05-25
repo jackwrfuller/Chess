@@ -4,6 +4,7 @@ import chess.MoveChecker;
 import chess.board.pieces.*;
 import javafx.util.Pair;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Board {
@@ -21,6 +22,17 @@ public class Board {
     public int halfmoveClock = 0;
     // Number of times players have moved; incremented each time black moves
     public int fullmoveNumber = 0;
+
+    /**
+     * array of Sqaure which represents the chessboard. Note this is of the form square[file][rank],
+     * with 0,0 representing the top-left square
+     */
+    public Square[][] squares = new Square[SIZE][SIZE];
+    /**
+     * Stores if there is an pawn that can be targeted for an en passant move. Note there can be at most one such pawn
+     * at any given time.
+     */
+    public Pair<Integer, Integer> enPassantTarget;
 
 
     public class Square {
@@ -42,17 +54,32 @@ public class Board {
         }
     }
 
-    /**
-     * array of Sqaure which represents the chessboard. Note this is of the form square[file][rank],
-     * with 0,0 representing the top-left square
-     */
-    public Square[][] squares = new Square[SIZE][SIZE];
+
 
     public Board() {
         createEmptyBoard();
         placeDefaultSetup();
 
     }
+
+    /**
+     * Creates a new board as a copy of another
+     * @param b
+     */
+    public Board(Board b){
+        this.squares = b.squares;
+        this.whiteToMove = b.whiteToMove;
+       this.whiteKingsideCastleRight = b.whiteKingsideCastleRight;
+        this.whiteQueensideCastleRight = b.whiteQueensideCastleRight;
+        this.blackKingsideCastleRight = b.blackKingsideCastleRight;
+        this.blackQueensideCastleRight = blackKingsideCastleRight;
+        // Track number of moves since last pawn advance or piece capture, aka 'halfmove clock'
+        this.halfmoveClock = b.halfmoveClock;
+        // Number of times players have moved; incremented each time black moves
+        this.fullmoveNumber = b.fullmoveNumber;
+    }
+
+
 
     public void createEmptyBoard() {
         for (int file = 0; file < SIZE; file++) {
@@ -111,6 +138,10 @@ public class Board {
     public boolean legallyMovePiece(int fromFile, int fromRank, int toFile, int toRank) {
         // Check move is legal
         if (MoveChecker.isMoveLegal(this, fromFile, fromRank, toFile, toRank)) {
+            if (enPassantTarget != null) {
+                System.out.println("EP Target: " + enPassantTarget);
+            }
+
             return movePiece(fromFile, fromRank, toFile, toRank);
         } else {
             return false;
@@ -118,18 +149,66 @@ public class Board {
 
     }
 
+    /**
+     * Moves a piece from a given square to a target square, with no regard for legality. If the given square is null,
+     * do nothing.
+     * @param fromFile file of given square
+     * @param fromRank rank of given square
+     * @param toFile file of target square
+     * @param toRank rank of target square
+     * @return true if piece was moved, false if given square was empty
+     */
     public boolean movePiece(int fromFile, int fromRank, int toFile, int toRank) {
-            Piece piece = squares[fromFile][fromRank].occupier;
+        Piece piece = squares[fromFile][fromRank].occupier;
             if (piece == null) {
                 return false;
             } else {
+
+                // Handle if move if an en passant
+                if (isEnPassant(fromFile, fromRank, toFile, toRank)) {
+                    whiteToMove ^= true;
+                    System.out.println("Executing en passant");
+                    squares[toFile][toRank].occupier = piece;
+                    squares[fromFile][fromRank].occupier = null;
+                    squares[enPassantTarget.getKey()][enPassantTarget.getValue()].occupier = null;
+                    enPassantTarget = null;
+                    return true;
+                } else {
+                // Update that piece has now moved
                 piece.hasMoved = true;
                 squares[toFile][toRank].occupier = piece;
                 squares[fromFile][fromRank].occupier = null;
-                whiteToMove ^= true; // flip whose move it is
+                // flip whose move it is
+                whiteToMove ^= true;
+                // If pawn has moved two squares, track that it is now en passant target. If not, clear target.
+                    if (piece instanceof Pawn && Math.abs(fromRank - toRank) == 2) {
+                        System.out.println("Pawn was moved two squares, is now an EP target");
+                        enPassantTarget = new Pair<>(toFile, toRank);
+                    } else {
+                        enPassantTarget = null;
+                    }
+
                 return true;
+                }
             }
     }
+
+    boolean isEnPassant(int fromFile, int fromRank, int toFile, int toRank) {
+        Piece p = squares[fromFile][fromRank].getOccupier();
+        if (enPassantTarget == null || !(p instanceof Pawn)) {
+            System.out.println("No EP target or piece isnt a pawn");
+            return false;
+        } else {
+            int passantFile = enPassantTarget.getKey();
+            int passantRank = enPassantTarget.getValue();
+            if (Math.abs(passantFile - fromFile) == 1 && Math.abs(passantRank - toRank) == 1 && toFile == passantFile) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
 
     /**
      * Converts numeric file/rank to algebraic, e.g (0,0) is a8 and (7,7) is h1.
