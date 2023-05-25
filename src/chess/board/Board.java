@@ -12,11 +12,15 @@ public class Board {
 
     // Tracks whose move it is
     public boolean whiteToMove = true;
-
+    // Track castling rights
     public boolean whiteKingsideCastleRight = true;
     public boolean whiteQueensideCastleRight = true;
     public boolean blackKingsideCastleRight = true;
     public boolean blackQueensideCastleRight = true;
+    // Track number of moves since last pawn advance or piece capture, aka 'halfmove clock'
+    public int halfmoveClock = 0;
+    // Number of times players have moved; incremented each time black moves
+    public int fullmoveNumber = 0;
 
 
     public class Square {
@@ -137,6 +141,14 @@ public class Board {
         String algFile = getCharFromFile(file);
         return  algFile + Integer.toString(algRank);
     }
+    public static String toAlgebraicNotation(Pair<Integer, Integer> loc){
+        int file = loc.getKey();
+        int rank = loc.getValue();
+        assert (file >=0 && rank >= 0 && file <= 7 && rank <= 7) : "Invalid location";
+        int algRank = 8 - rank;
+        String algFile = getCharFromFile(file);
+        return  algFile + Integer.toString(algRank);
+    }
 
     /**
      * Converts file number into character representation
@@ -150,19 +162,29 @@ public class Board {
     public ArrayList<Pair<Integer, Integer>> getPawnLocations(){
         ArrayList<Pair<Integer, Integer>> allPawnLocations = new ArrayList<>();
         int pawnCount = 0;
-        for (int file = 0; file < 7; file++) {
-            for (int rank = 0; rank < 7 && pawnCount <= 16; rank++) {
+        for (int file = 0; file < 8; file++) {
+            for (int rank = 0; rank < 8 && pawnCount <= 16; rank++) {
                 Piece p = this.squares[file][rank].getOccupier();
-                if (p instanceof Pawn && ((Pawn)p).isEnPassantTarget()) {
+                if (p instanceof Pawn) {
                     Pair<Integer, Integer> loc = new Pair<>(file, rank);
                     allPawnLocations.add(loc);
                 }
             }
         }
-
-
-
-
+        return allPawnLocations;
+    }
+    public ArrayList<Pair<Integer, Integer>> getPawnPassantLocations(){
+        ArrayList<Pair<Integer, Integer>> allPawnLocations = new ArrayList<>();
+        int pawnCount = 0;
+        for (int file = 0; file < 8; file++) {
+            for (int rank = 0; rank < 8 && pawnCount <= 16; rank++) {
+                Piece p = this.squares[file][rank].getOccupier();
+                if (p instanceof Pawn && ((Pawn) p).isEnPassantTarget) {
+                    Pair<Integer, Integer> loc = new Pair<>(file, rank);
+                    allPawnLocations.add(loc);
+                }
+            }
+        }
         return allPawnLocations;
     }
 
