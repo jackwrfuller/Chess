@@ -1,5 +1,6 @@
 package chess.gui;
 
+import chess.Move;
 import chess.board.pieces.*;
 import chess.ChessGame;
 
@@ -345,7 +346,8 @@ public class BoardGUI extends GridPane {
 
 
     boolean movePiece(int fromFile, int fromRank, int toFile, int toRank) {
-        if (game.board.legallyMovePiece(fromFile, fromRank, toFile, toRank)) {
+        Move m = new Move(game.board, fromFile, fromRank, toFile, toRank);
+        if (game.board.makeLegalMove(m)) {
             drawBoard(isFlipped);
             Square lastHighlighted = squares[toFile][toRank];
             lastHighlighted.highlightLayer.setStyle("-fx-fill: yellow; -fx-stroke: black; -fx-stroke-width: 1;");
