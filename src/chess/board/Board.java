@@ -144,8 +144,10 @@ public class Board {
     }
 
     public boolean makeLegalMove(Move m) {
+        System.out.println("Testing move...");
         // Check move is legal
         if (MoveChecker.isMoveLegal(m.board, m.fromFile, m.fromRank, m.toFile, m.toRank)) {
+            System.out.println("Move is legal.");
             if (enPassantTarget != null) {
                 System.out.println("EP Target: " + enPassantTarget);
             }
@@ -165,6 +167,7 @@ public class Board {
      * @return true if piece was moved, false if given square was empty
      */
     public static boolean makeMove(Move m) {
+        System.out.println("Making move...");
         Board b = m.board;
         int fromFile = m.fromFile;
         int fromRank = m.fromRank;
@@ -186,7 +189,7 @@ public class Board {
                     return true;
                 } else {
                 // Update that piece has now moved
-                piece.hasMoved = true;
+                piece.nMoves++;
                 b.squares[toFile][toRank].occupier = piece;
                 b.squares[fromFile][fromRank].occupier = null;
                 // flip whose move it is
@@ -222,11 +225,14 @@ public class Board {
 
     public static boolean undoMove(Move m) {
         if (m.pieceMoved == null) return false;
-
+        System.out.println("Undoing move...");
         m.board.squares[m.fromFile][m.fromRank].occupier = m.pieceMoved;
         m.board.squares[m.toFile][m.toRank].occupier = m.pieceCaptured;
         // remove move from move history
         m.board.moveHistory.remove(m.board.moveHistory.size()-1);
+        // flip whose turn to move
+        m.board.whiteToMove ^= true;
+        m.pieceMoved.nMoves--;
         return true;
     }
 

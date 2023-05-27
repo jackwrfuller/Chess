@@ -16,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.scene.shape.StrokeType;
 
 
+
 /**
  * Class that encapsulates the JavaFX logic of the game chess.board.
  */
@@ -357,7 +358,11 @@ public class BoardGUI extends GridPane {
         } else {
             return false;
         }
-        //System.out.println(game.board.toString());
+    }
+    void undoMove() {
+        Move lastMove = game.board.moveHistory.get(game.board.moveHistory.size()-1);
+        game.board.undoMove(lastMove);
+        drawBoard(isFlipped);
     }
 
     /**
@@ -375,8 +380,18 @@ public class BoardGUI extends GridPane {
         }
     };
 
-
-
+    /**
+     * Undo move
+     */
+    EventHandler<KeyEvent> undoMove = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent keyEvent) {
+            if (keyEvent.getCode() == KeyCode.Z) {
+                System.out.println("Undo move");
+                undoMove();
+            }
+        }
+    };
 
 
 }

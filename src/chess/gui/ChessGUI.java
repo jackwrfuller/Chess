@@ -96,6 +96,13 @@ public class ChessGUI extends Application {
 
         });
         controls.getChildren().add(flipBoard);
+
+        Button undoMove = new Button("Undo move");
+        undoMove.setOnMouseClicked(e -> {
+            board.undoMove();
+        });
+        controls.getChildren().add(undoMove);
+
         controls.setAlignment(Pos.CENTER);
 
     }

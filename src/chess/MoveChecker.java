@@ -28,6 +28,7 @@ public class MoveChecker {
         var legalMoves = getLegalMoves(board, fromFile, fromRank);
         var moveToBeTried = new Pair<>(toFile, toRank);
         if (!legalMoves.contains(moveToBeTried)) {
+            System.out.println("Move is not in list of legal moves for this piece");
             return false;
         }
         return true;
@@ -62,6 +63,7 @@ public class MoveChecker {
         Piece piece = board.squares[fromFile][fromRank].getOccupier();
 
         if (piece instanceof Pawn) {
+            System.out.println("Checking pawn legal moves");
             var pawnLegalMoves = getPawnLegalMoves(board, fromFile, fromRank);
             legalMoves.addAll(pawnLegalMoves);
         } else if (piece instanceof King) {
@@ -107,7 +109,6 @@ public class MoveChecker {
             }
         }
 
-
         if (isWhite) {
             // First check pawn is not on the edge of the board, in which case there are no legal moves
             if (fromRank == 0) {return pawnMoves;}
@@ -116,7 +117,7 @@ public class MoveChecker {
                 var square = new Pair<>(fromFile, fromRank - 1);
                 pawnMoves.add(square);
                 // If the pawn has not already moved, check two squares in front also
-                if (!pawn.hasMoved && board.squares[fromFile][fromRank - 2].getOccupier() == null) {
+                if (pawn.nMoves == 0 && board.squares[fromFile][fromRank - 2].getOccupier() == null) {
                     var square1 = new Pair<>(fromFile, fromRank - 2);
                     pawnMoves.add(square1);
                 }
@@ -154,7 +155,7 @@ public class MoveChecker {
                 var square = new Pair<>(fromFile, fromRank + 1);
                 pawnMoves.add(square);
                 // If the pawn has not already moved, check two squares in front also
-                if (!pawn.hasMoved && board.squares[fromFile][fromRank + 2].getOccupier() == null) {
+                if (pawn.nMoves == 0 && board.squares[fromFile][fromRank + 2].getOccupier() == null) {
                     var square1 = new Pair<>(fromFile, fromRank + 2);
                     pawnMoves.add(square1);
                 }
