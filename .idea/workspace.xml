@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="print game move history and clean up console printing">
+    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Include move number in game history">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chess/StringEncoding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/StringEncoding.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/board/Board.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -121,7 +123,7 @@
       <workItem from="1684635069405" duration="11205000" />
       <workItem from="1685010453483" duration="8850000" />
       <workItem from="1685100015706" duration="784000" />
-      <workItem from="1685154335287" duration="5919000" />
+      <workItem from="1685154335287" duration="7362000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <created>1683437206217</created>
@@ -347,7 +349,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685160056234</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Include move number in game history">
+      <created>1685160529958</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1685160529958</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -365,7 +374,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Highlighting square logic: select one square at a time logic" />
     <MESSAGE value="implemented moving piece logic without legality checks" />
     <MESSAGE value="implemented new game button" />
     <MESSAGE value="Enforce player move turns" />
@@ -390,6 +398,7 @@
     <MESSAGE value="create undoMove()" />
     <MESSAGE value="Allow moves to be undone." />
     <MESSAGE value="print game move history and clean up console printing" />
-    <option name="LAST_COMMIT_MESSAGE" value="print game move history and clean up console printing" />
+    <MESSAGE value="Include move number in game history" />
+    <option name="LAST_COMMIT_MESSAGE" value="Include move number in game history" />
   </component>
 </project>

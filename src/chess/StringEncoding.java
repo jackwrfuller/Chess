@@ -108,7 +108,7 @@ public class StringEncoding {
     }
 
     public static String toNumberFEN(Board board) {
-        return Integer.toString(board.halfmoveClock) + " " + Integer.toString(board.fullmoveNumber);
+        return Integer.toString(board.halfmoveClock) + " " + Integer.toString(board.moveNumber);
     }
 
 }

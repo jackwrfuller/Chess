@@ -22,7 +22,7 @@ public class Board {
     // Track number of moves since last pawn advance or piece capture, aka 'halfmove clock'
     public int halfmoveClock = 0;
     // Number of times players have moved; incremented each time black moves
-    public int fullmoveNumber = 0;
+    public int moveNumber = 0;
 
     /**
      * array of Sqaure which represents the chessboard. Note this is of the form square[file][rank],
@@ -83,7 +83,7 @@ public class Board {
         // Track number of moves since last pawn advance or piece capture, aka 'halfmove clock'
         this.halfmoveClock = b.halfmoveClock;
         // Number of times players have moved; incremented each time black moves
-        this.fullmoveNumber = b.fullmoveNumber;
+        this.moveNumber = b.moveNumber;
         this.moveHistory = b.moveHistory;
     }
 
@@ -148,7 +148,7 @@ public class Board {
         if (MoveChecker.isMoveLegal(m.board, m.fromFile, m.fromRank, m.toFile, m.toRank)) {
             // Add move to move history
             moveHistory.add(m);
-            this.fullmoveNumber++;
+            this.moveNumber++;
             return makeMove(m);
         } else {
             return false;
@@ -224,7 +224,7 @@ public class Board {
         // flip whose turn to move
         m.board.whiteToMove ^= true;
         m.pieceMoved.nMoves--;
-        m.board.fullmoveNumber--;
+        m.board.moveNumber--;
         return true;
     }
 
