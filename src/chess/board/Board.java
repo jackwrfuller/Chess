@@ -148,6 +148,7 @@ public class Board {
         if (MoveChecker.isMoveLegal(m.board, m.fromFile, m.fromRank, m.toFile, m.toRank)) {
             // Add move to move history
             moveHistory.add(m);
+            this.fullmoveNumber++;
             return makeMove(m);
         } else {
             return false;
@@ -223,6 +224,7 @@ public class Board {
         // flip whose turn to move
         m.board.whiteToMove ^= true;
         m.pieceMoved.nMoves--;
+        m.board.fullmoveNumber--;
         return true;
     }
 
@@ -291,8 +293,11 @@ public class Board {
 
     public String printMoveHistory() {
         StringBuilder str = new StringBuilder();
-        for (Move m : moveHistory) {
-            str.append(m.toString() + " ");
+        for (int i = 0; i < moveHistory.size(); i++) {
+            if (i % 2 == 0) {
+                str.append(Integer.toString(i / 2 + 1) + ". ");
+            }
+            str.append(moveHistory.get(i).toString() + " ");
         }
         return str.toString();
     }
