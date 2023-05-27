@@ -24,14 +24,20 @@ public class Move {
     @Override
     public String toString() {
         if (pieceMoved == null) return "";
-        boolean isCapture;
-        if (board.squares[toFile][toRank].getOccupier() == null) {
-            isCapture = false;
-        } else  {
-            isCapture = true;
-        }
 
-        return "";
+        if (pieceCaptured == null) {
+            if (pieceToChar(pieceMoved) == 'p') {
+                return Board.toAlgebraicNotation(toFile, toRank);
+            } else {
+                return pieceToChar(pieceMoved) + Board.toAlgebraicNotation(toFile, toRank);
+            }
+        } else {
+            if (pieceToChar(pieceMoved) == 'p') {
+                return  Board.getCharFromFile(fromFile) + "x" + Board.toAlgebraicNotation(toFile, toRank);
+            } else {
+                return pieceToChar(pieceMoved) + "x" + Board.toAlgebraicNotation(toFile, toRank);
+            }
+        }
     }
     char pieceToChar(Piece p) {
         if (p instanceof King) return 'K';

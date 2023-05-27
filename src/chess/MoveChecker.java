@@ -28,7 +28,6 @@ public class MoveChecker {
         var legalMoves = getLegalMoves(board, fromFile, fromRank);
         var moveToBeTried = new Pair<>(toFile, toRank);
         if (!legalMoves.contains(moveToBeTried)) {
-            System.out.println("Move is not in list of legal moves for this piece");
             return false;
         }
         return true;
@@ -63,7 +62,6 @@ public class MoveChecker {
         Piece piece = board.squares[fromFile][fromRank].getOccupier();
 
         if (piece instanceof Pawn) {
-            System.out.println("Checking pawn legal moves");
             var pawnLegalMoves = getPawnLegalMoves(board, fromFile, fromRank);
             legalMoves.addAll(pawnLegalMoves);
         } else if (piece instanceof King) {

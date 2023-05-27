@@ -144,13 +144,8 @@ public class Board {
     }
 
     public boolean makeLegalMove(Move m) {
-        System.out.println("Testing move...");
         // Check move is legal
         if (MoveChecker.isMoveLegal(m.board, m.fromFile, m.fromRank, m.toFile, m.toRank)) {
-            System.out.println("Move is legal.");
-            if (enPassantTarget != null) {
-                System.out.println("EP Target: " + enPassantTarget);
-            }
             // Add move to move history
             moveHistory.add(m);
             return makeMove(m);
@@ -167,7 +162,6 @@ public class Board {
      * @return true if piece was moved, false if given square was empty
      */
     public static boolean makeMove(Move m) {
-        System.out.println("Making move...");
         Board b = m.board;
         int fromFile = m.fromFile;
         int fromRank = m.fromRank;
@@ -181,7 +175,6 @@ public class Board {
                 // Handle if move if an en passant
                 if (isEnPassant(m)) {
                     b.whiteToMove ^= true;
-                    System.out.println("Executing en passant");
                     b.squares[toFile][toRank].occupier = piece;
                     b.squares[fromFile][fromRank].occupier = null;
                     b.squares[b.enPassantTarget.getKey()][b.enPassantTarget.getValue()].occupier = null;
@@ -196,7 +189,6 @@ public class Board {
                 b.whiteToMove ^= true;
                 // If pawn has moved two squares, track that it is now en passant target. If not, clear target.
                     if (piece instanceof Pawn && Math.abs(fromRank - toRank) == 2) {
-                        System.out.println("Pawn was moved two squares, is now an EP target");
                         b.enPassantTarget = new Pair<>(toFile, toRank);
                     } else {
                         b.enPassantTarget = null;
@@ -210,7 +202,6 @@ public class Board {
     static boolean isEnPassant(Move m) {
         Piece p = m.pieceMoved;
         if (m.board.enPassantTarget == null || !(p instanceof Pawn)) {
-            System.out.println("No EP target or piece isnt a pawn");
             return false;
         } else {
             int passantFile = m.board.enPassantTarget.getKey();
@@ -225,7 +216,6 @@ public class Board {
 
     public static boolean undoMove(Move m) {
         if (m.pieceMoved == null) return false;
-        System.out.println("Undoing move...");
         m.board.squares[m.fromFile][m.fromRank].occupier = m.pieceMoved;
         m.board.squares[m.toFile][m.toRank].occupier = m.pieceCaptured;
         // remove move from move history
@@ -263,7 +253,7 @@ public class Board {
      * @param i is internal game logic index of file, i.e 0 to 7.
      * @return algebraic notation equivalent, i.e 0 is the 'a' file, 1 is the 'b' file, etc
      */
-    private static String getCharFromFile(int i) {
+    public static String getCharFromFile(int i) {
         return i > -1 && i < 26 ? String.valueOf((char)(i + 'a' )) : null;
     }
 
@@ -299,11 +289,17 @@ public class Board {
 
 
 
-
+    public String printMoveHistory() {
+        StringBuilder str = new StringBuilder();
+        for (Move m : moveHistory) {
+            str.append(m.toString() + " ");
+        }
+        return str.toString();
+    }
 
     public String toString() {
         StringBuilder str = new StringBuilder();
-
+        str.append("\n");
         for (int rank = 0; rank < SIZE; rank++) {
             for (int file = 0; file < SIZE; file++){
                 if (squares[file][rank].occupier == null) {
@@ -332,6 +328,8 @@ public class Board {
             }
             str.append("\n");
         }
+        str.append("\n");
+        str.append(printMoveHistory());
         return str.toString();
     }
 }

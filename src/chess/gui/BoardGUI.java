@@ -100,7 +100,7 @@ public class BoardGUI extends GridPane {
 
 
 //            this.addEventFilter(MouseEvent.MOUSE_CLICKED, listenForMove);
-            this.addEventFilter(MouseEvent.MOUSE_CLICKED, printInfo);
+            //this.addEventFilter(MouseEvent.MOUSE_CLICKED, printInfo);
 //            this.addEventFilter(MouseEvent.MOUSE_RELEASED, releaseHand);
         }
 
@@ -353,8 +353,8 @@ public class BoardGUI extends GridPane {
             Square lastHighlighted = squares[toFile][toRank];
             lastHighlighted.highlightLayer.setStyle("-fx-fill: yellow; -fx-stroke: black; -fx-stroke-width: 1;");
             this.selectedSquare = lastHighlighted;
+            System.out.println(game.board.toString());
             return true;
-
         } else {
             return false;
         }
@@ -363,6 +363,7 @@ public class BoardGUI extends GridPane {
         Move lastMove = game.board.moveHistory.get(game.board.moveHistory.size()-1);
         game.board.undoMove(lastMove);
         drawBoard(isFlipped);
+        System.out.println(game.board.toString());
     }
 
     /**
@@ -380,18 +381,7 @@ public class BoardGUI extends GridPane {
         }
     };
 
-    /**
-     * Undo move
-     */
-    EventHandler<KeyEvent> undoMove = new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(KeyEvent keyEvent) {
-            if (keyEvent.getCode() == KeyCode.Z) {
-                System.out.println("Undo move");
-                undoMove();
-            }
-        }
-    };
+
 
 
 }

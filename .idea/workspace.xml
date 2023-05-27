@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="create undoMove()">
+    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Allow moves to be undone.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chess/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/Move.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/MoveChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/MoveChecker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/board/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/board/pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/board/pieces/Piece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/gui/BoardGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/gui/BoardGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/gui/ChessGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/gui/ChessGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +125,7 @@
       <workItem from="1684635069405" duration="11205000" />
       <workItem from="1685010453483" duration="8850000" />
       <workItem from="1685100015706" duration="784000" />
-      <workItem from="1685154335287" duration="4114000" />
+      <workItem from="1685154335287" duration="5610000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <created>1683437206217</created>
@@ -339,7 +337,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685156181933</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Allow moves to be undone.">
+      <created>1685158612118</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1685158612118</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -357,7 +362,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="drawn pieces on board" />
     <MESSAGE value="finished highlighting square logic" />
     <MESSAGE value="Highlighting square logic: select one square at a time logic" />
     <MESSAGE value="implemented moving piece logic without legality checks" />
@@ -382,6 +386,7 @@
     <MESSAGE value="implement toFEN() method" />
     <MESSAGE value="enforce en passant rule" />
     <MESSAGE value="create undoMove()" />
-    <option name="LAST_COMMIT_MESSAGE" value="create undoMove()" />
+    <MESSAGE value="Allow moves to be undone." />
+    <option name="LAST_COMMIT_MESSAGE" value="Allow moves to be undone." />
   </component>
 </project>
