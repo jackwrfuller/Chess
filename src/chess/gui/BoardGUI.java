@@ -300,6 +300,7 @@ public class BoardGUI extends GridPane {
                 } else if (toSquare == null) {
                     toSquare = Square.this;
                     movePiece(fromSquare.file, fromSquare.rank, toSquare.file, toSquare.rank);
+
                 } else {
                     toSquare = null;
                     fromSquare = Square.this;
