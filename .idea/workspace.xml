@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Include move number in game history">
-      <change afterPath="$PROJECT_DIR$/src/chess/gui/ChessGUIv2.java" afterDir="false" />
+    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Introduce updated GUI">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/gui/BoardGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/gui/BoardGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/gui/ChessGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/gui/ChessGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chess/gui/ChessGUIv2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/gui/ChessGUIv2.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +139,7 @@
       <workItem from="1685010453483" duration="8850000" />
       <workItem from="1685100015706" duration="784000" />
       <workItem from="1685154335287" duration="7373000" />
-      <workItem from="1685241202151" duration="5888000" />
+      <workItem from="1685241202151" duration="7644000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <created>1683437206217</created>
@@ -381,7 +379,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685172342975</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Introduce updated GUI">
+      <created>1685247335397</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1685247335397</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -399,7 +404,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="implemented moving piece logic without legality checks" />
     <MESSAGE value="implemented new game button" />
     <MESSAGE value="Enforce player move turns" />
     <MESSAGE value="fixed flip board" />
@@ -424,6 +428,7 @@
     <MESSAGE value="Allow moves to be undone." />
     <MESSAGE value="print game move history and clean up console printing" />
     <MESSAGE value="Include move number in game history" />
-    <option name="LAST_COMMIT_MESSAGE" value="Include move number in game history" />
+    <MESSAGE value="Introduce updated GUI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Introduce updated GUI" />
   </component>
 </project>
