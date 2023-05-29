@@ -38,8 +38,12 @@ public class Board {
     /**
      * Store current game history
      */
-   public ArrayList<Move> moveHistory = new ArrayList<>();
-
+    public ArrayList<Move> moveHistory = new ArrayList<>();
+    /**
+     * Stores all squares attacked by the previous player to move. I.e when it is white to move, this contains all the
+     * squares attacked by black. It is used to check for Checks.
+     */
+    public ArrayList<Pair<Integer, Integer>> attackedSquares = new ArrayList<>();
 
 
     public class Square {
@@ -149,6 +153,7 @@ public class Board {
             // Add move to move history
             moveHistory.add(m);
             this.moveNumber++;
+            updateAttackedSquares();
             return makeMove(m);
         } else {
             return false;
@@ -225,6 +230,7 @@ public class Board {
         m.board.whiteToMove ^= true;
         m.pieceMoved.nMoves--;
         m.board.moveNumber--;
+        m.board.updateAttackedSquares();
         return true;
     }
 
@@ -259,19 +265,20 @@ public class Board {
         return i > -1 && i < 26 ? String.valueOf((char)(i + 'a' )) : null;
     }
 
-    public ArrayList<Pair<Integer, Integer>> getPawnLocations(){
-        ArrayList<Pair<Integer, Integer>> allPawnLocations = new ArrayList<>();
-        int pawnCount = 0;
+    public ArrayList<Pair<Integer, Integer>> getPieceLocations(boolean whiteToMove){
+        int colour = whiteToMove ? 0 : 1;
+        ArrayList<Pair<Integer, Integer>> allPieceLocations = new ArrayList<>();
+        int pieceCount = 0; // TODO can be optimised by being aware of how many pieces the player currently has
         for (int file = 0; file < 8; file++) {
-            for (int rank = 0; rank < 8 && pawnCount <= 16; rank++) {
+            for (int rank = 0; rank < 8 && pieceCount <= 16; rank++) {
                 Piece p = this.squares[file][rank].getOccupier();
-                if (p instanceof Pawn) {
+                if (p != null && p.getColour() == colour) {
                     Pair<Integer, Integer> loc = new Pair<>(file, rank);
-                    allPawnLocations.add(loc);
+                    allPieceLocations.add(loc);
                 }
             }
         }
-        return allPawnLocations;
+        return allPieceLocations;
     }
     public ArrayList<Pair<Integer, Integer>> getPawnPassantLocations(){
         ArrayList<Pair<Integer, Integer>> allPawnLocations = new ArrayList<>();
@@ -288,8 +295,26 @@ public class Board {
         return allPawnLocations;
     }
 
+    /**
+     * Calculates all the squares attacked by the player not currently to move.
+     */
+    public void updateAttackedSquares() {
+        this.attackedSquares.clear();
+        var pieceLocations = getPieceLocations(!this.whiteToMove);
+        for (var loc : pieceLocations) {
+             this.attackedSquares.addAll(MoveChecker.getLegalMoves(this, loc.getKey(), loc.getValue()));
+        }
+        System.out.println(printSquares(attackedSquares));
+    }
 
 
+    public static String printSquares(ArrayList<Pair<Integer, Integer>> locs) {
+        StringBuilder str = new StringBuilder();
+        for (Pair loc : locs) {
+            str.append(toAlgebraicNotation(loc) + ", ");
+        }
+        return str.toString();
+    }
 
     public String printMoveHistory() {
         StringBuilder str = new StringBuilder();

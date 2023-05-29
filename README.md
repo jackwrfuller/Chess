@@ -6,7 +6,7 @@ A first attempt at creating chess application.
     - [x] Pawns
     - [x] En passant
     - [x] Kings (without checking for checks)
-    - [ ] Kings (with checking for check)
+    - [x] Kings (with checking for check)
     - [x] Rooks
     - [x] Bishops
     - [x] Queens

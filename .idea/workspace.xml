@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Record game PGN">
+    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Change app background colour">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/gui/ChessGUIv2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/gui/ChessGUIv2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chess/MoveChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/MoveChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chess/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/board/Board.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +141,7 @@
       <workItem from="1685100015706" duration="784000" />
       <workItem from="1685154335287" duration="7373000" />
       <workItem from="1685241202151" duration="7654000" />
-      <workItem from="1685327446843" duration="1302000" />
+      <workItem from="1685327446843" duration="3365000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <created>1683437206217</created>
@@ -401,7 +402,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685328119818</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Change app background colour">
+      <created>1685329135862</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1685329135862</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -419,7 +427,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Enforce player move turns" />
     <MESSAGE value="fixed flip board" />
     <MESSAGE value="added file letter labelling" />
     <MESSAGE value="implemented (janky) rank numbering" />
@@ -444,6 +451,7 @@
     <MESSAGE value="Introduce updated GUI" />
     <MESSAGE value="." />
     <MESSAGE value="Record game PGN" />
-    <option name="LAST_COMMIT_MESSAGE" value="Record game PGN" />
+    <MESSAGE value="Change app background colour" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change app background colour" />
   </component>
 </project>

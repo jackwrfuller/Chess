@@ -214,7 +214,11 @@ public class MoveChecker {
                 } else if (hasKingNeighbour(board, adjFile, adjRank, king.getColour())) {
                     System.out.println("Cant move next to enemy king");
                     continue;
-                } else {
+                } else if (isSqureAttacked(board, adjFile, adjRank)) {
+                    System.out.println("Cant move into check");
+                    continue;
+                }
+                else {
                     // Otherwise, this move is valid
                     Pair<Integer, Integer> move = new Pair<>(adjFile, adjRank);
                     kingMoves.add(move);
@@ -223,6 +227,13 @@ public class MoveChecker {
         }
         return kingMoves;
     }
+    static boolean isSqureAttacked(Board board, int file, int rank) {
+        for (Pair<Integer, Integer> loc : board.attackedSquares) {
+            if (loc.getKey() == file && loc.getValue() == rank) return true;
+        }
+        return false;
+    }
+
     /**
      * Checks if at a given location there is an enemy king in a neighbouring square
      * @param board chessboard of given game
