@@ -24,7 +24,7 @@ public class MoveChecker {
         if (!checkTakeOwnPiece(board, fromFile, fromRank, toFile, toRank)) {
             return false;
         }
-        // Check if move is legal
+        // Check if move is legal (except checks)
         var legalMoves = getLegalMoves(board, fromFile, fromRank);
         var moveToBeTried = new Pair<>(toFile, toRank);
         if (!legalMoves.contains(moveToBeTried)) {

@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Prevent king moving into check">
+    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Fix moving into check logic, except for known issue">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/MoveChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/MoveChecker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/board/Board.java" afterDir="false" />
     </list>
@@ -142,7 +141,7 @@
       <workItem from="1685100015706" duration="784000" />
       <workItem from="1685154335287" duration="7373000" />
       <workItem from="1685241202151" duration="7654000" />
-      <workItem from="1685327446843" duration="5336000" />
+      <workItem from="1685327446843" duration="9961000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <created>1683437206217</created>
@@ -417,7 +416,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685331026610</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Fix moving into check logic, except for known issue">
+      <created>1685332884053</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1685332884053</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -435,7 +441,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added file letter labelling" />
     <MESSAGE value="implemented (janky) rank numbering" />
     <MESSAGE value="..." />
     <MESSAGE value="fix newGame() and simply start()" />
@@ -460,6 +465,7 @@
     <MESSAGE value="Record game PGN" />
     <MESSAGE value="Change app background colour" />
     <MESSAGE value="Prevent king moving into check" />
-    <option name="LAST_COMMIT_MESSAGE" value="Prevent king moving into check" />
+    <MESSAGE value="Fix moving into check logic, except for known issue" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix moving into check logic, except for known issue" />
   </component>
 </project>

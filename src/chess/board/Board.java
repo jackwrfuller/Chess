@@ -14,6 +14,9 @@ public class Board {
 
     // Tracks whose move it is
     public boolean whiteToMove = true;
+    // Store if the player to move is currently in check
+    public boolean isCheck = false;
+
     // Track castling rights
     public boolean whiteKingsideCastleRight = true;
     public boolean whiteQueensideCastleRight = true;
@@ -154,7 +157,6 @@ public class Board {
             moveHistory.add(m);
             this.moveNumber++;
             makeMove(m);
-            updateAttackedSquares();
             return true;
         } else {
             return false;
@@ -169,6 +171,7 @@ public class Board {
      * @return true if piece was moved, false if given square was empty
      */
     public static void makeMove(Move m) {
+        System.out.println("making move...");
         Board b = m.board;
         int fromFile = m.fromFile;
         int fromRank = m.fromRank;
@@ -178,7 +181,6 @@ public class Board {
             if (piece == null) {
                 return;
             } else {
-
                 // Handle if move if an en passant
                 if (isEnPassant(m)) {
                     b.whiteToMove ^= true;
@@ -186,22 +188,26 @@ public class Board {
                     b.squares[fromFile][fromRank].occupier = null;
                     b.squares[b.enPassantTarget.getKey()][b.enPassantTarget.getValue()].occupier = null;
                     b.enPassantTarget = null;
+                    b.updateAttackedSquares();
+                    b.isCheck = b.checkForCheck();
                     return;
                 } else {
-                // Update that piece has now moved
-                piece.nMoves++;
-                b.squares[toFile][toRank].occupier = piece;
-                b.squares[fromFile][fromRank].occupier = null;
-                // flip whose move it is
-                b.whiteToMove ^= true;
-                // If pawn has moved two squares, track that it is now en passant target. If not, clear target.
+                    // Update that piece has now moved
+                    piece.nMoves++;
+                    b.squares[toFile][toRank].occupier = piece;
+                    b.squares[fromFile][fromRank].occupier = null;
+                    // flip whose move it is
+                    b.whiteToMove ^= true;
+                    // If pawn has moved two squares, track that it is now en passant target. If not, clear target.
                     if (piece instanceof Pawn && Math.abs(fromRank - toRank) == 2) {
                         b.enPassantTarget = new Pair<>(toFile, toRank);
                     } else {
                         b.enPassantTarget = null;
                     }
-
-                return;
+                    b.updateAttackedSquares();
+                    b.isCheck = b.checkForCheck();
+                    System.out.println("gets to moving part");
+                    return;
                 }
             }
     }
@@ -307,6 +313,23 @@ public class Board {
              this.attackedSquares.addAll(MoveChecker.getLegalAttacks(this, loc.getKey(), loc.getValue()));
         }
     }
+
+    public boolean checkForCheck() {
+        ArrayList<Pair<Integer, Integer>> attackedSquares = new ArrayList<>();
+        var pieceLocations = getPieceLocations(!this.whiteToMove);
+        for (var loc : pieceLocations) {
+            attackedSquares.addAll(MoveChecker.getLegalAttacks(this, loc.getKey(), loc.getValue()));
+        }
+        for (var loc : attackedSquares) {
+            Piece p = squares[loc.getKey()][loc.getValue()].occupier;
+            int colour = whiteToMove ? 0 : 1;
+            if (p != null && p instanceof King && p.getColour() == colour) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
     public static String printSquares(ArrayList<Pair<Integer, Integer>> locs) {
