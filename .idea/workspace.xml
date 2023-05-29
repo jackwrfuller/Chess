@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Introduce updated GUI">
+    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment=".">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/gui/ChessGUIv2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/gui/ChessGUIv2.java" afterDir="false" />
     </list>
@@ -139,7 +139,8 @@
       <workItem from="1685010453483" duration="8850000" />
       <workItem from="1685100015706" duration="784000" />
       <workItem from="1685154335287" duration="7373000" />
-      <workItem from="1685241202151" duration="7644000" />
+      <workItem from="1685241202151" duration="7654000" />
+      <workItem from="1685327446843" duration="612000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <created>1683437206217</created>
@@ -386,7 +387,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685247335397</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary=".">
+      <created>1685250764911</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1685250764911</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -421,7 +429,6 @@
     <MESSAGE value="enforce knight move legality" />
     <MESSAGE value="refactor movePiece" />
     <MESSAGE value="Partially complete FEN string encoding" />
-    <MESSAGE value="." />
     <MESSAGE value="implement toFEN() method" />
     <MESSAGE value="enforce en passant rule" />
     <MESSAGE value="create undoMove()" />
@@ -429,6 +436,7 @@
     <MESSAGE value="print game move history and clean up console printing" />
     <MESSAGE value="Include move number in game history" />
     <MESSAGE value="Introduce updated GUI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Introduce updated GUI" />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
 </project>
