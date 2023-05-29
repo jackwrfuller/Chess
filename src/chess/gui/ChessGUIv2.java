@@ -8,7 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -46,7 +49,7 @@ public class ChessGUIv2 extends Application{
     void drawControls() {
         controls.getChildren().clear();
         Rectangle background = new Rectangle(5*SQUARE_SIZE, SQUARE_SIZE);
-        background.setStyle("-fx-fill: green");
+        background.setStyle("-fx-fill: #121212");
         HBox buttons = new HBox();
         controls.getChildren().addAll(background, buttons);
 
@@ -75,14 +78,16 @@ public class ChessGUIv2 extends Application{
     }
     public void drawMoveHistory() {
         moveHistory.getChildren().clear();
-        Rectangle background = new Rectangle(5*SQUARE_SIZE, 5*SQUARE_SIZE+5);
-        background.setStyle("-fx-fill: grey;");
+        Rectangle background = new Rectangle(4.5*SQUARE_SIZE, 5*SQUARE_SIZE+5);
+        background.setStyle("-fx-fill: #4a4747;");
 
         String moveHistoryString = game.board.printMoveHistory();
         Text mh = new Text(moveHistoryString);
+        mh.setFill(Color.WHITE);
+        mh.setFont(Font.font ("Montserrat", FontWeight.BOLD, 14));
         //Text mh = new Text("1. Nf3 Nf6 2. c4 g6 3. Nc3 Bg7 4. d4 O-O 5. Bf4 d5 6. Qb3 dxc4 7. Qxc4 c6 8. e4 Nbd7 9. Rd1 Nb6 10. Qc5 Bg4 11. Bg5 Na4 12. Qa3 Nxc3 13. bxc3 Nxe4 14. Bxe7 Qb6 15. Bc4 Nxc3 16. Bc5 Rfe8+ 17. Kf1 Be6 18. Bxb6 Bxc4+ 19. Kg1 Ne2+ 20. Kf1 Nxd4+ 21. Kg1 Ne2+ 22. Kf1 Nc3+ 23. Kg1 axb6 24. Qb4 Ra4 25. Qxb6 Nxd1 26. h3 Rxa2 27. Kh2 Nxf2 28. Re1 Rxe1 29. Qd8+ Bf8 30. Nxe1 Bd5 31. Nf3 Ne4 32. Qb8 b5 33. h4 h5 34. Ne5 Kg7 35. Kg1 Bc5+ 36. Kf1 Ng3+ 37. Ke1 Bb4+ 38. Kd1 Bb3+ 39. Kc1 Ne2+ 40. Kb1 Nc3+ 41. Kc1 Rc2# 0-1");
         TextFlow PGN = new TextFlow(mh);
-        PGN.setMaxWidth(5*SQUARE_SIZE);
+        PGN.setMaxWidth(4.5*SQUARE_SIZE);
         PGN.setMaxHeight(5*SQUARE_SIZE);
         moveHistory.getChildren().addAll(background, PGN);
     }
@@ -90,7 +95,7 @@ public class ChessGUIv2 extends Application{
     void drawConsoleArea() {
         consoleArea.getChildren().clear();
         Rectangle r = new Rectangle(5*SQUARE_SIZE, 9*SQUARE_SIZE+8);
-        r.setStyle("-fx-fill: white;");
+        r.setStyle("-fx-fill: #121212;");
 
         drawMoveHistory();
         moveHistory.setLayoutX(0);
@@ -113,7 +118,7 @@ public class ChessGUIv2 extends Application{
     void drawRightMargin() {
         playAreaRight.getChildren().clear();
         Rectangle r = new Rectangle(SQUARE_SIZE/2, 8*SQUARE_SIZE+8);
-        r.setStyle("-fx-fill: yellow;");
+        r.setStyle("-fx-fill: #121212;");
         playAreaRight.getChildren().add(r);
     }
     void drawRankNumbers() {
@@ -122,13 +127,15 @@ public class ChessGUIv2 extends Application{
         for (int i = 0; i < 8; i++) {
             StackPane label = new StackPane();
             Rectangle r = new Rectangle(SQUARE_SIZE/2, SQUARE_SIZE+1);
-            r.setStyle("-fx-fill: green;");
+            r.setStyle("-fx-fill: #121212;");
             Text t = new Text();
             if (orientation) {
                 t.setText(Integer.toString(i+1));
             } else {
                 t.setText(Integer.toString(8-i));
             }
+            t.setFill(Color.WHITE);
+            t.setFont(Font.font ("Montserrat", 16));
             label.getChildren().addAll(r, t);
             playAreaLeft.getChildren().add(label);
         }
@@ -137,23 +144,25 @@ public class ChessGUIv2 extends Application{
         playAreaBelow.getChildren().clear();
         boolean orientation = board.isFlipped;
         Rectangle r1 = new Rectangle(SQUARE_SIZE/2, SQUARE_SIZE/2);
-        r1.setStyle("-fx-fill: orange;");
+        r1.setStyle("-fx-fill: #121212;");
         playAreaBelow.getChildren().add(r1);
         for (int i = 0; i < 8; i++) {
             StackPane label = new StackPane();
             Rectangle r = new Rectangle(SQUARE_SIZE+1, SQUARE_SIZE/2);
-            r.setStyle("-fx-fill: orange;");
+            r.setStyle("-fx-fill: #121212;");
             Text t = new Text();
             if (orientation) {
                 t.setText(getCharForNumber(7-i));
             } else {
                 t.setText(getCharForNumber(i));
             }
+            t.setFill(Color.WHITE);
+            t.setFont(Font.font ("Montserrat", 16));
             label.getChildren().addAll(r, t);
             playAreaBelow.getChildren().add(label);
         }
         Rectangle r2 = new Rectangle(SQUARE_SIZE/2, SQUARE_SIZE/2);
-        r2.setStyle("-fx-fill: orange;");
+        r2.setStyle("-fx-fill: #121212;");
         playAreaBelow.getChildren().add(r2);
     }
     private String getCharForNumber(int i) {
