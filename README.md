@@ -18,6 +18,10 @@ A first attempt at creating chess application.
 - [ ] Stalemate
 - [ ] 50 move rule
 - [ ] Draw by repetition
+
+## Known issues
+- King can move backwards into check, since as it is currently implemented the King blocks a
+piece's line of sight and stops the squares behind registering as targets
  
 ## Code to be reviewed
 

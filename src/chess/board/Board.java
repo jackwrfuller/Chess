@@ -153,8 +153,9 @@ public class Board {
             // Add move to move history
             moveHistory.add(m);
             this.moveNumber++;
+            makeMove(m);
             updateAttackedSquares();
-            return makeMove(m);
+            return true;
         } else {
             return false;
         }
@@ -167,7 +168,7 @@ public class Board {
      * @param m move to be made
      * @return true if piece was moved, false if given square was empty
      */
-    public static boolean makeMove(Move m) {
+    public static void makeMove(Move m) {
         Board b = m.board;
         int fromFile = m.fromFile;
         int fromRank = m.fromRank;
@@ -175,7 +176,7 @@ public class Board {
         int toRank = m.toRank;
         Piece piece = m.pieceMoved;
             if (piece == null) {
-                return false;
+                return;
             } else {
 
                 // Handle if move if an en passant
@@ -185,7 +186,7 @@ public class Board {
                     b.squares[fromFile][fromRank].occupier = null;
                     b.squares[b.enPassantTarget.getKey()][b.enPassantTarget.getValue()].occupier = null;
                     b.enPassantTarget = null;
-                    return true;
+                    return;
                 } else {
                 // Update that piece has now moved
                 piece.nMoves++;
@@ -200,7 +201,7 @@ public class Board {
                         b.enPassantTarget = null;
                     }
 
-                return true;
+                return;
                 }
             }
     }
@@ -301,10 +302,10 @@ public class Board {
     public void updateAttackedSquares() {
         this.attackedSquares.clear();
         var pieceLocations = getPieceLocations(!this.whiteToMove);
+        System.out.println("Pieces are at locations: " + printSquares(pieceLocations));
         for (var loc : pieceLocations) {
-             this.attackedSquares.addAll(MoveChecker.getLegalMoves(this, loc.getKey(), loc.getValue()));
+             this.attackedSquares.addAll(MoveChecker.getLegalAttacks(this, loc.getKey(), loc.getValue()));
         }
-        System.out.println(printSquares(attackedSquares));
     }
 
 
@@ -360,6 +361,8 @@ public class Board {
         }
         str.append("\n");
         str.append(printMoveHistory());
+
+        str.append("\n" + "Attacked Squares: " + printSquares(this.attackedSquares));
         return str.toString();
     }
 }

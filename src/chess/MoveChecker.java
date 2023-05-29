@@ -83,6 +83,57 @@ public class MoveChecker {
         return legalMoves;
     }
 
+    public static ArrayList<Pair<Integer, Integer>> getLegalAttacks(Board board, int fromFile, int fromRank){
+        ArrayList<Pair<Integer, Integer>> legalMoves = new ArrayList<>();
+        Piece piece = board.squares[fromFile][fromRank].getOccupier();
+
+        if (piece instanceof Pawn) {
+            var pawnAttacks = getPawnAttacks(board, fromFile, fromRank);
+            legalMoves.addAll(pawnAttacks);
+        } else if (piece instanceof King) {
+            var kingLegalMoves = getKingLegalMoves(board, fromFile, fromRank);
+            legalMoves.addAll(kingLegalMoves);
+        } else if (piece instanceof Rook) {
+            var rookLegalMoves = getRookLegalMoves(board, fromFile, fromRank);
+            legalMoves.addAll(rookLegalMoves);
+        } else if (piece instanceof Bishop) {
+            var bishopLegalMoves = getBishopLegalMoves(board, fromFile, fromRank);
+            legalMoves.addAll(bishopLegalMoves);
+        } else if (piece instanceof Queen) {
+            var queenLegalMoves = getQueenLegalMoves(board, fromFile, fromRank);
+            legalMoves.addAll(queenLegalMoves);
+        } else if (piece instanceof Knight) {
+            var knightMoves = getKnightLegalMoves(board, fromFile, fromRank);
+            legalMoves.addAll(knightMoves);
+        }
+        return legalMoves;
+    }
+
+    /**
+     * Return a list the squares a specified pawn is currently attacking
+     * @param board
+     * @param file
+     * @param rank
+     * @return
+     */
+    public static ArrayList<Pair<Integer, Integer>> getPawnAttacks(Board board, int file, int rank) {
+        ArrayList<Pair<Integer, Integer>> pawnAttacks = new ArrayList<>();
+        Pawn pawn = (Pawn) board.squares[file][rank].getOccupier();
+        boolean isWhite = (pawn.getColour() == 0);
+        if (isWhite) {
+            Pair<Integer, Integer> leftAttack = new Pair<>(file -1, rank - 1);
+            if (isOnBoard(leftAttack)) pawnAttacks.add(leftAttack);
+            Pair<Integer, Integer> rightAttack = new Pair<>(file +1, rank - 1);
+            if (isOnBoard(rightAttack)) pawnAttacks.add(rightAttack);
+        } else {
+            Pair<Integer, Integer> leftAttack = new Pair<>(file -1, rank + 1);
+            if (isOnBoard(leftAttack)) pawnAttacks.add(leftAttack);
+            Pair<Integer, Integer> rightAttack = new Pair<>(file +1, rank + 1);
+            if (isOnBoard(rightAttack)) pawnAttacks.add(rightAttack);
+        }
+        return pawnAttacks;
+    }
+
     /**
      * Provides a list of legal moves the specified pawn can make
      * @param board
@@ -497,6 +548,10 @@ public class MoveChecker {
      */
     public static boolean isOnBoard(int file, int rank) {
         return (file >= 0 && file <= 7 && rank >= 0 && rank <= 7);
+    }
+
+    public static boolean isOnBoard(Pair<Integer, Integer> loc) {
+        return isOnBoard(loc.getKey(), loc.getValue());
     }
 
 
