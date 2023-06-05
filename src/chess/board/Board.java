@@ -7,6 +7,9 @@ import chess.Move;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Board {
 
@@ -71,7 +74,7 @@ public class Board {
 
 
     public Board() {
-        createEmptyBoard();
+        clearBoard();
         placeDefaultSetup();
 
     }
@@ -96,7 +99,7 @@ public class Board {
 
 
 
-    public void createEmptyBoard() {
+    public void clearBoard() {
         for (int file = 0; file < SIZE; file++) {
             for (int rank = 0; rank < SIZE; rank++) {
                 var s = new Square();
@@ -264,6 +267,22 @@ public class Board {
     }
 
     /**
+     * Converts algebraic notation of a square to the rank/file index, e.g "a8" -> (0,0)
+     * and "a1" -> (0,7), "h8" -> (8,0)
+     * @param str algebraic notation for square
+     * @return Pair of integers representing the index location
+     */
+    public static Pair<Integer, Integer> fromAlgebraicToCartesian(String str) {
+        assert str.matches("\\w\\d");
+        String[] temp = str.split("");
+        int rank = Integer.parseInt(temp[1]);
+        char[] fileChars = temp[0].toCharArray();
+        char fileChar = fileChars[0];
+        int file = fileChar - 'a';
+        return new Pair<>(file, rank);
+    }
+
+    /**
      * Converts file number into character representation
      * @param i is internal game logic index of file, i.e 0 to 7.
      * @return algebraic notation equivalent, i.e 0 is the 'a' file, 1 is the 'b' file, etc
@@ -350,6 +369,94 @@ public class Board {
         }
         return str.toString();
     }
+
+    /**
+     * Loads a position from a valid FEN string. Note it does not check the validity
+     * of the string.
+     * @param fen FEN string to load a game
+     */
+    public void load(String fen) {
+        this.clearBoard();
+        String[] fenComponents = fen.split(" ");
+        assert fenComponents.length == 6 : "Invalid FEN";
+        String layout = fenComponents[0];
+        processFenLayout(layout);
+        // Process whose turn it is
+        String move = fenComponents[1];
+        this.whiteToMove = move.equals("w");
+        //Process castling rights
+        String castlingRights = fenComponents[2];
+        processFenCastling(castlingRights);
+        // Process en passant pawn, if there is one
+        String enPassantPawn = fenComponents[3];
+        if (!enPassantPawn.equals("-")) {
+             this.enPassantTarget = fromAlgebraicToCartesian(enPassantPawn);
+        }
+        // Set halfmove clock
+        String halfmoveClock = fenComponents[4];
+        this.halfmoveClock = Integer.parseInt(halfmoveClock);
+        // Set fullmove number
+        String fullmove = fenComponents[5];
+        this.moveNumber = Integer.parseInt(fullmove);
+    }
+
+    void processFenLayout(String layout) {
+        this.clearBoard();
+        String[] rows = layout.split("/");
+        for (int i = 0; i < 8; i++) {
+            this.squares[i] = loadRow(rows[i]);
+        }
+    }
+
+    static Square[] loadRow(String fenRow) {
+        Square[] row = new Square[8];
+        String[] rowArr = fenRow.split("");
+
+        for (int i = 0; i < 8; i++) {
+            String s = rowArr[i];
+            if (s.matches("\\d")) {
+                int spaces = Integer.parseInt(s);
+                i += spaces;
+            } else {
+                row[i].occupier = strToPiece(s);
+            }
+
+        }
+        return row;
+    }
+
+    static Piece strToPiece(String str) {
+        Piece p = new Pawn(0); // Dummy initialisation
+        switch (str) {
+            case "p": {p = new Pawn(0);}
+            case "P": {p = new Pawn(1);}
+            case "r": {p = new Rook(0);}
+            case "R": {p = new Rook(1);}
+            case "n": {p = new Knight(0);}
+            case "N": {p = new Knight(1);}
+            case "b": {p = new Bishop(0);}
+            case "B": {p = new Bishop(1);}
+            case "q": {p = new Queen(0);}
+            case "Q": {p = new Queen(1);}
+            case "k": {p = new King(0);}
+            case "K": {p = new King(1);}
+        }
+        return p;
+    }
+
+
+    void processFenCastling(String castlingRights) {
+        String[] temp = castlingRights.split("");
+        Set<String> cr = new HashSet<>(Arrays.asList(temp));
+        this.whiteKingsideCastleRight = cr.contains("K");
+        this.whiteQueensideCastleRight = cr.contains("Q");
+        this.blackKingsideCastleRight = cr.contains("k");
+        this.blackQueensideCastleRight = cr.contains("q");
+    }
+
+
+
+
 
     public String toString() {
         StringBuilder str = new StringBuilder();

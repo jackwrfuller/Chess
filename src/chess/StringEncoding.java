@@ -111,4 +111,31 @@ public class StringEncoding {
         return Integer.toString(board.halfmoveClock) + " " + Integer.toString(board.moveNumber);
     }
 
+
+
+    public static Board load(String fen) {
+        Board board = new Board();
+        board.clearBoard();
+        String[] fenComponents = fen.split(" ");
+        assert fenComponents.length == 6 : "Invalid FEN";
+        String layout = fenComponents[0];
+        // Process whose turn it is
+        String move = fenComponents[1];
+        board.whiteToMove = move.equals("w");
+
+
+        String castlingRights = fenComponents[2];
+        String enPassantPawn = fenComponents[3];
+        // Set halfmove clock
+        String halfmoveClock = fenComponents[4];
+        board.halfmoveClock = Integer.parseInt(halfmoveClock);
+        // Set fullmove number
+        String fullmove = fenComponents[5];
+        board.moveNumber = Integer.parseInt(fullmove);
+        return board;
+    }
+
+
+
+
 }
