@@ -61,7 +61,7 @@ public class Board {
             this.occupier = occupier;
         }
 
-        Piece occupier = null;
+        public Piece occupier = null;
 
         public Square(Piece p) {
             this.occupier = occupier;
@@ -404,26 +404,30 @@ public class Board {
         this.clearBoard();
         String[] rows = layout.split("/");
         for (int i = 0; i < 8; i++) {
-            this.squares[i] = loadRow(rows[i]);
+            loadRow(i, rows[i]);
         }
     }
 
-    static Square[] loadRow(String fenRow) {
-        Square[] row = new Square[8];
+    void loadRow(int row, String fenRow) {
+        System.out.println(fenRow);
         String[] rowArr = fenRow.split("");
-
-        for (int i = 0; i < 8; i++) {
-            String s = rowArr[i];
+        int i = 0;
+        int index = 0;
+        while (i < 8) {
+            String s = rowArr[index];
             if (s.matches("\\d")) {
                 int spaces = Integer.parseInt(s);
                 i += spaces;
+                System.out.println("Found " + spaces + " spaces");
             } else {
-                row[i].occupier = strToPiece(s);
+                System.out.println("Placing piece");
+                this.squares[row][i].occupier = strToPiece(s);
+                i++;
             }
-
+            index++;
         }
-        return row;
     }
+
 
     static Piece strToPiece(String str) {
         Piece p = new Pawn(0); // Dummy initialisation
