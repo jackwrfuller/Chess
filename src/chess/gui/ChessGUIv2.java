@@ -190,13 +190,13 @@ public class ChessGUIv2 extends Application{
         root.getChildren().addAll(playArea, consoleArea);
     }
 
+
     public void start(Stage stage) {
         Scene scene = new Scene(root);
         stage.setTitle("Chess");
         stage.setScene(scene);
         newGame();
-        game.board.load("rnbqkbnr/pppppppp/8/8/8/5N2/PPPPPPPP/RNBQKB1R b KQkq - 1 1");
-        System.out.println(game.board);
+
 
         root.addEventHandler(MouseEvent.MOUSE_CLICKED, updateMoveHistory);
 

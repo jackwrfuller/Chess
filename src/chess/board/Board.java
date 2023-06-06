@@ -421,7 +421,7 @@ public class Board {
                 System.out.println("Found " + spaces + " spaces");
             } else {
                 System.out.println("Placing piece");
-                this.squares[row][i].occupier = strToPiece(s);
+                this.squares[i][row].occupier = strToPiece(s);
                 i++;
             }
             index++;
@@ -429,21 +429,21 @@ public class Board {
     }
 
 
-    static Piece strToPiece(String str) {
+    public static Piece strToPiece(String str) {
         Piece p = new Pawn(0); // Dummy initialisation
         switch (str) {
-            case "p": {p = new Pawn(0);}
-            case "P": {p = new Pawn(1);}
-            case "r": {p = new Rook(0);}
-            case "R": {p = new Rook(1);}
-            case "n": {p = new Knight(0);}
-            case "N": {p = new Knight(1);}
-            case "b": {p = new Bishop(0);}
-            case "B": {p = new Bishop(1);}
-            case "q": {p = new Queen(0);}
-            case "Q": {p = new Queen(1);}
-            case "k": {p = new King(0);}
-            case "K": {p = new King(1);}
+            case "p": {p = new Pawn(1); break;}
+            case "P": {p = new Pawn(0); break;}
+            case "r": {p = new Rook(1); break;}
+            case "R": {p = new Rook(0); break;}
+            case "n": {p = new Knight(1); break;}
+            case "N": {p = new Knight(0); break;}
+            case "b": {p = new Bishop(1); break;}
+            case "B": {p = new Bishop(0); break;}
+            case "q": {p = new Queen(1); break;}
+            case "Q": {p = new Queen(0); break;}
+            case "k": {p = new King(1); break;}
+            case "K": {p = new King(0); break;}
         }
         return p;
     }
