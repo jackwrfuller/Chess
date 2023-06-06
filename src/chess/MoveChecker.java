@@ -10,12 +10,15 @@ public class MoveChecker {
 
     public static boolean isMoveLegal(Board board, int fromFile, int fromRank, int toFile, int toRank){
         // Check if king is still in check after making move
-        if (board.isCheck) {
+        boolean isCheck = board.whiteToMove ? board.whiteInCheck : board.blackInCheck;
+
+        if (isCheck) {
             System.out.println("King is in check!");
             Move m = new Move(board, fromFile, fromRank, toFile, toRank);
             Board boardOneAhead = simulateMove(m);
             System.out.println("In check: " + boardOneAhead.isCheck);
-            if (boardOneAhead.isCheck) {
+            boolean isCheckAhead = !boardOneAhead.whiteToMove ? boardOneAhead.whiteInCheck : boardOneAhead.blackInCheck;
+            if (isCheckAhead) {
                 System.out.println("Cant make this move, king is still in check!");
                 return false;
             }

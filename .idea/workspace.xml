@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Allow Board to be initialised with FEN string">
+    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Prevent moves that don't block kings from check">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/MoveChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/MoveChecker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/board/Board.java" afterDir="false" />
@@ -149,7 +149,8 @@
       <workItem from="1685662075520" duration="11000" />
       <workItem from="1685662094326" duration="635000" />
       <workItem from="1685958458100" duration="5343000" />
-      <workItem from="1686028287400" duration="4168000" />
+      <workItem from="1686028287400" duration="5448000" />
+      <workItem from="1686039231873" duration="2266000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <created>1683437206217</created>
@@ -466,7 +467,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686030290775</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Prevent moves that don't block kings from check">
+      <created>1686032792081</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1686032792081</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -484,7 +492,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Highlight squares when hovered over" />
     <MESSAGE value="Make pieces draggable with no constraints" />
     <MESSAGE value="refactor mouse event handling" />
     <MESSAGE value="enforce pawn move legality (no en passant)" />
@@ -509,6 +516,7 @@
     <MESSAGE value="improved loading fen logic, but its still broken" />
     <MESSAGE value="Fix loading from FEN logic" />
     <MESSAGE value="Allow Board to be initialised with FEN string" />
-    <option name="LAST_COMMIT_MESSAGE" value="Allow Board to be initialised with FEN string" />
+    <MESSAGE value="Prevent moves that don't block kings from check" />
+    <option name="LAST_COMMIT_MESSAGE" value="Prevent moves that don't block kings from check" />
   </component>
 </project>

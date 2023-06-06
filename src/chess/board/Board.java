@@ -20,6 +20,9 @@ public class Board {
     // Store if the player to move is currently in check
     public boolean isCheck = false;
 
+    public boolean whiteInCheck = false;
+    public boolean blackInCheck = false;
+
     // Track castling rights
     public boolean whiteKingsideCastleRight = true;
     public boolean whiteQueensideCastleRight = true;
@@ -197,7 +200,7 @@ public class Board {
                     b.squares[b.enPassantTarget.getKey()][b.enPassantTarget.getValue()].occupier = null;
                     b.enPassantTarget = null;
                     b.updateAttackedSquares();
-                    b.isCheck = b.checkForCheck();
+                    b.updateChecks();
                     return;
                 } else {
                     // Update that piece has now moved
@@ -213,7 +216,7 @@ public class Board {
                         b.enPassantTarget = null;
                     }
                     b.updateAttackedSquares();
-                    b.isCheck = b.checkForCheck();
+                    b.updateChecks();
                     return;
                 }
             }
@@ -245,7 +248,7 @@ public class Board {
         m.pieceMoved.nMoves--;
         m.board.moveNumber--;
         m.board.updateAttackedSquares();
-        m.board.isCheck = m.board.checkForCheck();
+        m.board.updateChecks();
         return true;
     }
 
@@ -332,38 +335,48 @@ public class Board {
     public void updateAttackedSquares() {
         this.attackedSquares.clear();
         var pieceLocations = getPieceLocations(!this.whiteToMove);
-        System.out.println("Pieces are at locations: " + printSquares(pieceLocations));
+        //System.out.println("Pieces are at locations: " + printSquares(pieceLocations));
         for (var loc : pieceLocations) {
              this.attackedSquares.addAll(MoveChecker.getLegalAttacks(this, loc.getKey(), loc.getValue()));
         }
     }
 
-    public boolean checkForCheck() {
-        // Check for current player
+    public void updateChecks() {
+        this.whiteInCheck = checkForWhiteInCheck();
+        this.blackInCheck = checkForBlackInCheck();
+
+        System.out.println(this.whiteInCheck ? "White is in check" : "White is not in check");
+        System.out.println(this.blackInCheck ? "Black is in check" : "Black is not in check");
+    }
+
+    boolean checkForWhiteInCheck() {
         ArrayList<Pair<Integer, Integer>> attackedSquares = new ArrayList<>();
-        var pieceLocations = getPieceLocations(!this.whiteToMove);
+        var pieceLocations = getPieceLocations(false);
         for (var loc : pieceLocations) {
             attackedSquares.addAll(MoveChecker.getLegalAttacks(this, loc.getKey(), loc.getValue()));
         }
         for (var loc : attackedSquares) {
             Piece p = squares[loc.getKey()][loc.getValue()].occupier;
-            int colour = whiteToMove ? 0 : 1;
+            int colour = 0;
             if (p != null && p instanceof King && p.getColour() == colour) {
-                System.out.println("King is in check");
+                System.out.println("White King is in check");
                 return true;
             }
         }
-        // Check for previous player
-        attackedSquares = new ArrayList<>();
-        pieceLocations = getPieceLocations(this.whiteToMove);
+        return false;
+    }
+
+    boolean checkForBlackInCheck() {
+        ArrayList<Pair<Integer, Integer>> attackedSquares = new ArrayList<>();
+        var pieceLocations = getPieceLocations(true);
         for (var loc : pieceLocations) {
             attackedSquares.addAll(MoveChecker.getLegalAttacks(this, loc.getKey(), loc.getValue()));
         }
         for (var loc : attackedSquares) {
             Piece p = squares[loc.getKey()][loc.getValue()].occupier;
-            int colour = !whiteToMove ? 0 : 1;
+            int colour = 1;
             if (p != null && p instanceof King && p.getColour() == colour) {
-                System.out.println("King is in check");
+                System.out.println("Black King is in check");
                 return true;
             }
         }
