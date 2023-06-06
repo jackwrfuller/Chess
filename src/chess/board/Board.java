@@ -214,7 +214,6 @@ public class Board {
                     }
                     b.updateAttackedSquares();
                     b.isCheck = b.checkForCheck();
-                    System.out.println("gets to moving part");
                     return;
                 }
             }
@@ -246,6 +245,7 @@ public class Board {
         m.pieceMoved.nMoves--;
         m.board.moveNumber--;
         m.board.updateAttackedSquares();
+        m.board.isCheck = m.board.checkForCheck();
         return true;
     }
 
@@ -339,6 +339,7 @@ public class Board {
     }
 
     public boolean checkForCheck() {
+        // Check for current player
         ArrayList<Pair<Integer, Integer>> attackedSquares = new ArrayList<>();
         var pieceLocations = getPieceLocations(!this.whiteToMove);
         for (var loc : pieceLocations) {
@@ -348,6 +349,21 @@ public class Board {
             Piece p = squares[loc.getKey()][loc.getValue()].occupier;
             int colour = whiteToMove ? 0 : 1;
             if (p != null && p instanceof King && p.getColour() == colour) {
+                System.out.println("King is in check");
+                return true;
+            }
+        }
+        // Check for previous player
+        attackedSquares = new ArrayList<>();
+        pieceLocations = getPieceLocations(this.whiteToMove);
+        for (var loc : pieceLocations) {
+            attackedSquares.addAll(MoveChecker.getLegalAttacks(this, loc.getKey(), loc.getValue()));
+        }
+        for (var loc : attackedSquares) {
+            Piece p = squares[loc.getKey()][loc.getValue()].occupier;
+            int colour = !whiteToMove ? 0 : 1;
+            if (p != null && p instanceof King && p.getColour() == colour) {
+                System.out.println("King is in check");
                 return true;
             }
         }
@@ -414,7 +430,6 @@ public class Board {
     }
 
     void loadRow(int row, String fenRow) {
-        System.out.println(fenRow);
         String[] rowArr = fenRow.split("");
         int i = 0;
         int index = 0;
@@ -423,9 +438,7 @@ public class Board {
             if (s.matches("\\d")) {
                 int spaces = Integer.parseInt(s);
                 i += spaces;
-                System.out.println("Found " + spaces + " spaces");
             } else {
-                System.out.println("Placing piece");
                 this.squares[i][row].occupier = strToPiece(s);
                 i++;
             }

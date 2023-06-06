@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="improved loading fen logic, but its still broken">
+    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Allow Board to be initialised with FEN string">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chess/MoveChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/MoveChecker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/board/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/gui/ChessGUIv2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/gui/ChessGUIv2.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +149,7 @@
       <workItem from="1685662075520" duration="11000" />
       <workItem from="1685662094326" duration="635000" />
       <workItem from="1685958458100" duration="5343000" />
-      <workItem from="1686028287400" duration="1753000" />
+      <workItem from="1686028287400" duration="4168000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <created>1683437206217</created>
@@ -454,7 +452,21 @@
       <option name="project" value="LOCAL" />
       <updated>1685963869477</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Fix loading from FEN logic">
+      <created>1686030091007</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1686030091007</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Allow Board to be initialised with FEN string">
+      <created>1686030290775</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1686030290775</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -472,8 +484,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix newGame() and simply start()" />
-    <MESSAGE value="Allow cursor hand to open/close when grabbing piece" />
     <MESSAGE value="Highlight squares when hovered over" />
     <MESSAGE value="Make pieces draggable with no constraints" />
     <MESSAGE value="refactor mouse event handling" />
@@ -497,6 +507,8 @@
     <MESSAGE value="." />
     <MESSAGE value="Add ability to load game from FEN" />
     <MESSAGE value="improved loading fen logic, but its still broken" />
-    <option name="LAST_COMMIT_MESSAGE" value="improved loading fen logic, but its still broken" />
+    <MESSAGE value="Fix loading from FEN logic" />
+    <MESSAGE value="Allow Board to be initialised with FEN string" />
+    <option name="LAST_COMMIT_MESSAGE" value="Allow Board to be initialised with FEN string" />
   </component>
 </project>

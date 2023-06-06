@@ -9,6 +9,18 @@ import java.util.ArrayList;
 public class MoveChecker {
 
     public static boolean isMoveLegal(Board board, int fromFile, int fromRank, int toFile, int toRank){
+        // Check if king is still in check after making move
+        if (board.isCheck) {
+            System.out.println("King is in check!");
+            Move m = new Move(board, fromFile, fromRank, toFile, toRank);
+            Board boardOneAhead = simulateMove(m);
+            System.out.println("In check: " + boardOneAhead.isCheck);
+            if (boardOneAhead.isCheck) {
+                System.out.println("Cant make this move, king is still in check!");
+                return false;
+            }
+        }
+
         Piece piece = board.squares[fromFile][fromRank].getOccupier();
         if (piece == null) return false;
         boolean pieceColour = (piece.getColour() == 0);
@@ -260,13 +272,13 @@ public class MoveChecker {
                 var target = board.squares[adjFile][adjRank].getOccupier();
                 // ensure king doesnt take own pieces
                 if (target != null && target.getColour() == king.getColour()) {
-                    System.out.println("cant take own piece");
+
                     continue;
                 } else if (hasKingNeighbour(board, adjFile, adjRank, king.getColour())) {
-                    System.out.println("Cant move next to enemy king");
+
                     continue;
                 } else if (isSqureAttacked(board, adjFile, adjRank)) {
-                    System.out.println("Cant move into check");
+
                     continue;
                 }
                 else {
@@ -554,7 +566,17 @@ public class MoveChecker {
         return isOnBoard(loc.getKey(), loc.getValue());
     }
 
-
-
+    /**
+     * Simulate a move on the board. Given a move, it returns a copy of the board with that move made.
+     * @param move move to be simulated
+     * @return Copy of the board with the move made
+     */
+    public static Board simulateMove(Move move) {
+        String fen = StringEncoding.toFEN(move.board);
+        Board copyOfBoard = new Board(fen);
+        Move copyOfMove = new Move(copyOfBoard, move.fromFile, move.fromRank, move.toFile, move.toRank);
+        copyOfBoard.makeMove(copyOfMove);
+        return copyOfBoard;
+    }
 
 }
