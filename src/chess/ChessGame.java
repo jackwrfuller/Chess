@@ -10,7 +10,9 @@ public class ChessGame {
         this.board = new Board();
     }
 
-
+    public ChessGame(String fen) {
+        this.board = new Board(fen);
+    }
 
 
 

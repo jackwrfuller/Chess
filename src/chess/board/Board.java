@@ -79,6 +79,11 @@ public class Board {
 
     }
 
+    public Board(String fen) {
+        clearBoard();
+        load(fen);
+    }
+
     /**
      * Creates a new board as a copy of another
      * @param b
