@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="create rank/file to algebraic notation methods">
-      <change beforePath="$PROJECT_DIR$/src/chess/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/board/Board.java" afterDir="false" />
+    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="start getPawnLocations()">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,6 +119,7 @@
       <workItem from="1684555570664" duration="1000" />
       <workItem from="1684567985007" duration="5346000" />
       <workItem from="1684635069405" duration="11205000" />
+      <workItem from="1685504089625" duration="42000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <created>1683437206217</created>
@@ -302,7 +303,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684900317173</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="start getPawnLocations()">
+      <created>1684900928074</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1684900928074</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -343,6 +351,7 @@
     <MESSAGE value="enforce knight move legality" />
     <MESSAGE value="refactor movePiece" />
     <MESSAGE value="create rank/file to algebraic notation methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="create rank/file to algebraic notation methods" />
+    <MESSAGE value="start getPawnLocations()" />
+    <option name="LAST_COMMIT_MESSAGE" value="start getPawnLocations()" />
   </component>
 </project>
