@@ -8,13 +8,26 @@ import java.util.ArrayList;
 
 public class MoveChecker {
 
+    public static boolean exposesCheck(Move m) {
+        boolean isWhiteToMove = m.board.whiteToMove;
+        Board boardOneAhead = simulateMove(m);
+        boolean isCheck = isWhiteToMove ? boardOneAhead.whiteInCheck : boardOneAhead.blackInCheck;
+        return isCheck;
+    }
+
+
+
     public static boolean isMoveLegal(Board board, int fromFile, int fromRank, int toFile, int toRank){
+        Move m = new Move(board, fromFile, fromRank, toFile, toRank);
+        // Check if move exposes king to check
+        if (exposesCheck(m)) {
+            return false;
+        }
+
         // Check if king is still in check after making move
         boolean isCheck = board.whiteToMove ? board.whiteInCheck : board.blackInCheck;
-
         if (isCheck) {
             System.out.println("King is in check!");
-            Move m = new Move(board, fromFile, fromRank, toFile, toRank);
             Board boardOneAhead = simulateMove(m);
             System.out.println("In check: " + boardOneAhead.isCheck);
             boolean isCheckAhead = !boardOneAhead.whiteToMove ? boardOneAhead.whiteInCheck : boardOneAhead.blackInCheck;

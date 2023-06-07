@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Prevent moves that don't block kings from check">
+    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Record each player's check status">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/MoveChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/MoveChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/board/Board.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +149,8 @@
       <workItem from="1685662094326" duration="635000" />
       <workItem from="1685958458100" duration="5343000" />
       <workItem from="1686028287400" duration="5448000" />
-      <workItem from="1686039231873" duration="2266000" />
+      <workItem from="1686039231873" duration="3327000" />
+      <workItem from="1686138806284" duration="299000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <created>1683437206217</created>
@@ -474,7 +474,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686032792081</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Record each player's check status">
+      <created>1686047028052</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1686047028052</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -492,7 +499,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Make pieces draggable with no constraints" />
     <MESSAGE value="refactor mouse event handling" />
     <MESSAGE value="enforce pawn move legality (no en passant)" />
     <MESSAGE value="implement king legal move checker" />
@@ -517,6 +523,7 @@
     <MESSAGE value="Fix loading from FEN logic" />
     <MESSAGE value="Allow Board to be initialised with FEN string" />
     <MESSAGE value="Prevent moves that don't block kings from check" />
-    <option name="LAST_COMMIT_MESSAGE" value="Prevent moves that don't block kings from check" />
+    <MESSAGE value="Record each player's check status" />
+    <option name="LAST_COMMIT_MESSAGE" value="Record each player's check status" />
   </component>
 </project>
