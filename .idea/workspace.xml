@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Record each player's check status">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chess/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/MoveChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/MoveChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chess/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/board/Board.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +61,7 @@
       <recent name="Board" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ChessGUIv2">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="ChessGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="chess.gui.ChessGUI" />
       <module name="Chess" />
@@ -111,8 +113,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ChessGUIv2" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.ChessGUIv2" />
         <item itemvalue="Application.ChessGUI" />
         <item itemvalue="Application.Test" />
       </list>
