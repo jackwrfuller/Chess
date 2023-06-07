@@ -96,6 +96,13 @@ public class ChessGUI extends Application {
 
         });
         controls.getChildren().add(flipBoard);
+
+        Button undoMove = new Button("Undo move");
+        undoMove.setOnMouseClicked(e -> {
+            board.undoMove();
+        });
+        controls.getChildren().add(undoMove);
+
         controls.setAlignment(Pos.CENTER);
 
     }
@@ -103,7 +110,7 @@ public class ChessGUI extends Application {
     public void start(Stage stage){
         Scene scene = new Scene(root);
 
-        //scene.addEventFilter(MouseEvent.ANY, mouseEvent -> {System.out.println(mouseEvent);});
+
         scene.addEventFilter(MouseEvent.DRAG_DETECTED , new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {

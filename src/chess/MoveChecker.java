@@ -8,7 +8,35 @@ import java.util.ArrayList;
 
 public class MoveChecker {
 
+    public static boolean exposesCheck(Move m) {
+        boolean isWhiteToMove = m.board.whiteToMove;
+        Board boardOneAhead = simulateMove(m);
+        boolean isCheck = isWhiteToMove ? boardOneAhead.whiteInCheck : boardOneAhead.blackInCheck;
+        return isCheck;
+    }
+
+
+
     public static boolean isMoveLegal(Board board, int fromFile, int fromRank, int toFile, int toRank){
+        Move m = new Move(board, fromFile, fromRank, toFile, toRank);
+        // Check if move exposes king to check
+        if (exposesCheck(m)) {
+            return false;
+        }
+
+        // Check if king is still in check after making move
+        boolean isCheck = board.whiteToMove ? board.whiteInCheck : board.blackInCheck;
+        if (isCheck) {
+            System.out.println("King is in check!");
+            Board boardOneAhead = simulateMove(m);
+            System.out.println("In check: " + boardOneAhead.isCheck);
+            boolean isCheckAhead = !boardOneAhead.whiteToMove ? boardOneAhead.whiteInCheck : boardOneAhead.blackInCheck;
+            if (isCheckAhead) {
+                System.out.println("Cant make this move, king is still in check!");
+                return false;
+            }
+        }
+
         Piece piece = board.squares[fromFile][fromRank].getOccupier();
         if (piece == null) return false;
         boolean pieceColour = (piece.getColour() == 0);
@@ -24,7 +52,7 @@ public class MoveChecker {
         if (!checkTakeOwnPiece(board, fromFile, fromRank, toFile, toRank)) {
             return false;
         }
-        // Check if move is legal
+        // Check if move is legal (except checks)
         var legalMoves = getLegalMoves(board, fromFile, fromRank);
         var moveToBeTried = new Pair<>(toFile, toRank);
         if (!legalMoves.contains(moveToBeTried)) {
@@ -83,6 +111,57 @@ public class MoveChecker {
         return legalMoves;
     }
 
+    public static ArrayList<Pair<Integer, Integer>> getLegalAttacks(Board board, int fromFile, int fromRank){
+        ArrayList<Pair<Integer, Integer>> legalMoves = new ArrayList<>();
+        Piece piece = board.squares[fromFile][fromRank].getOccupier();
+
+        if (piece instanceof Pawn) {
+            var pawnAttacks = getPawnAttacks(board, fromFile, fromRank);
+            legalMoves.addAll(pawnAttacks);
+        } else if (piece instanceof King) {
+            var kingLegalMoves = getKingLegalMoves(board, fromFile, fromRank);
+            legalMoves.addAll(kingLegalMoves);
+        } else if (piece instanceof Rook) {
+            var rookLegalMoves = getRookLegalMoves(board, fromFile, fromRank);
+            legalMoves.addAll(rookLegalMoves);
+        } else if (piece instanceof Bishop) {
+            var bishopLegalMoves = getBishopLegalMoves(board, fromFile, fromRank);
+            legalMoves.addAll(bishopLegalMoves);
+        } else if (piece instanceof Queen) {
+            var queenLegalMoves = getQueenLegalMoves(board, fromFile, fromRank);
+            legalMoves.addAll(queenLegalMoves);
+        } else if (piece instanceof Knight) {
+            var knightMoves = getKnightLegalMoves(board, fromFile, fromRank);
+            legalMoves.addAll(knightMoves);
+        }
+        return legalMoves;
+    }
+
+    /**
+     * Return a list the squares a specified pawn is currently attacking
+     * @param board
+     * @param file
+     * @param rank
+     * @return
+     */
+    public static ArrayList<Pair<Integer, Integer>> getPawnAttacks(Board board, int file, int rank) {
+        ArrayList<Pair<Integer, Integer>> pawnAttacks = new ArrayList<>();
+        Pawn pawn = (Pawn) board.squares[file][rank].getOccupier();
+        boolean isWhite = (pawn.getColour() == 0);
+        if (isWhite) {
+            Pair<Integer, Integer> leftAttack = new Pair<>(file -1, rank - 1);
+            if (isOnBoard(leftAttack)) pawnAttacks.add(leftAttack);
+            Pair<Integer, Integer> rightAttack = new Pair<>(file +1, rank - 1);
+            if (isOnBoard(rightAttack)) pawnAttacks.add(rightAttack);
+        } else {
+            Pair<Integer, Integer> leftAttack = new Pair<>(file -1, rank + 1);
+            if (isOnBoard(leftAttack)) pawnAttacks.add(leftAttack);
+            Pair<Integer, Integer> rightAttack = new Pair<>(file +1, rank + 1);
+            if (isOnBoard(rightAttack)) pawnAttacks.add(rightAttack);
+        }
+        return pawnAttacks;
+    }
+
     /**
      * Provides a list of legal moves the specified pawn can make
      * @param board
@@ -94,6 +173,19 @@ public class MoveChecker {
         ArrayList<Pair<Integer, Integer>> pawnMoves = new ArrayList<>();
         Pawn pawn = (Pawn) board.squares[fromFile][fromRank].getOccupier();
         boolean isWhite = (pawn.getColour() == 0);
+        // Add en passant moves
+        var tar = board.enPassantTarget;
+        if (tar != null) {
+            if (fromRank == tar.getValue() && Math.abs(fromFile - tar.getKey()) == 1) {
+                if (tar.getValue() == 4) {
+                    pawnMoves.add(new Pair<>(tar.getKey(), 5));
+                }
+                if (tar.getValue() == 3) {
+                    pawnMoves.add(new Pair<>(tar.getKey(), 2));
+                }
+            }
+        }
+
         if (isWhite) {
             // First check pawn is not on the edge of the board, in which case there are no legal moves
             if (fromRank == 0) {return pawnMoves;}
@@ -102,7 +194,7 @@ public class MoveChecker {
                 var square = new Pair<>(fromFile, fromRank - 1);
                 pawnMoves.add(square);
                 // If the pawn has not already moved, check two squares in front also
-                if (!pawn.hasMoved && board.squares[fromFile][fromRank - 2].getOccupier() == null) {
+                if (pawn.nMoves == 0 && board.squares[fromFile][fromRank - 2].getOccupier() == null) {
                     var square1 = new Pair<>(fromFile, fromRank - 2);
                     pawnMoves.add(square1);
                 }
@@ -140,7 +232,7 @@ public class MoveChecker {
                 var square = new Pair<>(fromFile, fromRank + 1);
                 pawnMoves.add(square);
                 // If the pawn has not already moved, check two squares in front also
-                if (!pawn.hasMoved && board.squares[fromFile][fromRank + 2].getOccupier() == null) {
+                if (pawn.nMoves == 0 && board.squares[fromFile][fromRank + 2].getOccupier() == null) {
                     var square1 = new Pair<>(fromFile, fromRank + 2);
                     pawnMoves.add(square1);
                 }
@@ -196,12 +288,16 @@ public class MoveChecker {
                 var target = board.squares[adjFile][adjRank].getOccupier();
                 // ensure king doesnt take own pieces
                 if (target != null && target.getColour() == king.getColour()) {
-                    System.out.println("cant take own piece");
+
                     continue;
                 } else if (hasKingNeighbour(board, adjFile, adjRank, king.getColour())) {
-                    System.out.println("Cant move next to enemy king");
+
                     continue;
-                } else {
+                } else if (isSqureAttacked(board, adjFile, adjRank)) {
+
+                    continue;
+                }
+                else {
                     // Otherwise, this move is valid
                     Pair<Integer, Integer> move = new Pair<>(adjFile, adjRank);
                     kingMoves.add(move);
@@ -210,6 +306,13 @@ public class MoveChecker {
         }
         return kingMoves;
     }
+    static boolean isSqureAttacked(Board board, int file, int rank) {
+        for (Pair<Integer, Integer> loc : board.attackedSquares) {
+            if (loc.getKey() == file && loc.getValue() == rank) return true;
+        }
+        return false;
+    }
+
     /**
      * Checks if at a given location there is an enemy king in a neighbouring square
      * @param board chessboard of given game
@@ -475,7 +578,21 @@ public class MoveChecker {
         return (file >= 0 && file <= 7 && rank >= 0 && rank <= 7);
     }
 
+    public static boolean isOnBoard(Pair<Integer, Integer> loc) {
+        return isOnBoard(loc.getKey(), loc.getValue());
+    }
 
-
+    /**
+     * Simulate a move on the board. Given a move, it returns a copy of the board with that move made.
+     * @param move move to be simulated
+     * @return Copy of the board with the move made
+     */
+    public static Board simulateMove(Move move) {
+        String fen = StringEncoding.toFEN(move.board);
+        Board copyOfBoard = new Board(fen);
+        Move copyOfMove = new Move(copyOfBoard, move.fromFile, move.fromRank, move.toFile, move.toRank);
+        copyOfBoard.makeMove(copyOfMove);
+        return copyOfBoard;
+    }
 
 }

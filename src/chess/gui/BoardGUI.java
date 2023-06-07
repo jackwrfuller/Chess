@@ -1,5 +1,6 @@
 package chess.gui;
 
+import chess.Move;
 import chess.board.pieces.*;
 import chess.ChessGame;
 
@@ -13,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.event.EventHandler;
 import javafx.scene.shape.StrokeType;
+
 
 
 /**
@@ -98,7 +100,7 @@ public class BoardGUI extends GridPane {
 
 
 //            this.addEventFilter(MouseEvent.MOUSE_CLICKED, listenForMove);
-            this.addEventFilter(MouseEvent.MOUSE_CLICKED, printInfo);
+            //this.addEventFilter(MouseEvent.MOUSE_CLICKED, printInfo);
 //            this.addEventFilter(MouseEvent.MOUSE_RELEASED, releaseHand);
         }
 
@@ -298,6 +300,7 @@ public class BoardGUI extends GridPane {
                 } else if (toSquare == null) {
                     toSquare = Square.this;
                     movePiece(fromSquare.file, fromSquare.rank, toSquare.file, toSquare.rank);
+
                 } else {
                     toSquare = null;
                     fromSquare = Square.this;
@@ -345,17 +348,23 @@ public class BoardGUI extends GridPane {
 
 
     boolean movePiece(int fromFile, int fromRank, int toFile, int toRank) {
-        if (game.board.legallyMovePiece(fromFile, fromRank, toFile, toRank)) {
+        Move m = new Move(game.board, fromFile, fromRank, toFile, toRank);
+        if (game.board.makeLegalMove(m)) {
             drawBoard(isFlipped);
             Square lastHighlighted = squares[toFile][toRank];
             lastHighlighted.highlightLayer.setStyle("-fx-fill: yellow; -fx-stroke: black; -fx-stroke-width: 1;");
             this.selectedSquare = lastHighlighted;
+            System.out.println(game.board.toString());
             return true;
-
         } else {
             return false;
         }
-        //System.out.println(game.board.toString());
+    }
+    void undoMove() {
+        Move lastMove = game.board.moveHistory.get(game.board.moveHistory.size()-1);
+        game.board.undoMove(lastMove);
+        drawBoard(isFlipped);
+        System.out.println(game.board.toString());
     }
 
     /**
@@ -372,7 +381,6 @@ public class BoardGUI extends GridPane {
             }
         }
     };
-
 
 
 

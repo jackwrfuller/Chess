@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="start getPawnLocations()">
+    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Record each player's check status">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chess/MoveChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/MoveChecker.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +40,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/IdeaProjects/comp1110-ass2&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/IdeaProjects/comp1110-exam-2020s1&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -58,11 +59,25 @@
       <recent name="Board" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.ChessGUIv2">
     <configuration name="ChessGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="chess.gui.ChessGUI" />
       <module name="Chess" />
       <option name="VM_PARAMETERS" value="--module-path ${PATH_TO_FX} --add-modules javafx.controls,javafx.fxml" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ChessGUIv2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chess.gui.ChessGUIv2" />
+      <module name="Chess" />
+      <option name="VM_PARAMETERS" value="--module-path ${PATH_TO_FX} --add-modules javafx.controls,javafx.fxml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chess.gui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -89,12 +104,14 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.ChessGUIv2" />
       <item itemvalue="Application.Test" />
       <item itemvalue="Application.ChessGUI" />
       <item itemvalue="Application.Main" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ChessGUIv2" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.ChessGUI" />
         <item itemvalue="Application.Test" />
@@ -119,7 +136,21 @@
       <workItem from="1684555570664" duration="1000" />
       <workItem from="1684567985007" duration="5346000" />
       <workItem from="1684635069405" duration="11205000" />
-      <workItem from="1685504089625" duration="42000" />
+      <workItem from="1685010453483" duration="8850000" />
+      <workItem from="1685100015706" duration="784000" />
+      <workItem from="1685154335287" duration="7373000" />
+      <workItem from="1685241202151" duration="7654000" />
+      <workItem from="1685327446843" duration="9961000" />
+      <workItem from="1685338163925" duration="626000" />
+      <workItem from="1685350338918" duration="612000" />
+      <workItem from="1685396310432" duration="635000" />
+      <workItem from="1685443051976" duration="633000" />
+      <workItem from="1685662075520" duration="11000" />
+      <workItem from="1685662094326" duration="635000" />
+      <workItem from="1685958458100" duration="5343000" />
+      <workItem from="1686028287400" duration="5448000" />
+      <workItem from="1686039231873" duration="3327000" />
+      <workItem from="1686138806284" duration="299000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <created>1683437206217</created>
@@ -296,21 +327,161 @@
       <option name="project" value="LOCAL" />
       <updated>1684843369784</updated>
     </task>
-    <task id="LOCAL-00026" summary="create rank/file to algebraic notation methods">
-      <created>1684900317173</created>
+    <task id="LOCAL-00026" summary="Partially complete FEN string encoding">
+      <created>1684845710498</created>
       <option name="number" value="00026" />
       <option name="presentableId" value="LOCAL-00026" />
       <option name="project" value="LOCAL" />
-      <updated>1684900317173</updated>
+      <updated>1684845710498</updated>
     </task>
-    <task id="LOCAL-00027" summary="start getPawnLocations()">
-      <created>1684900928074</created>
+    <task id="LOCAL-00027" summary=".">
+      <created>1685010469619</created>
       <option name="number" value="00027" />
       <option name="presentableId" value="LOCAL-00027" />
       <option name="project" value="LOCAL" />
-      <updated>1684900928074</updated>
+      <updated>1685010469619</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="implement toFEN() method">
+      <created>1685015205001</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1685015205001</updated>
+    </task>
+    <task id="LOCAL-00029" summary="enforce en passant rule">
+      <created>1685021252523</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1685021252523</updated>
+    </task>
+    <task id="LOCAL-00030" summary="create undoMove()">
+      <created>1685156181933</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1685156181933</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Allow moves to be undone.">
+      <created>1685158612118</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1685158612118</updated>
+    </task>
+    <task id="LOCAL-00032" summary="print game move history and clean up console printing">
+      <created>1685160056234</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1685160056234</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Include move number in game history">
+      <created>1685160529958</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1685160529958</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Include move number in game history">
+      <created>1685172342975</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1685172342975</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Introduce updated GUI">
+      <created>1685247335397</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1685247335397</updated>
+    </task>
+    <task id="LOCAL-00036" summary=".">
+      <created>1685250764911</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1685250764911</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Record game PGN">
+      <created>1685328119818</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1685328119818</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Change app background colour">
+      <created>1685329135862</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1685329135862</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Prevent king moving into check">
+      <created>1685331026610</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1685331026610</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Fix moving into check logic, except for known issue">
+      <created>1685332884053</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1685332884053</updated>
+    </task>
+    <task id="LOCAL-00041" summary=".">
+      <created>1685338186236</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1685338186236</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Add ability to load game from FEN">
+      <created>1685962789225</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1685962789225</updated>
+    </task>
+    <task id="LOCAL-00043" summary="improved loading fen logic, but its still broken">
+      <created>1685963869477</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1685963869477</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Fix loading from FEN logic">
+      <created>1686030091007</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1686030091007</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Allow Board to be initialised with FEN string">
+      <created>1686030290775</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1686030290775</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Prevent moves that don't block kings from check">
+      <created>1686032792081</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1686032792081</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Record each player's check status">
+      <created>1686047028052</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1686047028052</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -328,30 +499,31 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added chess piece images" />
-    <MESSAGE value="Chess board can now be drawn" />
-    <MESSAGE value="drawn pieces on board" />
-    <MESSAGE value="finished highlighting square logic" />
-    <MESSAGE value="Highlighting square logic: select one square at a time logic" />
-    <MESSAGE value="implemented moving piece logic without legality checks" />
-    <MESSAGE value="implemented new game button" />
-    <MESSAGE value="Enforce player move turns" />
-    <MESSAGE value="fixed flip board" />
-    <MESSAGE value="added file letter labelling" />
-    <MESSAGE value="implemented (janky) rank numbering" />
-    <MESSAGE value="..." />
-    <MESSAGE value="fix newGame() and simply start()" />
-    <MESSAGE value="Allow cursor hand to open/close when grabbing piece" />
-    <MESSAGE value="Highlight squares when hovered over" />
-    <MESSAGE value="Make pieces draggable with no constraints" />
     <MESSAGE value="refactor mouse event handling" />
     <MESSAGE value="enforce pawn move legality (no en passant)" />
     <MESSAGE value="implement king legal move checker" />
     <MESSAGE value="check Rook move legality" />
     <MESSAGE value="enforce knight move legality" />
     <MESSAGE value="refactor movePiece" />
-    <MESSAGE value="create rank/file to algebraic notation methods" />
-    <MESSAGE value="start getPawnLocations()" />
-    <option name="LAST_COMMIT_MESSAGE" value="start getPawnLocations()" />
+    <MESSAGE value="Partially complete FEN string encoding" />
+    <MESSAGE value="implement toFEN() method" />
+    <MESSAGE value="enforce en passant rule" />
+    <MESSAGE value="create undoMove()" />
+    <MESSAGE value="Allow moves to be undone." />
+    <MESSAGE value="print game move history and clean up console printing" />
+    <MESSAGE value="Include move number in game history" />
+    <MESSAGE value="Introduce updated GUI" />
+    <MESSAGE value="Record game PGN" />
+    <MESSAGE value="Change app background colour" />
+    <MESSAGE value="Prevent king moving into check" />
+    <MESSAGE value="Fix moving into check logic, except for known issue" />
+    <MESSAGE value="." />
+    <MESSAGE value="Add ability to load game from FEN" />
+    <MESSAGE value="improved loading fen logic, but its still broken" />
+    <MESSAGE value="Fix loading from FEN logic" />
+    <MESSAGE value="Allow Board to be initialised with FEN string" />
+    <MESSAGE value="Prevent moves that don't block kings from check" />
+    <MESSAGE value="Record each player's check status" />
+    <option name="LAST_COMMIT_MESSAGE" value="Record each player's check status" />
   </component>
 </project>

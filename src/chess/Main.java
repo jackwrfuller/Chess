@@ -1,19 +1,18 @@
 package chess;
 
 import chess.board.Board;
+import chess.board.pieces.Piece;
 
 public class Main {
     public static void main(String[] args) {
        System.out.println("Hello world!");
 
-       Board b = new Board();
+       Piece p = Board.strToPiece("p");
 
-        System.out.println(StringEncoding.toFEN(b));
+        System.out.println(p);
 
-        System.out.println(Board.toAlgebraicNotation(0,0));
-        System.out.println(Board.toAlgebraicNotation(7,7));
-        System.out.println(Board.toAlgebraicNotation(1,0));
-        System.out.println(Board.toAlgebraicNotation(0,1));
+
+
 
     }
 }
