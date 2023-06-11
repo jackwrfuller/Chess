@@ -276,6 +276,25 @@ public class MoveChecker {
     public static ArrayList<Pair<Integer, Integer>> getKingLegalMoves(Board board, int fromFile, int fromRank) {
         ArrayList<Pair<Integer, Integer>> kingMoves = new ArrayList<>();
         King king = (King) board.squares[fromFile][fromRank].getOccupier();
+        // Add valid castling moves
+        // TODO prevent king moving through check to castle
+        if (king.getColour() == 0) {
+            if (board.whiteKingsideCastleRight) {
+                //if (!board.attackedSquares.contains())
+                kingMoves.add(new Pair<>(fromFile + 2, fromRank));
+            }
+            if (board.whiteQueensideCastleRight) {
+                kingMoves.add(new Pair<>(fromFile - 2, fromRank));
+            }
+        }
+        if (king.getColour() == 1) {
+            if (board.whiteKingsideCastleRight) {
+                kingMoves.add(new Pair<>(fromFile + 2, fromRank));
+            }
+            if (board.whiteQueensideCastleRight) {
+                kingMoves.add(new Pair<>(fromFile - 2, fromRank));
+            }
+        }
 
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++){
@@ -306,6 +325,9 @@ public class MoveChecker {
         }
         return kingMoves;
     }
+
+
+
     static boolean isSqureAttacked(Board board, int file, int rank) {
         for (Pair<Integer, Integer> loc : board.attackedSquares) {
             if (loc.getKey() == file && loc.getValue() == rank) return true;

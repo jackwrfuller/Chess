@@ -356,6 +356,9 @@ public class Board {
             attackedSquares.addAll(MoveChecker.getLegalAttacks(this, loc.getKey(), loc.getValue()));
         }
         for (var loc : attackedSquares) {
+            if (!MoveChecker.isOnBoard(loc)) {
+                continue;
+            }
             Piece p = squares[loc.getKey()][loc.getValue()].occupier;
             int colour = 0;
             if (p != null && p instanceof King && p.getColour() == colour) {
@@ -373,6 +376,9 @@ public class Board {
             attackedSquares.addAll(MoveChecker.getLegalAttacks(this, loc.getKey(), loc.getValue()));
         }
         for (var loc : attackedSquares) {
+            if (!MoveChecker.isOnBoard(loc)) {
+                continue;
+            }
             Piece p = squares[loc.getKey()][loc.getValue()].occupier;
             int colour = 1;
             if (p != null && p instanceof King && p.getColour() == colour) {
