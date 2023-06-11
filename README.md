@@ -2,7 +2,7 @@
 A first attempt at creating chess application.
 
 ## Game rules implemented:
-- [ ] Move legality checking:
+- [x] Move legality checking:
     - [x] Pawns
     - [x] En passant
     - [x] Kings (without checking for checks)
@@ -11,7 +11,7 @@ A first attempt at creating chess application.
     - [x] Bishops
     - [x] Queens
     - [x] Knights
-    - [ ] Castling
+    - [x] Castling
 - [ ] Pawn promotion
 - [x] Checking
 - [ ] Checkmate
@@ -29,5 +29,7 @@ target as "a3" as this aligns with FEN notation.
 
 This is for sections of code that I'm not happy with, and think needs reviewing:
 
+- [ ] OH GOD this is all spaghetti code. Just reading "Clean Code" atm and it has opened
+my eyes goddamn
 - [ ] En passant functionality. It seems overly complicated and involves too much repetition.
     I reckon it could be optimised and refactored significantly.

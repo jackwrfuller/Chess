@@ -5,7 +5,6 @@ import chess.board.pieces.*;
 import javafx.util.Pair;
 import chess.Move;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -75,7 +74,6 @@ public class Board {
     }
 
 
-
     public Board() {
         clearBoard();
         placeDefaultSetup();
@@ -89,12 +87,13 @@ public class Board {
 
     /**
      * Creates a new board as a copy of another
+     *
      * @param b
      */
-    public Board(Board b){
+    public Board(Board b) {
         this.squares = b.squares;
         this.whiteToMove = b.whiteToMove;
-       this.whiteKingsideCastleRight = b.whiteKingsideCastleRight;
+        this.whiteKingsideCastleRight = b.whiteKingsideCastleRight;
         this.whiteQueensideCastleRight = b.whiteQueensideCastleRight;
         this.blackKingsideCastleRight = b.blackKingsideCastleRight;
         this.blackQueensideCastleRight = blackKingsideCastleRight;
@@ -104,7 +103,6 @@ public class Board {
         this.moveNumber = b.moveNumber;
         this.moveHistory = b.moveHistory;
     }
-
 
 
     public void clearBoard() {
@@ -144,21 +142,21 @@ public class Board {
         placePiece(new Rook(1), 8, 1);
 
 
-
     }
 
 
     /**
      * Given a piece and a target location
+     *
      * @param file
      * @param rank
      */
-    public void placePiece(Piece p, int file, int rank){
-        squares[file-1][rank-1].setOccupier(p);
+    public void placePiece(Piece p, int file, int rank) {
+        squares[file - 1][rank - 1].setOccupier(p);
     }
 
     public void clearSquare(int file, int rank) {
-        squares[file-1][rank-1].setOccupier(null);
+        squares[file - 1][rank - 1].setOccupier(null);
     }
 
     public boolean makeLegalMove(Move m) {
@@ -178,6 +176,7 @@ public class Board {
     /**
      * Moves a piece from a given square to a target square, with no regard for legality. If the given square is null,
      * do nothing.
+     *
      * @param m move to be made
      * @return true if piece was moved, false if given square was empty
      */
@@ -189,37 +188,83 @@ public class Board {
         int toFile = m.toFile;
         int toRank = m.toRank;
         Piece piece = m.pieceMoved;
-            if (piece == null) {
-                return;
+        if (piece == null) {
+            return;
+        }
+        // Handle if move if an en passant
+        if (isEnPassant(m)) {
+            b.whiteToMove ^= true;
+            b.squares[toFile][toRank].occupier = piece;
+            b.squares[fromFile][fromRank].occupier = null;
+            b.squares[b.enPassantTarget.getKey()][b.enPassantTarget.getValue()].occupier = null;
+            b.enPassantTarget = null;
+            b.updateAttackedSquares();
+            b.updateChecks();
+            return;
+        } else if (isAttemptedCastling(m)) {
+            System.out.println("Castling...");
+            boolean isKingside = m.toFile == 6;
+            moveByCastling(m.board, isKingside);
+            // flip whose move it is
+            piece.nMoves++;
+            b.whiteToMove ^= true;
+            b.updateAttackedSquares();
+            b.updateChecks();
+        } else {
+            // Update that piece has now moved
+            piece.nMoves++;
+            b.squares[toFile][toRank].occupier = piece;
+            b.squares[fromFile][fromRank].occupier = null;
+            // flip whose move it is
+            b.whiteToMove ^= true;
+            // If pawn has moved two squares, track that it is now en passant target. If not, clear target.
+            if (piece instanceof Pawn && Math.abs(fromRank - toRank) == 2) {
+                b.enPassantTarget = new Pair<>(toFile, toRank);
             } else {
-                // Handle if move if an en passant
-                if (isEnPassant(m)) {
-                    b.whiteToMove ^= true;
-                    b.squares[toFile][toRank].occupier = piece;
-                    b.squares[fromFile][fromRank].occupier = null;
-                    b.squares[b.enPassantTarget.getKey()][b.enPassantTarget.getValue()].occupier = null;
-                    b.enPassantTarget = null;
-                    b.updateAttackedSquares();
-                    b.updateChecks();
-                    return;
-                } else {
-                    // Update that piece has now moved
-                    piece.nMoves++;
-                    b.squares[toFile][toRank].occupier = piece;
-                    b.squares[fromFile][fromRank].occupier = null;
-                    // flip whose move it is
-                    b.whiteToMove ^= true;
-                    // If pawn has moved two squares, track that it is now en passant target. If not, clear target.
-                    if (piece instanceof Pawn && Math.abs(fromRank - toRank) == 2) {
-                        b.enPassantTarget = new Pair<>(toFile, toRank);
-                    } else {
-                        b.enPassantTarget = null;
-                    }
-                    b.updateAttackedSquares();
-                    b.updateChecks();
-                    return;
-                }
+                b.enPassantTarget = null;
             }
+            b.updateAttackedSquares();
+            b.updateChecks();
+        }
+    }
+    static void moveByCastling(Board board, boolean isKingside) {
+        if (isKingside) {
+            moveKingsideCastle(board);
+        } else {
+            moveQueensideCastle(board);
+        }
+    }
+    static void moveKingsideCastle(Board board) {
+        int KING_RANK = board.whiteToMove ? 7 : 0;
+        King king = (King) board.squares[4][KING_RANK].occupier;
+        board.squares[6][KING_RANK].occupier = king;
+        board.squares[4][KING_RANK].occupier = null;
+
+        Rook rook = (Rook) board.squares[7][KING_RANK].occupier;
+        board.squares[5][KING_RANK].occupier = rook;
+        board.squares[7][KING_RANK].occupier = null;
+    }
+    static void moveQueensideCastle(Board board) {
+        int KING_RANK = board.whiteToMove ? 7 : 0;
+        King king = (King) board.squares[4][KING_RANK].occupier;
+        board.squares[2][KING_RANK].occupier = king;
+        board.squares[4][KING_RANK].occupier = null;
+
+        Rook rook = (Rook) board.squares[0][KING_RANK].occupier;
+        board.squares[3][KING_RANK].occupier = rook;
+        board.squares[0][KING_RANK].occupier = null;
+    }
+    static boolean isAttemptedCastling(Move m) {
+        if (!(m.pieceMoved instanceof King)) {
+            return false;
+        }
+        if (m.fromRank != 0 && m.fromRank != 7) {
+            return false;
+        }
+        if (m.fromRank == m.toRank && Math.abs(m.fromFile - m.toFile) == 2) {
+            return true;
+        }
+        return false;
     }
 
     static boolean isEnPassant(Move m) {
@@ -238,45 +283,82 @@ public class Board {
     }
 
     public static boolean undoMove(Move m) {
-        if (m.pieceMoved == null) return false;
+        if (m.pieceMoved == null) {
+            return false;
+        }
+        if (isAttemptedCastling(m)) {
+            boolean isKingside = m.toFile == 6;
+            undoCastling(m.board, isKingside);
+            undoMovesBackgroundProcesses(m);
+            return true;
+        }
         m.board.squares[m.fromFile][m.fromRank].occupier = m.pieceMoved;
         m.board.squares[m.toFile][m.toRank].occupier = m.pieceCaptured;
         // remove move from move history
-        m.board.moveHistory.remove(m.board.moveHistory.size()-1);
-        // flip whose turn to move
+        undoMovesBackgroundProcesses(m);
+        return true;
+    }
+    static void undoMovesBackgroundProcesses(Move m) {
+        m.board.moveHistory.remove(m.board.moveHistory.size() - 1);
         m.board.whiteToMove ^= true;
         m.pieceMoved.nMoves--;
         m.board.moveNumber--;
         m.board.updateAttackedSquares();
         m.board.updateChecks();
-        return true;
     }
+    static void undoCastling(Board board, boolean isKingside) {
+        if (isKingside) {
+            undoKingsideCastling(board);
+        } else {
+            undoQueensideCastling(board);
+        }
+    }
+    static void undoKingsideCastling(Board board) {
+        int KING_RANK = board.whiteToMove ? 0 : 7;
+        King king = (King) board.squares[6][KING_RANK].occupier;
+        board.squares[4][KING_RANK].occupier = king;
+        board.squares[6][KING_RANK].occupier = null;
 
+        Rook rook = (Rook) board.squares[5][KING_RANK].occupier;
+        board.squares[7][KING_RANK].occupier = rook;
+        board.squares[5][KING_RANK].occupier = null;
+    }
+    static void undoQueensideCastling(Board board) {
+        int KING_RANK = board.whiteToMove ? 7 : 0;
+        King king = (King) board.squares[2][KING_RANK].occupier;
+        board.squares[4][KING_RANK].occupier = king;
+        board.squares[2][KING_RANK].occupier = null;
 
-
+        Rook rook = (Rook) board.squares[3][KING_RANK].occupier;
+        board.squares[0][KING_RANK].occupier = rook;
+        board.squares[3][KING_RANK].occupier = null;
+    }
 
     /**
      * Converts numeric file/rank to algebraic, e.g (0,0) is a8 and (7,7) is h1.
+     *
      * @return two character string composed of a char and an int in the usual chess algebraic notation
      */
-    public static String toAlgebraicNotation(int file, int rank){
-        assert (file >=0 && rank >= 0 && file <= 7 && rank <= 7) : "Invalid location";
+    public static String toAlgebraicNotation(int file, int rank) {
+        assert (file >= 0 && rank >= 0 && file <= 7 && rank <= 7) : "Invalid location";
         int algRank = 8 - rank;
         String algFile = getCharFromFile(file);
-        return  algFile + Integer.toString(algRank);
+        return algFile + Integer.toString(algRank);
     }
-    public static String toAlgebraicNotation(Pair<Integer, Integer> loc){
+
+    public static String toAlgebraicNotation(Pair<Integer, Integer> loc) {
         int file = loc.getKey();
         int rank = loc.getValue();
-        assert (file >=0 && rank >= 0 && file <= 7 && rank <= 7) : "Invalid location";
+        assert (file >= 0 && rank >= 0 && file <= 7 && rank <= 7) : "Invalid location";
         int algRank = 8 - rank;
         String algFile = getCharFromFile(file);
-        return  algFile + Integer.toString(algRank);
+        return algFile + Integer.toString(algRank);
     }
 
     /**
      * Converts algebraic notation of a square to the rank/file index, e.g "a8" -> (0,0)
      * and "a1" -> (0,7), "h8" -> (8,0)
+     *
      * @param str algebraic notation for square
      * @return Pair of integers representing the index location
      */
@@ -292,14 +374,15 @@ public class Board {
 
     /**
      * Converts file number into character representation
+     *
      * @param i is internal game logic index of file, i.e 0 to 7.
      * @return algebraic notation equivalent, i.e 0 is the 'a' file, 1 is the 'b' file, etc
      */
     public static String getCharFromFile(int i) {
-        return i > -1 && i < 26 ? String.valueOf((char)(i + 'a' )) : null;
+        return i > -1 && i < 26 ? String.valueOf((char) (i + 'a')) : null;
     }
 
-    public ArrayList<Pair<Integer, Integer>> getPieceLocations(boolean whiteToMove){
+    public ArrayList<Pair<Integer, Integer>> getPieceLocations(boolean whiteToMove) {
         int colour = whiteToMove ? 0 : 1;
         ArrayList<Pair<Integer, Integer>> allPieceLocations = new ArrayList<>();
         int pieceCount = 0; // TODO can be optimised by being aware of how many pieces the player currently has
@@ -314,7 +397,8 @@ public class Board {
         }
         return allPieceLocations;
     }
-    public ArrayList<Pair<Integer, Integer>> getPawnPassantLocations(){
+
+    public ArrayList<Pair<Integer, Integer>> getPawnPassantLocations() {
         ArrayList<Pair<Integer, Integer>> allPawnLocations = new ArrayList<>();
         int pawnCount = 0;
         for (int file = 0; file < 8; file++) {
@@ -337,7 +421,7 @@ public class Board {
         var pieceLocations = getPieceLocations(!this.whiteToMove);
         //System.out.println("Pieces are at locations: " + printSquares(pieceLocations));
         for (var loc : pieceLocations) {
-             this.attackedSquares.addAll(MoveChecker.getLegalAttacks(this, loc.getKey(), loc.getValue()));
+            this.attackedSquares.addAll(MoveChecker.getLegalAttacks(this, loc.getKey(), loc.getValue()));
         }
     }
 
@@ -390,7 +474,6 @@ public class Board {
     }
 
 
-
     public static String printSquares(ArrayList<Pair<Integer, Integer>> locs) {
         StringBuilder str = new StringBuilder();
         for (Pair loc : locs) {
@@ -413,6 +496,7 @@ public class Board {
     /**
      * Loads a position from a valid FEN string. Note it does not check the validity
      * of the string.
+     *
      * @param fen FEN string to load a game
      */
     public void load(String fen) {
@@ -430,7 +514,7 @@ public class Board {
         // Process en passant pawn, if there is one
         String enPassantPawn = fenComponents[3];
         if (!enPassantPawn.equals("-")) {
-             this.enPassantTarget = fromAlgebraicToCartesian(enPassantPawn);
+            this.enPassantTarget = fromAlgebraicToCartesian(enPassantPawn);
         }
         // Set halfmove clock
         String halfmoveClock = fenComponents[4];
@@ -469,18 +553,54 @@ public class Board {
     public static Piece strToPiece(String str) {
         Piece p = new Pawn(0); // Dummy initialisation
         switch (str) {
-            case "p": {p = new Pawn(1); break;}
-            case "P": {p = new Pawn(0); break;}
-            case "r": {p = new Rook(1); break;}
-            case "R": {p = new Rook(0); break;}
-            case "n": {p = new Knight(1); break;}
-            case "N": {p = new Knight(0); break;}
-            case "b": {p = new Bishop(1); break;}
-            case "B": {p = new Bishop(0); break;}
-            case "q": {p = new Queen(1); break;}
-            case "Q": {p = new Queen(0); break;}
-            case "k": {p = new King(1); break;}
-            case "K": {p = new King(0); break;}
+            case "p": {
+                p = new Pawn(1);
+                break;
+            }
+            case "P": {
+                p = new Pawn(0);
+                break;
+            }
+            case "r": {
+                p = new Rook(1);
+                break;
+            }
+            case "R": {
+                p = new Rook(0);
+                break;
+            }
+            case "n": {
+                p = new Knight(1);
+                break;
+            }
+            case "N": {
+                p = new Knight(0);
+                break;
+            }
+            case "b": {
+                p = new Bishop(1);
+                break;
+            }
+            case "B": {
+                p = new Bishop(0);
+                break;
+            }
+            case "q": {
+                p = new Queen(1);
+                break;
+            }
+            case "Q": {
+                p = new Queen(0);
+                break;
+            }
+            case "k": {
+                p = new King(1);
+                break;
+            }
+            case "K": {
+                p = new King(0);
+                break;
+            }
         }
         return p;
     }
@@ -498,12 +618,11 @@ public class Board {
 
 
 
-
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append("\n");
         for (int rank = 0; rank < SIZE; rank++) {
-            for (int file = 0; file < SIZE; file++){
+            for (int file = 0; file < SIZE; file++) {
                 if (squares[file][rank].occupier == null) {
                     str.append("*");
                 } else {
