@@ -287,19 +287,30 @@ public class MoveChecker {
         // TODO prevent king moving through check to castle
         if (king.getColour() == 0) {
             if (board.whiteKingsideCastleRight) {
-                //if (!board.attackedSquares.contains())
+                Pair<Integer, Integer> castleSquareJumpedOver = new Pair<>(5, 7);
+                if (!board.attackedSquares.contains(castleSquareJumpedOver)) {
                 kingMoves.add(new Pair<>(fromFile + 2, fromRank));
+                }
             }
             if (board.whiteQueensideCastleRight) {
+                Pair<Integer, Integer> castleSquareJumpedOver = new Pair<>(3, 7);
+                if (!board.attackedSquares.contains(castleSquareJumpedOver)) {
                 kingMoves.add(new Pair<>(fromFile - 2, fromRank));
+                }
             }
         }
         if (king.getColour() == 1) {
-            if (board.whiteKingsideCastleRight) {
+            if (board.blackKingsideCastleRight) {
+                Pair<Integer, Integer> castleSquareJumpedOver = new Pair<>(5, 0);
+                if (!board.attackedSquares.contains(castleSquareJumpedOver)) {
                 kingMoves.add(new Pair<>(fromFile + 2, fromRank));
+                }
             }
-            if (board.whiteQueensideCastleRight) {
+            if (board.blackQueensideCastleRight) {
+                Pair<Integer, Integer> castleSquareJumpedOver = new Pair<>(3, 7);
+                if (!board.attackedSquares.contains(castleSquareJumpedOver)) {
                 kingMoves.add(new Pair<>(fromFile - 2, fromRank));
+                }
             }
         }
 

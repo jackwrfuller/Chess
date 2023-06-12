@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Enforce checks when trying legal moves" />
+    <list default="true" id="1cd9afbf-e914-4c6c-b420-f5ced2a35f9f" name="Changes" comment="Allow kings to castle">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chess/MoveChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/MoveChecker.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -148,6 +151,7 @@
       <workItem from="1686028287400" duration="5448000" />
       <workItem from="1686039231873" duration="3327000" />
       <workItem from="1686138806284" duration="531000" />
+      <workItem from="1686547824015" duration="482000" />
     </task>
     <task id="LOCAL-00001" summary="...">
       <created>1683437206217</created>
@@ -485,7 +489,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686139221424</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Allow kings to castle">
+      <created>1686482364124</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1686482364124</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -503,7 +514,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="enforce pawn move legality (no en passant)" />
     <MESSAGE value="implement king legal move checker" />
     <MESSAGE value="check Rook move legality" />
     <MESSAGE value="enforce knight move legality" />
@@ -528,6 +538,7 @@
     <MESSAGE value="Prevent moves that don't block kings from check" />
     <MESSAGE value="Record each player's check status" />
     <MESSAGE value="Enforce checks when trying legal moves" />
-    <option name="LAST_COMMIT_MESSAGE" value="Enforce checks when trying legal moves" />
+    <MESSAGE value="Allow kings to castle" />
+    <option name="LAST_COMMIT_MESSAGE" value="Allow kings to castle" />
   </component>
 </project>
