@@ -284,7 +284,6 @@ public class MoveChecker {
         ArrayList<Pair<Integer, Integer>> kingMoves = new ArrayList<>();
         King king = (King) board.squares[fromFile][fromRank].getOccupier();
         // Add valid castling moves
-        // TODO prevent king moving through check to castle
         if (king.getColour() == 0) {
             if (board.whiteKingsideCastleRight) {
                 Pair<Integer, Integer> castleSquareJumpedOver = new Pair<>(5, 7);
@@ -653,7 +652,7 @@ public class MoveChecker {
      * @return Copy of the board with the move made
      */
     public static Board simulateMove(Move move) {
-        String fen = StringEncoding.toFEN(move.board);
+        String fen = FEN.toFEN(move.board);
         Board copyOfBoard = new Board(fen);
         Move copyOfMove = new Move(copyOfBoard, move.fromFile, move.fromRank, move.toFile, move.toRank);
         copyOfBoard.makeMove(copyOfMove);

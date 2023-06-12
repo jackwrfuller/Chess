@@ -30,7 +30,7 @@ public class Board {
     // Track number of moves since last pawn advance or piece capture, aka 'halfmove clock'
     public int halfmoveClock = 0;
     // Number of times players have moved; incremented each time black moves
-    public int moveNumber = 0;
+    public int moveNumber = 1;
 
     /**
      * array of Sqaure which represents the chessboard. Note this is of the form square[file][rank],
